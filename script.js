@@ -739,7 +739,6 @@ choiceButtons.forEach(
 );
 
 
-
 /* =========================================================
    06. ENVIO REAL DOS FORMULÁRIOS — GOOGLE SHEETS
 ========================================================= */
@@ -747,6 +746,195 @@ choiceButtons.forEach(
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxbSTueVdVNfdViHDP-6d4dbNetiok3GNjG8w5axyjhwZ6ui2hI89c8EG1awpvVl8bQ/exec";
 
+
+
+/* =========================================================
+   VERIFICAR E-MAIL DE VISITANTE
+========================================================= */
+
+function verificarEmailVisitante(email) {
+
+
+  return new Promise(
+    (resolve, reject) => {
+
+
+      /*
+         Criamos um nome único para a função JSONP.
+      */
+
+      const callbackName =
+        "__inspiraEmail_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random() *
+          100000
+        );
+
+
+      const script =
+        document.createElement(
+          "script"
+        );
+
+
+      /*
+         Limite de espera:
+         10 segundos.
+      */
+
+      const timeout =
+        setTimeout(
+          () => {
+
+            limpar();
+
+            reject(
+              new Error(
+                "Tempo esgotado ao verificar o e-mail."
+              )
+            );
+
+          },
+          10000
+        );
+
+
+
+      /* =====================================================
+         LIMPEZA
+      ===================================================== */
+
+      function limpar() {
+
+
+        clearTimeout(
+          timeout
+        );
+
+
+        script.remove();
+
+
+        try {
+
+          delete window[
+            callbackName
+          ];
+
+        }
+
+        catch (erro) {
+
+          window[
+            callbackName
+          ] = undefined;
+
+        }
+
+      }
+
+
+
+      /* =====================================================
+         RESPOSTA DO GOOGLE
+      ===================================================== */
+
+      window[
+        callbackName
+      ] =
+        function (resposta) {
+
+
+          limpar();
+
+
+          if (
+            !resposta ||
+            resposta.sucesso !== true
+          ) {
+
+            reject(
+              new Error(
+                "Resposta inválida do servidor."
+              )
+            );
+
+            return;
+
+          }
+
+
+          resolve(
+            resposta.existe === true
+          );
+
+        };
+
+
+
+      /* =====================================================
+         ERRO DE CONEXÃO
+      ===================================================== */
+
+      script.onerror =
+        function () {
+
+
+          limpar();
+
+
+          reject(
+            new Error(
+              "Não foi possível consultar o e-mail."
+            )
+          );
+
+        };
+
+
+
+      /* =====================================================
+         MONTA URL
+      ===================================================== */
+
+      const parametros =
+        new URLSearchParams({
+          action:
+            "checkEmail",
+
+          email:
+            email,
+
+          callback:
+            callbackName,
+
+          _: Date.now()
+        });
+
+
+      script.src =
+        GOOGLE_SCRIPT_URL +
+        "?" +
+        parametros.toString();
+
+
+      document.body.appendChild(
+        script
+      );
+
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   ENVIO DOS FORMULÁRIOS
+========================================================= */
 
 [
   visitorForm,
@@ -768,7 +956,14 @@ const GOOGLE_SCRIPT_URL =
       event.preventDefault();
 
 
-      if (!form.checkValidity()) {
+
+      /* =====================================================
+         VALIDAR FORMULÁRIO
+      ===================================================== */
+
+      if (
+        !form.checkValidity()
+      ) {
 
         form.reportValidity();
 
@@ -781,6 +976,11 @@ const GOOGLE_SCRIPT_URL =
         form.id ===
         "commercial-form";
 
+
+
+      /* =====================================================
+         BOTÃO
+      ===================================================== */
 
       const submitButton =
         form.querySelector(
@@ -796,12 +996,15 @@ const GOOGLE_SCRIPT_URL =
 
       if (submitButton) {
 
-        submitButton.disabled = true;
+        submitButton.disabled =
+          true;
+
 
         submitButton.setAttribute(
           "aria-busy",
           "true"
         );
+
 
         submitButton.innerHTML =
           `
@@ -812,45 +1015,165 @@ const GOOGLE_SCRIPT_URL =
       }
 
 
-      const dados =
-        new FormData(form);
-
-
-      dados.append(
-        "tipoFormulario",
-        isCommercial
-          ? "comercial"
-          : "visitante"
-      );
-
-
-      dados.append(
-        "enviadoEm",
-        new Date().toISOString()
-      );
-
 
       try {
 
 
+        /* ===================================================
+           SE FOR VISITANTE:
+           VERIFICAR E-MAIL PRIMEIRO
+        =================================================== */
+
+        if (!isCommercial) {
+
+
+          const emailInput =
+            form.querySelector(
+              '[name="email"]'
+            );
+
+
+          if (!emailInput) {
+
+            throw new Error(
+              "Campo de e-mail não encontrado."
+            );
+
+          }
+
+
+          /*
+             Remove uma mensagem de erro antiga.
+          */
+
+          emailInput.setCustomValidity(
+            ""
+          );
+
+
+          const email =
+            emailInput
+              .value
+              .trim()
+              .toLowerCase();
+
+
+          /* CONSULTA A PLANILHA */
+
+          const emailExiste =
+            await verificarEmailVisitante(
+              email
+            );
+
+
+          /* =================================================
+             JÁ ESTÁ INSCRITO
+          ================================================= */
+
+          if (emailExiste) {
+
+
+            emailInput.setCustomValidity(
+              "Este e-mail já possui uma inscrição no Inspira FAM."
+            );
+
+
+            emailInput.reportValidity();
+
+
+            emailInput.focus();
+
+
+            /*
+               Quando a pessoa digitar novamente,
+               remove o aviso.
+            */
+
+            emailInput.addEventListener(
+              "input",
+              () => {
+
+                emailInput.setCustomValidity(
+                  ""
+                );
+
+              },
+              {
+                once: true
+              }
+            );
+
+
+            return;
+
+          }
+
+        }
+
+
+
+        /* ===================================================
+           PREPARAR DADOS
+        =================================================== */
+
+        const dados =
+          new FormData(
+            form
+          );
+
+
+        dados.append(
+          "tipoFormulario",
+          isCommercial
+            ? "comercial"
+            : "visitante"
+        );
+
+
+        dados.append(
+          "enviadoEm",
+          new Date()
+            .toISOString()
+        );
+
+
+
+        /* ===================================================
+           ENVIAR PARA O GOOGLE SHEETS
+        =================================================== */
+
         await fetch(
           GOOGLE_SCRIPT_URL,
           {
-            method: "POST",
-            body: dados,
-            mode: "no-cors"
+            method:
+              "POST",
+
+            body:
+              dados,
+
+            mode:
+              "no-cors"
           }
         );
 
 
-        visitorForm?.classList.remove(
-          "active"
-        );
+
+        /* ===================================================
+           ESCONDER FORMULÁRIOS
+        =================================================== */
+
+        visitorForm
+          ?.classList
+          .remove(
+            "active"
+          );
 
 
-        commercialForm?.classList.remove(
-          "active"
-        );
+        commercialForm
+          ?.classList
+          .remove(
+            "active"
+          );
 
 
         if (formHeading) {
@@ -861,6 +1184,11 @@ const GOOGLE_SCRIPT_URL =
         }
 
 
+
+        /* ===================================================
+           MOSTRAR CONFIRMAÇÃO
+        =================================================== */
+
         if (success) {
 
           success.hidden =
@@ -869,10 +1197,17 @@ const GOOGLE_SCRIPT_URL =
         }
 
 
+
+        /* ===================================================
+           COMERCIAL
+        =================================================== */
+
         if (isCommercial) {
 
 
-          if (successMascot) {
+          if (
+            successMascot
+          ) {
 
             successMascot.src =
               "ativo/brand/mascote-explosao.png";
@@ -880,7 +1215,9 @@ const GOOGLE_SCRIPT_URL =
           }
 
 
-          if (successKicker) {
+          if (
+            successKicker
+          ) {
 
             successKicker.textContent =
               "interesse recebido!";
@@ -888,7 +1225,9 @@ const GOOGLE_SCRIPT_URL =
           }
 
 
-          if (successTitle) {
+          if (
+            successTitle
+          ) {
 
             successTitle.innerHTML =
               `
@@ -899,7 +1238,9 @@ const GOOGLE_SCRIPT_URL =
           }
 
 
-          if (successDescription) {
+          if (
+            successDescription
+          ) {
 
             successDescription.textContent =
               "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
@@ -910,10 +1251,17 @@ const GOOGLE_SCRIPT_URL =
         }
 
 
+
+        /* ===================================================
+           VISITANTE
+        =================================================== */
+
         else {
 
 
-          if (successMascot) {
+          if (
+            successMascot
+          ) {
 
             successMascot.src =
               "ativo/brand/mascote-estrela.png";
@@ -921,7 +1269,9 @@ const GOOGLE_SCRIPT_URL =
           }
 
 
-          if (successKicker) {
+          if (
+            successKicker
+          ) {
 
             successKicker.textContent =
               "inscrição confirmada!";
@@ -929,7 +1279,9 @@ const GOOGLE_SCRIPT_URL =
           }
 
 
-          if (successTitle) {
+          if (
+            successTitle
+          ) {
 
             successTitle.innerHTML =
               `
@@ -940,7 +1292,9 @@ const GOOGLE_SCRIPT_URL =
           }
 
 
-          if (successDescription) {
+          if (
+            successDescription
+          ) {
 
             successDescription.textContent =
               "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
@@ -951,16 +1305,30 @@ const GOOGLE_SCRIPT_URL =
         }
 
 
+
+        /* ===================================================
+           LIMPAR FORMULÁRIO
+        =================================================== */
+
         form.reset();
 
+
+
+        /* ===================================================
+           ROLAR ATÉ A CONFIRMAÇÃO
+        =================================================== */
 
         setTimeout(
           () => {
 
-            success?.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
+            success
+              ?.scrollIntoView({
+                behavior:
+                  "smooth",
+
+                block:
+                  "center"
+              });
 
           },
           120
@@ -974,13 +1342,13 @@ const GOOGLE_SCRIPT_URL =
 
 
         console.error(
-          "Erro ao enviar inscrição:",
+          "Erro no formulário:",
           error
         );
 
 
         alert(
-          "Não foi possível enviar sua inscrição. Verifique sua conexão e tente novamente."
+          "Não foi possível verificar ou enviar sua inscrição. Verifique sua conexão e tente novamente."
         );
 
 
@@ -990,14 +1358,20 @@ const GOOGLE_SCRIPT_URL =
       finally {
 
 
+        /* ===================================================
+           RESTAURAR BOTÃO
+        =================================================== */
+
         if (submitButton) {
 
           submitButton.disabled =
             false;
 
+
           submitButton.removeAttribute(
             "aria-busy"
           );
+
 
           submitButton.innerHTML =
             originalButtonHTML;
@@ -1013,7 +1387,6 @@ const GOOGLE_SCRIPT_URL =
 
 
 });
-
 
 
 /* =========================================================
