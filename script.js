@@ -1,18 +1,5 @@
 /* =========================================================
    SCRIPT.JS — INSPIRA FAM EXPERIENCE 2026
-
-   01. Reveal ao rolar
-   02. Voltar ao topo
-   03. Experiências
-   04. Modal das experiências
-   05. Inscrições
-   06. Formulários
-   07. Mapa interativo
-   08. Touch no mapa
-   09. Legenda do mapa
-   10. Modal do mapa
-   11. Fechar modais
-   12. Programação
 ========================================================= */
 
 
@@ -36,7 +23,9 @@ if ("IntersectionObserver" in window) {
             return;
           }
 
-          entry.target.classList.add("visible");
+          entry.target.classList.add(
+            "visible"
+          );
 
           revealObserver.unobserve(
             entry.target
@@ -57,7 +46,9 @@ if ("IntersectionObserver" in window) {
       element.style.transitionDelay =
         `${Math.min(index % 5, 4) * 70}ms`;
 
-      revealObserver.observe(element);
+      revealObserver.observe(
+        element
+      );
 
     }
   );
@@ -67,7 +58,9 @@ if ("IntersectionObserver" in window) {
   revealElements.forEach(
     (element) => {
 
-      element.classList.add("visible");
+      element.classList.add(
+        "visible"
+      );
 
     }
   );
@@ -121,107 +114,113 @@ const experienceItems =
   );
 
 
-experienceItems.forEach((item) => {
+experienceItems.forEach(
+  (item) => {
 
 
-  /* DESKTOP */
+    /* DESKTOP */
 
-  item.addEventListener(
-    "mouseenter",
-    () => {
+    item.addEventListener(
+      "mouseenter",
+      () => {
 
-      if (!stageMascot) {
-        return;
+        if (!stageMascot) {
+          return;
+        }
+
+
+        let rotation = 5;
+
+
+        switch (
+          item.dataset.tone
+        ) {
+
+          case "purple":
+            rotation = -12;
+            break;
+
+          case "yellow":
+            rotation = 8;
+            break;
+
+          case "pink":
+            rotation = -6;
+            break;
+
+          case "orange":
+            rotation = 10;
+            break;
+
+          default:
+            rotation = 5;
+
+        }
+
+
+        stageMascot.style.transform =
+          `scale(1.18) rotate(${rotation}deg)`;
+
       }
+    );
 
-      let rotation = 5;
 
+    item.addEventListener(
+      "mouseleave",
+      () => {
 
-      switch (item.dataset.tone) {
+        if (!stageMascot) {
+          return;
+        }
 
-        case "purple":
-          rotation = -12;
-          break;
-
-        case "yellow":
-          rotation = 8;
-          break;
-
-        case "pink":
-          rotation = -6;
-          break;
-
-        case "orange":
-          rotation = 10;
-          break;
-
-        default:
-          rotation = 5;
+        stageMascot.style.transform =
+          "";
 
       }
+    );
 
 
-      stageMascot.style.transform =
-        `scale(1.18) rotate(${rotation}deg)`;
+    /* MOBILE */
 
-    }
-  );
+    item.addEventListener(
+      "touchstart",
+      () => {
 
+        item.classList.add(
+          "touch-active"
+        );
 
-  item.addEventListener(
-    "mouseleave",
-    () => {
-
-      if (!stageMascot) {
-        return;
+      },
+      {
+        passive: true
       }
-
-      stageMascot.style.transform = "";
-
-    }
-  );
+    );
 
 
-  /* MOBILE */
+    item.addEventListener(
+      "touchend",
+      () => {
 
-  item.addEventListener(
-    "touchstart",
-    () => {
+        setTimeout(
+          () => {
 
-      item.classList.add(
-        "touch-active"
-      );
+            item.classList.remove(
+              "touch-active"
+            );
 
-    },
-    {
-      passive: true
-    }
-  );
+          },
+          180
+        );
 
-
-  item.addEventListener(
-    "touchend",
-    () => {
-
-      setTimeout(
-        () => {
-
-          item.classList.remove(
-            "touch-active"
-          );
-
-        },
-        180
-      );
-
-    },
-    {
-      passive: true
-    }
-  );
+      },
+      {
+        passive: true
+      }
+    );
 
 
-});
+  }
+);
 
 
 
@@ -271,7 +270,6 @@ const experienceContinue =
 ========================================================= */
 
 const experienceContent = {
-
 
   interativas: {
 
@@ -351,6 +349,8 @@ const experienceContent = {
   },
 
 
+  /* COMPATIBILIDADE */
+
   expositores: {
 
     number: "06",
@@ -375,7 +375,6 @@ const experienceContent = {
       "Ativações, dinâmicas e ações especiais para participar, experimentar e descobrir."
 
   }
-
 
 };
 
@@ -407,9 +406,7 @@ document
           !content ||
           !experienceModal
         ) {
-
           return;
-
         }
 
 
@@ -554,6 +551,20 @@ const successDescription =
   );
 
 
+/* NOVA TELA — JÁ INSCRITO */
+
+const alreadyRegistered =
+  document.getElementById(
+    "already-registered"
+  );
+
+
+const alreadyBack =
+  document.getElementById(
+    "already-back"
+  );
+
+
 const choiceButtons =
   document.querySelectorAll(
     "[data-form]"
@@ -588,6 +599,8 @@ function openForm(type) {
   );
 
 
+  /* ESCONDER SUCESSO */
+
   if (success) {
 
     success.hidden = true;
@@ -595,9 +608,20 @@ function openForm(type) {
   }
 
 
+  /* ESCONDER JÁ INSCRITO */
+
+  if (alreadyRegistered) {
+
+    alreadyRegistered.hidden =
+      true;
+
+  }
+
+
   if (formHeading) {
 
-    formHeading.style.display = "";
+    formHeading.style.display =
+      "";
 
   }
 
@@ -613,6 +637,8 @@ function openForm(type) {
     isCommercial
   );
 
+
+  /* COMERCIAL */
 
   if (isCommercial) {
 
@@ -636,7 +662,12 @@ function openForm(type) {
     }
 
 
-  } else {
+  }
+
+
+  /* VISITANTE */
+
+  else {
 
 
     if (formTitle) {
@@ -673,7 +704,6 @@ function openForm(type) {
     70
   );
 
-
 }
 
 
@@ -697,6 +727,8 @@ choiceButtons.forEach(
       }
     );
 
+
+    /* EFEITO MOBILE */
 
     button.addEventListener(
       "touchstart",
@@ -739,8 +771,9 @@ choiceButtons.forEach(
 );
 
 
+
 /* =========================================================
-   06. ENVIO REAL DOS FORMULÁRIOS — GOOGLE SHEETS
+   06. GOOGLE SHEETS
 ========================================================= */
 
 const GOOGLE_SCRIPT_URL =
@@ -749,10 +782,12 @@ const GOOGLE_SCRIPT_URL =
 
 
 /* =========================================================
-   VERIFICAR E-MAIL DE VISITANTE
+   VERIFICAR SE O E-MAIL JÁ EXISTE
 ========================================================= */
 
-function verificarEmailVisitante(email) {
+function verificarEmailVisitante(
+  email
+) {
 
 
   return new Promise(
@@ -760,7 +795,8 @@ function verificarEmailVisitante(email) {
 
 
       /*
-         Criamos um nome único para a função JSONP.
+         O Google Apps Script devolve
+         a resposta através de JSONP.
       */
 
       const callbackName =
@@ -779,10 +815,7 @@ function verificarEmailVisitante(email) {
         );
 
 
-      /*
-         Limite de espera:
-         10 segundos.
-      */
+      /* LIMITE DE ESPERA */
 
       const timeout =
         setTimeout(
@@ -825,11 +858,12 @@ function verificarEmailVisitante(email) {
 
         }
 
-        catch (erro) {
+        catch (error) {
 
           window[
             callbackName
-          ] = undefined;
+          ] =
+            undefined;
 
         }
 
@@ -867,7 +901,8 @@ function verificarEmailVisitante(email) {
 
 
           resolve(
-            resposta.existe === true
+            resposta.existe ===
+            true
           );
 
         };
@@ -896,11 +931,12 @@ function verificarEmailVisitante(email) {
 
 
       /* =====================================================
-         MONTA URL
+         URL DE VERIFICAÇÃO
       ===================================================== */
 
       const parametros =
         new URLSearchParams({
+
           action:
             "checkEmail",
 
@@ -910,7 +946,9 @@ function verificarEmailVisitante(email) {
           callback:
             callbackName,
 
-          _: Date.now()
+          _:
+            Date.now()
+
         });
 
 
@@ -979,7 +1017,7 @@ function verificarEmailVisitante(email) {
 
 
       /* =====================================================
-         BOTÃO
+         BOTÃO ENVIANDO
       ===================================================== */
 
       const submitButton =
@@ -995,6 +1033,7 @@ function verificarEmailVisitante(email) {
 
 
       if (submitButton) {
+
 
         submitButton.disabled =
           true;
@@ -1020,8 +1059,7 @@ function verificarEmailVisitante(email) {
 
 
         /* ===================================================
-           SE FOR VISITANTE:
-           VERIFICAR E-MAIL PRIMEIRO
+           VISITANTE — VERIFICAR E-MAIL
         =================================================== */
 
         if (!isCommercial) {
@@ -1042,15 +1080,6 @@ function verificarEmailVisitante(email) {
           }
 
 
-          /*
-             Remove uma mensagem de erro antiga.
-          */
-
-          emailInput.setCustomValidity(
-            ""
-          );
-
-
           const email =
             emailInput
               .value
@@ -1058,7 +1087,10 @@ function verificarEmailVisitante(email) {
               .toLowerCase();
 
 
-          /* CONSULTA A PLANILHA */
+          /*
+             Consulta a planilha antes
+             de cadastrar.
+          */
 
           const emailExiste =
             await verificarEmailVisitante(
@@ -1066,41 +1098,70 @@ function verificarEmailVisitante(email) {
             );
 
 
+
           /* =================================================
-             JÁ ESTÁ INSCRITO
+             E-MAIL JÁ CADASTRADO
           ================================================= */
 
           if (emailExiste) {
 
 
-            emailInput.setCustomValidity(
-              "Este e-mail já possui uma inscrição no Inspira FAM."
-            );
+            visitorForm
+              ?.classList
+              .remove(
+                "active"
+              );
 
 
-            emailInput.reportValidity();
+            commercialForm
+              ?.classList
+              .remove(
+                "active"
+              );
 
 
-            emailInput.focus();
+            if (formHeading) {
+
+              formHeading.style.display =
+                "none";
+
+            }
 
 
-            /*
-               Quando a pessoa digitar novamente,
-               remove o aviso.
-            */
+            if (success) {
 
-            emailInput.addEventListener(
-              "input",
+              success.hidden =
+                true;
+
+            }
+
+
+            if (
+              alreadyRegistered
+            ) {
+
+              alreadyRegistered.hidden =
+                false;
+
+            }
+
+
+            setTimeout(
               () => {
 
-                emailInput.setCustomValidity(
-                  ""
-                );
+                alreadyRegistered
+                  ?.scrollIntoView({
+
+                    behavior:
+                      "smooth",
+
+                    block:
+                      "center"
+
+                  });
 
               },
-              {
-                once: true
-              }
+              100
             );
 
 
@@ -1108,12 +1169,13 @@ function verificarEmailVisitante(email) {
 
           }
 
+
         }
 
 
 
         /* ===================================================
-           PREPARAR DADOS
+           MONTAR DADOS
         =================================================== */
 
         const dados =
@@ -1145,6 +1207,7 @@ function verificarEmailVisitante(email) {
         await fetch(
           GOOGLE_SCRIPT_URL,
           {
+
             method:
               "POST",
 
@@ -1153,6 +1216,7 @@ function verificarEmailVisitante(email) {
 
             mode:
               "no-cors"
+
           }
         );
 
@@ -1184,9 +1248,19 @@ function verificarEmailVisitante(email) {
         }
 
 
+        if (
+          alreadyRegistered
+        ) {
+
+          alreadyRegistered.hidden =
+            true;
+
+        }
+
+
 
         /* ===================================================
-           MOSTRAR CONFIRMAÇÃO
+           MOSTRAR SUCESSO
         =================================================== */
 
         if (success) {
@@ -1199,25 +1273,21 @@ function verificarEmailVisitante(email) {
 
 
         /* ===================================================
-           COMERCIAL
+           SUCESSO COMERCIAL
         =================================================== */
 
         if (isCommercial) {
 
 
-          if (
-            successMascot
-          ) {
+          if (successMascot) {
 
             successMascot.src =
-              "ativo/brand/mascote-explosao.png";
+              "ativos/brand/mascote-explosao.png";
 
           }
 
 
-          if (
-            successKicker
-          ) {
+          if (successKicker) {
 
             successKicker.textContent =
               "interesse recebido!";
@@ -1225,9 +1295,7 @@ function verificarEmailVisitante(email) {
           }
 
 
-          if (
-            successTitle
-          ) {
+          if (successTitle) {
 
             successTitle.innerHTML =
               `
@@ -1253,25 +1321,21 @@ function verificarEmailVisitante(email) {
 
 
         /* ===================================================
-           VISITANTE
+           SUCESSO VISITANTE
         =================================================== */
 
         else {
 
 
-          if (
-            successMascot
-          ) {
+          if (successMascot) {
 
             successMascot.src =
-              "ativo/brand/mascote-estrela.png";
+              "ativos/brand/mascote-estrela.png";
 
           }
 
 
-          if (
-            successKicker
-          ) {
+          if (successKicker) {
 
             successKicker.textContent =
               "inscrição confirmada!";
@@ -1279,9 +1343,7 @@ function verificarEmailVisitante(email) {
           }
 
 
-          if (
-            successTitle
-          ) {
+          if (successTitle) {
 
             successTitle.innerHTML =
               `
@@ -1315,7 +1377,7 @@ function verificarEmailVisitante(email) {
 
 
         /* ===================================================
-           ROLAR ATÉ A CONFIRMAÇÃO
+           ROLAR ATÉ SUCESSO
         =================================================== */
 
         setTimeout(
@@ -1323,11 +1385,13 @@ function verificarEmailVisitante(email) {
 
             success
               ?.scrollIntoView({
+
                 behavior:
                   "smooth",
 
                 block:
                   "center"
+
               });
 
           },
@@ -1364,6 +1428,7 @@ function verificarEmailVisitante(email) {
 
         if (submitButton) {
 
+
           submitButton.disabled =
             false;
 
@@ -1376,6 +1441,7 @@ function verificarEmailVisitante(email) {
           submitButton.innerHTML =
             originalButtonHTML;
 
+
         }
 
 
@@ -1387,6 +1453,114 @@ function verificarEmailVisitante(email) {
 
 
 });
+
+
+
+/* =========================================================
+   VOLTAR DO "JÁ INSCRITO"
+========================================================= */
+
+alreadyBack
+  ?.addEventListener(
+    "click",
+    () => {
+
+
+      /* ESCONDE A TELA */
+
+      if (
+        alreadyRegistered
+      ) {
+
+        alreadyRegistered.hidden =
+          true;
+
+      }
+
+
+      if (success) {
+
+        success.hidden =
+          true;
+
+      }
+
+
+      /* MOSTRA CABEÇALHO */
+
+      if (formHeading) {
+
+        formHeading.style.display =
+          "";
+
+      }
+
+
+      /* MOSTRA FORMULÁRIO VISITANTE */
+
+      visitorForm
+        ?.classList
+        .add(
+          "active"
+        );
+
+
+      commercialForm
+        ?.classList
+        .remove(
+          "active"
+        );
+
+
+      /* LIMPAR SOMENTE E-MAIL */
+
+      const emailInput =
+        visitorForm
+          ?.querySelector(
+            '[name="email"]'
+          );
+
+
+      if (emailInput) {
+
+        emailInput.value =
+          "";
+
+        emailInput.setCustomValidity(
+          ""
+        );
+
+      }
+
+
+      setTimeout(
+        () => {
+
+
+          visitorForm
+            ?.scrollIntoView({
+
+              behavior:
+                "smooth",
+
+              block:
+                "start"
+
+            });
+
+
+          emailInput
+            ?.focus();
+
+
+        },
+        100
+      );
+
+
+    }
+  );
+
 
 
 /* =========================================================
@@ -1437,10 +1611,11 @@ const mapModalAction =
 
 
 /* =========================================================
-   LIMPAR ÁREAS
+   LIMPAR ÁREAS DO MAPA
 ========================================================= */
 
 function clearMapZones() {
+
 
   mapZones.forEach(
     (zone) => {
@@ -1457,7 +1632,7 @@ function clearMapZones() {
 
 
 /* =========================================================
-   ATIVAR ÁREA
+   ATIVAR ÁREA DO MAPA
 ========================================================= */
 
 function activateMapZone(zone) {
@@ -1475,7 +1650,6 @@ function activateMapZone(zone) {
     "map-zone-active"
   );
 
-
 }
 
 
@@ -1491,19 +1665,20 @@ function openMapModal(zone) {
     !zone ||
     !mapModal
   ) {
-
     return;
-
   }
 
 
-  activateMapZone(zone);
+  activateMapZone(
+    zone
+  );
 
 
   if (mapModalNumber) {
 
     mapModalNumber.textContent =
-      zone.dataset.mapNumber || "";
+      zone.dataset.mapNumber ||
+      "";
 
   }
 
@@ -1511,7 +1686,8 @@ function openMapModal(zone) {
   if (mapModalTitle) {
 
     mapModalTitle.textContent =
-      zone.dataset.mapTitle || "";
+      zone.dataset.mapTitle ||
+      "";
 
   }
 
@@ -1519,13 +1695,15 @@ function openMapModal(zone) {
   if (mapModalText) {
 
     mapModalText.textContent =
-      zone.dataset.mapText || "";
+      zone.dataset.mapText ||
+      "";
 
   }
 
 
   mapModal.dataset.tone =
-    zone.dataset.mapTone || "";
+    zone.dataset.mapTone ||
+    "";
 
 
   if (
@@ -1537,13 +1715,12 @@ function openMapModal(zone) {
 
   }
 
-
 }
 
 
 
 /* =========================================================
-   INTERAÇÃO DAS ÁREAS DO MAPA
+   INTERAÇÃO DAS ÁREAS
 ========================================================= */
 
 mapZones.forEach(
@@ -1561,11 +1738,15 @@ mapZones.forEach(
     );
 
 
+    /* DESKTOP */
+
     zone.addEventListener(
       "mouseenter",
       () => {
 
-        activateMapZone(zone);
+        activateMapZone(
+          zone
+        );
 
       }
     );
@@ -1583,11 +1764,15 @@ mapZones.forEach(
     );
 
 
+    /* MOBILE */
+
     zone.addEventListener(
       "touchstart",
       () => {
 
-        activateMapZone(zone);
+        activateMapZone(
+          zone
+        );
 
       },
       {
@@ -1596,11 +1781,15 @@ mapZones.forEach(
     );
 
 
+    /* MODAL */
+
     zone.addEventListener(
       "click",
       () => {
 
-        openMapModal(zone);
+        openMapModal(
+          zone
+        );
 
       }
     );
@@ -1649,7 +1838,9 @@ document.addEventListener(
 
     if (zone) {
 
-      activateMapZone(zone);
+      activateMapZone(
+        zone
+      );
 
     }
 
@@ -1717,7 +1908,9 @@ document
         }
 
 
-        activateMapZone(zone);
+        activateMapZone(
+          zone
+        );
 
 
         zone.classList.add(
@@ -1726,9 +1919,16 @@ document
 
 
         zone.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "center"
+
+          behavior:
+            "smooth",
+
+          block:
+            "center",
+
+          inline:
+            "center"
+
         });
 
 
@@ -1783,7 +1983,9 @@ mapModalAction
    11. FECHAR MODAIS CLICANDO FORA
 ========================================================= */
 
-function closeDialogOnBackdrop(dialog) {
+function closeDialogOnBackdrop(
+  dialog
+) {
 
 
   if (!dialog) {
@@ -1797,7 +1999,8 @@ function closeDialogOnBackdrop(dialog) {
 
 
       if (
-        event.target === dialog
+        event.target ===
+        dialog
       ) {
 
         dialog.close();
@@ -1807,7 +2010,6 @@ function closeDialogOnBackdrop(dialog) {
 
     }
   );
-
 
 }
 
@@ -1836,9 +2038,7 @@ document.addEventListener(
       event.key !==
       "Escape"
     ) {
-
       return;
-
     }
 
 
@@ -1880,6 +2080,11 @@ const schedulePanels =
     "[data-schedule-panel]"
   );
 
+
+
+/* =========================================================
+   TROCAR DIA
+========================================================= */
 
 function changeSchedule(day) {
 
@@ -1960,7 +2165,7 @@ scheduleTabs.forEach(
 
 
 /* =========================================================
-   CORRIGE O ESTADO INICIAL DA PROGRAMAÇÃO
+   ESTADO INICIAL DA PROGRAMAÇÃO
 ========================================================= */
 
 if (
@@ -1994,20 +2199,17 @@ if (
 ========================================================= */
 
 /*
-   A página FAQ utiliza <details> e <summary>.
+   A página FAQ usa:
 
-   O navegador já controla:
-   - abrir e fechar;
-   - teclado;
-   - acessibilidade;
-   - funcionamento no celular.
+   <details>
+   <summary>
 
-   Por isso não é necessário JavaScript
-   específico para o FAQ.
+   Portanto não precisa de JavaScript
+   para abrir e fechar as perguntas.
 */
 
 
 
 /* =========================================================
-   FIM — INSPIRA FAM EXPERIENCE
+   FIM — INSPIRA FAM EXPERIENCE 2026
 ========================================================= */
