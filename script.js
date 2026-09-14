@@ -1,18 +1,5 @@
 /* =========================================================
    SCRIPT.JS — INSPIRA FAM EXPERIENCE 2026
-
-   01. Reveal ao rolar
-   02. Voltar ao topo
-   03. Experiências
-   04. Modal das experiências
-   05. Inscrições
-   06. Formulários
-   07. Mapa interativo
-   08. Touch no mapa
-   09. Legenda do mapa
-   10. Modal do mapa
-   11. Fechar modais
-   12. Programação
 ========================================================= */
 
 
@@ -21,28 +8,46 @@
 ========================================================= */
 
 const revealElements =
-  document.querySelectorAll(".reveal");
+  document.querySelectorAll(
+    ".reveal"
+  );
 
 
-if ("IntersectionObserver" in window) {
+if (
+  "IntersectionObserver"
+  in window
+) {
 
   const revealObserver =
     new IntersectionObserver(
       (entries) => {
 
-        entries.forEach((entry) => {
+        entries.forEach(
+          (entry) => {
 
-          if (!entry.isIntersecting) {
-            return;
-          }
+            if (
+              !entry.isIntersecting
+            ) {
 
-          entry.target.classList.add("visible");
+              return;
 
-          revealObserver.unobserve(
+            }
+
+
             entry.target
-          );
+              .classList
+              .add(
+                "visible"
+              );
 
-        });
+
+            revealObserver
+              .unobserve(
+                entry.target
+              );
+
+          }
+        );
 
       },
       {
@@ -51,29 +56,43 @@ if ("IntersectionObserver" in window) {
     );
 
 
-  revealElements.forEach(
-    (element, index) => {
+  revealElements
+    .forEach(
+      (element, index) => {
 
-      element.style.transitionDelay =
-        `${Math.min(index % 5, 4) * 70}ms`;
+        element.style
+          .transitionDelay =
+          `${Math.min(
+            index % 5,
+            4
+          ) * 70}ms`;
 
-      revealObserver.observe(element);
 
-    }
-  );
+        revealObserver
+          .observe(
+            element
+          );
 
-} else {
-
-  revealElements.forEach(
-    (element) => {
-
-      element.classList.add("visible");
-
-    }
-  );
+      }
+    );
 
 }
 
+else {
+
+  revealElements
+    .forEach(
+      (element) => {
+
+        element.classList
+          .add(
+            "visible"
+          );
+
+      }
+    );
+
+}
 
 
 /* =========================================================
@@ -84,25 +103,33 @@ document
   .querySelectorAll(
     'a[href="#top"], .back-to-top'
   )
-  .forEach((link) => {
+  .forEach(
+    (link) => {
 
-    link.addEventListener(
-      "click",
-      (event) => {
+      link.addEventListener(
+        "click",
+        (event) => {
 
-        event.preventDefault();
+          event
+            .preventDefault();
 
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-        });
 
-      }
-    );
+          window.scrollTo({
 
-  });
+            top: 0,
 
+            left: 0,
+
+            behavior:
+              "smooth"
+
+          });
+
+        }
+      );
+
+    }
+  );
 
 
 /* =========================================================
@@ -121,108 +148,140 @@ const experienceItems =
   );
 
 
-experienceItems.forEach((item) => {
+experienceItems
+  .forEach(
+    (item) => {
 
 
-  /* DESKTOP */
+      /* DESKTOP */
 
-  item.addEventListener(
-    "mouseenter",
-    () => {
-
-      if (!stageMascot) {
-        return;
-      }
-
-      let rotation = 5;
-
-
-      switch (item.dataset.tone) {
-
-        case "purple":
-          rotation = -12;
-          break;
-
-        case "yellow":
-          rotation = 8;
-          break;
-
-        case "pink":
-          rotation = -6;
-          break;
-
-        case "orange":
-          rotation = 10;
-          break;
-
-        default:
-          rotation = 5;
-
-      }
-
-
-      stageMascot.style.transform =
-        `scale(1.18) rotate(${rotation}deg)`;
-
-    }
-  );
-
-
-  item.addEventListener(
-    "mouseleave",
-    () => {
-
-      if (!stageMascot) {
-        return;
-      }
-
-      stageMascot.style.transform = "";
-
-    }
-  );
-
-
-  /* MOBILE */
-
-  item.addEventListener(
-    "touchstart",
-    () => {
-
-      item.classList.add(
-        "touch-active"
-      );
-
-    },
-    {
-      passive: true
-    }
-  );
-
-
-  item.addEventListener(
-    "touchend",
-    () => {
-
-      setTimeout(
+      item.addEventListener(
+        "mouseenter",
         () => {
 
-          item.classList.remove(
-            "touch-active"
+
+          if (!stageMascot) {
+
+            return;
+
+          }
+
+
+          let rotation = 5;
+
+
+          switch (
+            item.dataset.tone
+          ) {
+
+            case "purple":
+
+              rotation = -12;
+
+              break;
+
+
+            case "yellow":
+
+              rotation = 8;
+
+              break;
+
+
+            case "pink":
+
+              rotation = -6;
+
+              break;
+
+
+            case "orange":
+
+              rotation = 10;
+
+              break;
+
+
+            default:
+
+              rotation = 5;
+
+          }
+
+
+          stageMascot
+            .style
+            .transform =
+            `scale(1.18) rotate(${rotation}deg)`;
+
+        }
+      );
+
+
+      item.addEventListener(
+        "mouseleave",
+        () => {
+
+
+          if (!stageMascot) {
+
+            return;
+
+          }
+
+
+          stageMascot
+            .style
+            .transform =
+            "";
+
+        }
+      );
+
+
+      /* MOBILE */
+
+      item.addEventListener(
+        "touchstart",
+        () => {
+
+          item.classList
+            .add(
+              "touch-active"
+            );
+
+        },
+        {
+          passive: true
+        }
+      );
+
+
+      item.addEventListener(
+        "touchend",
+        () => {
+
+          setTimeout(
+            () => {
+
+              item.classList
+                .remove(
+                  "touch-active"
+                );
+
+            },
+            180
           );
 
         },
-        180
+        {
+          passive: true
+        }
       );
 
-    },
-    {
-      passive: true
+
     }
   );
-
-
-});
-
 
 
 /* =========================================================
@@ -264,11 +323,6 @@ const experienceContinue =
     "experience-modal-button"
   );
 
-
-
-/* =========================================================
-   CONTEÚDO DAS EXPERIÊNCIAS
-========================================================= */
 
 const experienceContent = {
 
@@ -376,97 +430,112 @@ const experienceContent = {
 
   }
 
-
 };
 
 
-
 /* =========================================================
-   ABRIR MODAL DAS EXPERIÊNCIAS
+   ABRIR MODAL
 ========================================================= */
 
 document
   .querySelectorAll(
     "[data-experience]"
   )
-  .forEach((item) => {
+  .forEach(
+    (item) => {
 
-    item.addEventListener(
-      "click",
-      () => {
-
-        const key =
-          item.dataset.experience;
+      item.addEventListener(
+        "click",
+        () => {
 
 
-        const content =
-          experienceContent[key];
+          const key =
+            item.dataset
+              .experience;
 
 
-        if (
-          !content ||
-          !experienceModal
-        ) {
+          const content =
+            experienceContent[
+              key
+            ];
 
-          return;
+
+          if (
+            !content ||
+            !experienceModal
+          ) {
+
+            return;
+
+          }
+
+
+          if (
+            experienceNumber
+          ) {
+
+            experienceNumber
+              .textContent =
+              content.number;
+
+          }
+
+
+          if (
+            experienceTitle
+          ) {
+
+            experienceTitle
+              .textContent =
+              content.title;
+
+          }
+
+
+          if (
+            experienceText
+          ) {
+
+            experienceText
+              .textContent =
+              content.text;
+
+          }
+
+
+          experienceModal
+            .dataset
+            .tone =
+            item.dataset
+              .tone || "";
+
+
+          if (
+            typeof
+              experienceModal
+                .showModal ===
+            "function"
+          ) {
+
+            experienceModal
+              .showModal();
+
+          }
 
         }
+      );
 
+    }
+  );
 
-        if (experienceNumber) {
-
-          experienceNumber.textContent =
-            content.number;
-
-        }
-
-
-        if (experienceTitle) {
-
-          experienceTitle.textContent =
-            content.title;
-
-        }
-
-
-        if (experienceText) {
-
-          experienceText.textContent =
-            content.text;
-
-        }
-
-
-        experienceModal.dataset.tone =
-          item.dataset.tone || "";
-
-
-        if (
-          typeof experienceModal.showModal ===
-          "function"
-        ) {
-
-          experienceModal.showModal();
-
-        }
-
-      }
-    );
-
-  });
-
-
-
-/* =========================================================
-   FECHAR MODAL DAS EXPERIÊNCIAS
-========================================================= */
 
 experienceClose
   ?.addEventListener(
     "click",
     () => {
 
-      experienceModal?.close();
+      experienceModal
+        ?.close();
 
     }
   );
@@ -477,11 +546,11 @@ experienceContinue
     "click",
     () => {
 
-      experienceModal?.close();
+      experienceModal
+        ?.close();
 
     }
   );
-
 
 
 /* =========================================================
@@ -554,11 +623,22 @@ const successDescription =
   );
 
 
+const alreadyRegistered =
+  document.getElementById(
+    "already-registered"
+  );
+
+
+const alreadyBack =
+  document.getElementById(
+    "already-back"
+  );
+
+
 const choiceButtons =
   document.querySelectorAll(
     "[data-form]"
   );
-
 
 
 /* =========================================================
@@ -569,50 +649,77 @@ function openForm(type) {
 
 
   if (!formSection) {
+
     return;
+
   }
 
 
   const isCommercial =
-    type === "commercial";
+    type ===
+    "commercial";
 
 
-  formSection.classList.remove(
-    "is-hidden"
-  );
+  formSection
+    .classList
+    .remove(
+      "is-hidden"
+    );
 
 
-  formSection.setAttribute(
-    "aria-hidden",
-    "false"
-  );
+  formSection
+    .setAttribute(
+      "aria-hidden",
+      "false"
+    );
 
 
   if (success) {
 
-    success.hidden = true;
+    success.hidden =
+      true;
+
+  }
+
+
+  if (
+    alreadyRegistered
+  ) {
+
+    alreadyRegistered
+      .hidden =
+      true;
 
   }
 
 
   if (formHeading) {
 
-    formHeading.style.display = "";
+    formHeading
+      .style
+      .display =
+      "";
 
   }
 
 
-  visitorForm?.classList.toggle(
-    "active",
-    !isCommercial
-  );
+  visitorForm
+    ?.classList
+    .toggle(
+      "active",
+      !isCommercial
+    );
 
 
-  commercialForm?.classList.toggle(
-    "active",
-    isCommercial
-  );
+  commercialForm
+    ?.classList
+    .toggle(
+      "active",
+      isCommercial
+    );
 
+
+  /* COMERCIAL */
 
   if (isCommercial) {
 
@@ -628,15 +735,22 @@ function openForm(type) {
     }
 
 
-    if (formDescription) {
+    if (
+      formDescription
+    ) {
 
-      formDescription.textContent =
+      formDescription
+        .textContent =
         "Conte um pouco sobre sua marca e como gostaria de participar.";
 
     }
 
+  }
 
-  } else {
+
+  /* VISITANTE */
+
+  else {
 
 
     if (formTitle) {
@@ -650,13 +764,15 @@ function openForm(type) {
     }
 
 
-    if (formDescription) {
+    if (
+      formDescription
+    ) {
 
-      formDescription.textContent =
+      formDescription
+        .textContent =
         "Preencha seus dados para participar do evento.";
 
     }
-
 
   }
 
@@ -664,73 +780,773 @@ function openForm(type) {
   setTimeout(
     () => {
 
-      formSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      formSection
+        .scrollIntoView({
+
+          behavior:
+            "smooth",
+
+          block:
+            "start"
+
+        });
 
     },
     70
   );
 
-
 }
-
 
 
 /* =========================================================
    BOTÕES DE ESCOLHA
 ========================================================= */
 
-choiceButtons.forEach(
-  (button) => {
+choiceButtons
+  .forEach(
+    (button) => {
 
 
-    button.addEventListener(
-      "click",
-      () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-        openForm(
-          button.dataset.form
-        );
+          openForm(
+            button.dataset
+              .form
+          );
 
-      }
-    );
-
-
-    button.addEventListener(
-      "touchstart",
-      () => {
-
-        button.classList.add(
-          "touch-hover"
-        );
-
-      },
-      {
-        passive: true
-      }
-    );
+        }
+      );
 
 
-    button.addEventListener(
-      "touchend",
-      () => {
+      button.addEventListener(
+        "touchstart",
+        () => {
 
-        setTimeout(
-          () => {
-
-            button.classList.remove(
+          button
+            .classList
+            .add(
               "touch-hover"
             );
 
-          },
-          200
+        },
+        {
+          passive: true
+        }
+      );
+
+
+      button.addEventListener(
+        "touchend",
+        () => {
+
+          setTimeout(
+            () => {
+
+              button
+                .classList
+                .remove(
+                  "touch-hover"
+                );
+
+            },
+            200
+          );
+
+        },
+        {
+          passive: true
+        }
+      );
+
+
+    }
+  );
+
+
+/* =========================================================
+   06. GOOGLE SHEETS
+========================================================= */
+
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxbSTueVdVNfdViHDP-6d4dbNetiok3GNjG8w5axyjhwZ6ui2hI89c8EG1awpvVl8bQ/exec";
+
+
+/* =========================================================
+   VERIFICAR E-MAIL
+========================================================= */
+
+function verificarEmailVisitante(
+  email
+) {
+
+
+  return new Promise(
+    (
+      resolve,
+      reject
+    ) => {
+
+
+      const callbackName =
+        "__inspiraCheck_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random() *
+          100000
         );
 
-      },
-      {
-        passive: true
+
+      const script =
+        document
+          .createElement(
+            "script"
+          );
+
+
+      const timeout =
+        setTimeout(
+          () => {
+
+
+            limpar();
+
+
+            reject(
+              new Error(
+                "Tempo esgotado ao verificar o e-mail."
+              )
+            );
+
+
+          },
+          15000
+        );
+
+
+      function limpar() {
+
+
+        clearTimeout(
+          timeout
+        );
+
+
+        script.remove();
+
+
+        try {
+
+          delete window[
+            callbackName
+          ];
+
+        }
+
+        catch (erro) {
+
+          window[
+            callbackName
+          ] =
+            undefined;
+
+        }
+
+      }
+
+
+      window[
+        callbackName
+      ] =
+        function (
+          resposta
+        ) {
+
+
+          limpar();
+
+
+          resolve(
+            resposta
+          );
+
+        };
+
+
+      script.onerror =
+        function () {
+
+
+          limpar();
+
+
+          reject(
+            new Error(
+              "Não foi possível consultar o e-mail."
+            )
+          );
+
+        };
+
+
+      const parametros =
+        new URLSearchParams({
+
+          action:
+            "checkEmail",
+
+          email:
+            email,
+
+          callback:
+            callbackName,
+
+          _:
+            Date.now()
+
+        });
+
+
+      script.src =
+        GOOGLE_SCRIPT_URL +
+        "?" +
+        parametros
+          .toString();
+
+
+      document
+        .head
+        .appendChild(
+          script
+        );
+
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ENVIO DOS FORMULÁRIOS
+========================================================= */
+
+[
+  visitorForm,
+  commercialForm
+]
+.forEach(
+  (form) => {
+
+
+    if (!form) {
+
+      return;
+
+    }
+
+
+    form.addEventListener(
+      "submit",
+      async (
+        event
+      ) => {
+
+
+        event
+          .preventDefault();
+
+
+        /* VALIDAÇÃO */
+
+        if (
+          !form
+            .checkValidity()
+        ) {
+
+          form
+            .reportValidity();
+
+          return;
+
+        }
+
+
+        const isCommercial =
+          form.id ===
+          "commercial-form";
+
+
+        const submitButton =
+          form
+            .querySelector(
+              'button[type="submit"]'
+            );
+
+
+        const originalButtonHTML =
+          submitButton
+            ? submitButton
+                .innerHTML
+            : "";
+
+
+        if (
+          submitButton
+        ) {
+
+
+          submitButton
+            .disabled =
+            true;
+
+
+          submitButton
+            .setAttribute(
+              "aria-busy",
+              "true"
+            );
+
+
+          submitButton
+            .innerHTML =
+            `
+              ENVIANDO...
+              <span>↗</span>
+            `;
+
+        }
+
+
+        try {
+
+
+          /* =================================================
+             VISITANTE — VERIFICAR E-MAIL
+          ================================================= */
+
+          if (
+            !isCommercial
+          ) {
+
+
+            const emailInput =
+              form
+                .querySelector(
+                  '[name="email"]'
+                );
+
+
+            if (
+              !emailInput
+            ) {
+
+              throw new Error(
+                "Campo de e-mail não encontrado."
+              );
+
+            }
+
+
+            const email =
+              emailInput
+                .value
+                .trim()
+                .toLowerCase();
+
+
+            const resposta =
+              await
+                verificarEmailVisitante(
+                  email
+                );
+
+
+            if (
+              !resposta ||
+              resposta.sucesso !==
+                true
+            ) {
+
+              throw new Error(
+                resposta
+                  ?.mensagem ||
+                "Não foi possível verificar o e-mail."
+              );
+
+            }
+
+
+            /* ===============================================
+               JÁ CADASTRADO
+            =============================================== */
+
+            if (
+              resposta.existe ===
+              true
+            ) {
+
+
+              visitorForm
+                ?.classList
+                .remove(
+                  "active"
+                );
+
+
+              commercialForm
+                ?.classList
+                .remove(
+                  "active"
+                );
+
+
+              if (
+                formHeading
+              ) {
+
+                formHeading
+                  .style
+                  .display =
+                  "none";
+
+              }
+
+
+              if (
+                success
+              ) {
+
+                success.hidden =
+                  true;
+
+              }
+
+
+              if (
+                alreadyRegistered
+              ) {
+
+                alreadyRegistered
+                  .hidden =
+                  false;
+
+              }
+
+
+              setTimeout(
+                () => {
+
+
+                  alreadyRegistered
+                    ?.scrollIntoView({
+
+                      behavior:
+                        "smooth",
+
+                      block:
+                        "center"
+
+                    });
+
+
+                },
+                100
+              );
+
+
+              return;
+
+            }
+
+          }
+
+
+          /* =================================================
+             PREPARAR DADOS
+          ================================================= */
+
+          const dados =
+            new FormData(
+              form
+            );
+
+
+          dados.append(
+            "tipoFormulario",
+            isCommercial
+              ? "comercial"
+              : "visitante"
+          );
+
+
+          dados.append(
+            "enviadoEm",
+            new Date()
+              .toISOString()
+          );
+
+
+          /* =================================================
+             ENVIAR
+          ================================================= */
+
+          await fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+
+              method:
+                "POST",
+
+              body:
+                dados,
+
+              mode:
+                "no-cors"
+
+            }
+          );
+
+
+          /* =================================================
+             ESCONDER FORMULÁRIOS
+          ================================================= */
+
+          visitorForm
+            ?.classList
+            .remove(
+              "active"
+            );
+
+
+          commercialForm
+            ?.classList
+            .remove(
+              "active"
+            );
+
+
+          if (
+            formHeading
+          ) {
+
+            formHeading
+              .style
+              .display =
+              "none";
+
+          }
+
+
+          if (
+            alreadyRegistered
+          ) {
+
+            alreadyRegistered
+              .hidden =
+              true;
+
+          }
+
+
+          /* =================================================
+             SUCESSO
+          ================================================= */
+
+          if (success) {
+
+            success.hidden =
+              false;
+
+          }
+
+
+          /* COMERCIAL */
+
+          if (
+            isCommercial
+          ) {
+
+
+            if (
+              successMascot
+            ) {
+
+              successMascot
+                .src =
+                "ativos/brand/mascote-explosao.png";
+
+            }
+
+
+            if (
+              successKicker
+            ) {
+
+              successKicker
+                .textContent =
+                "interesse recebido!";
+
+            }
+
+
+            if (
+              successTitle
+            ) {
+
+              successTitle
+                .innerHTML =
+                `
+                  Vamos conversar<br>
+                  sobre sua marca.
+                `;
+
+            }
+
+
+            if (
+              successDescription
+            ) {
+
+              successDescription
+                .textContent =
+                "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
+
+            }
+
+          }
+
+
+          /* VISITANTE */
+
+          else {
+
+
+            if (
+              successMascot
+            ) {
+
+              successMascot
+                .src =
+                "ativos/brand/mascote-estrela.png";
+
+            }
+
+
+            if (
+              successKicker
+            ) {
+
+              successKicker
+                .textContent =
+                "inscrição confirmada!";
+
+            }
+
+
+            if (
+              successTitle
+            ) {
+
+              successTitle
+                .innerHTML =
+                `
+                  Você está<br>
+                  no Inspira FAM.
+                `;
+
+            }
+
+
+            if (
+              successDescription
+            ) {
+
+              successDescription
+                .textContent =
+                "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
+
+            }
+
+          }
+
+
+          form.reset();
+
+
+          setTimeout(
+            () => {
+
+
+              success
+                ?.scrollIntoView({
+
+                  behavior:
+                    "smooth",
+
+                  block:
+                    "center"
+
+                });
+
+
+            },
+            120
+          );
+
+
+        }
+
+
+        catch (error) {
+
+
+          console.error(
+            "Erro no formulário:",
+            error
+          );
+
+
+          alert(
+            "Não foi possível verificar ou enviar sua inscrição. Verifique sua conexão e tente novamente."
+          );
+
+
+        }
+
+
+        finally {
+
+
+          if (
+            submitButton
+          ) {
+
+
+            submitButton
+              .disabled =
+              false;
+
+
+            submitButton
+              .removeAttribute(
+                "aria-busy"
+              );
+
+
+            submitButton
+              .innerHTML =
+              originalButtonHTML;
+
+
+          }
+
+
+        }
+
+
       }
     );
 
@@ -739,379 +1555,211 @@ choiceButtons.forEach(
 );
 
 
-
 /* =========================================================
-   06. ENVIO REAL DOS FORMULÁRIOS — GOOGLE SHEETS
+   VOLTAR DO "JÁ INSCRITO"
 ========================================================= */
 
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxbSTueVdVNfdViHDP-6d4dbNetiok3GNjG8w5axyjhwZ6ui2hI89c8EG1awpvVl8bQ/exec";
+alreadyBack
+  ?.addEventListener(
+    "click",
+    () => {
 
 
-[
-  visitorForm,
-  commercialForm
-]
-.forEach((form) => {
+      if (
+        alreadyRegistered
+      ) {
 
-
-  if (!form) {
-    return;
-  }
-
-
-  form.addEventListener(
-    "submit",
-    async (event) => {
-
-
-      event.preventDefault();
-
-
-      if (!form.checkValidity()) {
-
-        form.reportValidity();
-
-        return;
+        alreadyRegistered
+          .hidden =
+          true;
 
       }
 
 
-      const isCommercial =
-        form.id ===
-        "commercial-form";
+      if (
+        success
+      ) {
 
-
-      const submitButton =
-        form.querySelector(
-          'button[type="submit"]'
-        );
-
-
-      const originalButtonHTML =
-        submitButton
-          ? submitButton.innerHTML
-          : "";
-
-
-      if (submitButton) {
-
-        submitButton.disabled = true;
-
-        submitButton.setAttribute(
-          "aria-busy",
-          "true"
-        );
-
-        submitButton.innerHTML =
-          `
-            ENVIANDO...
-            <span>↗</span>
-          `;
+        success.hidden =
+          true;
 
       }
 
 
-      const dados =
-        new FormData(form);
+      if (
+        formHeading
+      ) {
+
+        formHeading
+          .style
+          .display =
+          "";
+
+      }
 
 
-      dados.append(
-        "tipoFormulario",
-        isCommercial
-          ? "comercial"
-          : "visitante"
-      );
-
-
-      dados.append(
-        "enviadoEm",
-        new Date().toISOString()
-      );
-
-
-      try {
-
-
-        await fetch(
-          GOOGLE_SCRIPT_URL,
-          {
-            method: "POST",
-            body: dados,
-            mode: "no-cors"
-          }
-        );
-
-
-        visitorForm?.classList.remove(
+      visitorForm
+        ?.classList
+        .add(
           "active"
         );
 
 
-        commercialForm?.classList.remove(
+      commercialForm
+        ?.classList
+        .remove(
           "active"
         );
 
 
-        if (formHeading) {
-
-          formHeading.style.display =
-            "none";
-
-        }
-
-
-        if (success) {
-
-          success.hidden =
-            false;
-
-        }
-
-
-        if (isCommercial) {
-
-
-          if (successMascot) {
-
-            successMascot.src =
-              "ativo/brand/mascote-explosao.png";
-
-          }
-
-
-          if (successKicker) {
-
-            successKicker.textContent =
-              "interesse recebido!";
-
-          }
-
-
-          if (successTitle) {
-
-            successTitle.innerHTML =
-              `
-                Vamos conversar<br>
-                sobre sua marca.
-              `;
-
-          }
-
-
-          if (successDescription) {
-
-            successDescription.textContent =
-              "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
-
-          }
-
-
-        }
-
-
-        else {
-
-
-          if (successMascot) {
-
-            successMascot.src =
-              "ativo/brand/mascote-estrela.png";
-
-          }
-
-
-          if (successKicker) {
-
-            successKicker.textContent =
-              "inscrição confirmada!";
-
-          }
-
-
-          if (successTitle) {
-
-            successTitle.innerHTML =
-              `
-                Você está<br>
-                no Inspira FAM.
-              `;
-
-          }
-
-
-          if (successDescription) {
-
-            successDescription.textContent =
-              "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
-
-          }
-
-
-        }
-
-
-        form.reset();
-
-
-        setTimeout(
-          () => {
-
-            success?.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-
-          },
-          120
-        );
-
-
-      }
-
-
-      catch (error) {
-
-
-        console.error(
-          "Erro ao enviar inscrição:",
-          error
-        );
-
-
-        alert(
-          "Não foi possível enviar sua inscrição. Verifique sua conexão e tente novamente."
-        );
-
-
-      }
-
-
-      finally {
-
-
-        if (submitButton) {
-
-          submitButton.disabled =
-            false;
-
-          submitButton.removeAttribute(
-            "aria-busy"
+      const emailInput =
+        visitorForm
+          ?.querySelector(
+            '[name="email"]'
           );
 
-          submitButton.innerHTML =
-            originalButtonHTML;
 
-        }
+      if (
+        emailInput
+      ) {
 
+        emailInput.value =
+          "";
+
+        emailInput
+          .setCustomValidity(
+            ""
+          );
 
       }
+
+
+      setTimeout(
+        () => {
+
+
+          visitorForm
+            ?.scrollIntoView({
+
+              behavior:
+                "smooth",
+
+              block:
+                "start"
+
+            });
+
+
+          emailInput
+            ?.focus();
+
+
+        },
+        100
+      );
 
 
     }
   );
 
 
-});
-
-
-
 /* =========================================================
-   07. MAPA INTERATIVO
+   07. MAPA
 ========================================================= */
 
 const mapZones =
-  document.querySelectorAll(
-    ".map-zone"
-  );
+  document
+    .querySelectorAll(
+      ".map-zone"
+    );
 
 
 const mapModal =
-  document.getElementById(
-    "map-modal"
-  );
+  document
+    .getElementById(
+      "map-modal"
+    );
 
 
 const mapModalNumber =
-  document.getElementById(
-    "map-modal-number"
-  );
+  document
+    .getElementById(
+      "map-modal-number"
+    );
 
 
 const mapModalTitle =
-  document.getElementById(
-    "map-modal-title"
-  );
+  document
+    .getElementById(
+      "map-modal-title"
+    );
 
 
 const mapModalText =
-  document.getElementById(
-    "map-modal-text"
-  );
+  document
+    .getElementById(
+      "map-modal-text"
+    );
 
 
 const mapModalClose =
-  document.querySelector(
-    ".map-modal-close"
-  );
+  document
+    .querySelector(
+      ".map-modal-close"
+    );
 
 
 const mapModalAction =
-  document.getElementById(
-    "map-modal-action"
-  );
+  document
+    .getElementById(
+      "map-modal-action"
+    );
 
-
-
-/* =========================================================
-   LIMPAR ÁREAS
-========================================================= */
 
 function clearMapZones() {
 
-  mapZones.forEach(
-    (zone) => {
 
-      zone.classList.remove(
-        "map-zone-active"
-      );
+  mapZones
+    .forEach(
+      (zone) => {
 
-    }
-  );
+        zone.classList
+          .remove(
+            "map-zone-active"
+          );
+
+      }
+    );
 
 }
 
 
-
-/* =========================================================
-   ATIVAR ÁREA
-========================================================= */
-
-function activateMapZone(zone) {
+function activateMapZone(
+  zone
+) {
 
 
   clearMapZones();
 
 
   if (!zone) {
+
     return;
+
   }
 
 
-  zone.classList.add(
-    "map-zone-active"
-  );
-
+  zone.classList
+    .add(
+      "map-zone-active"
+    );
 
 }
 
 
-
-/* =========================================================
-   ABRIR MODAL DO MAPA
-========================================================= */
-
-function openMapModal(zone) {
+function openMapModal(
+  zone
+) {
 
 
   if (
@@ -1124,193 +1772,231 @@ function openMapModal(zone) {
   }
 
 
-  activateMapZone(zone);
-
-
-  if (mapModalNumber) {
-
-    mapModalNumber.textContent =
-      zone.dataset.mapNumber || "";
-
-  }
-
-
-  if (mapModalTitle) {
-
-    mapModalTitle.textContent =
-      zone.dataset.mapTitle || "";
-
-  }
-
-
-  if (mapModalText) {
-
-    mapModalText.textContent =
-      zone.dataset.mapText || "";
-
-  }
-
-
-  mapModal.dataset.tone =
-    zone.dataset.mapTone || "";
+  activateMapZone(
+    zone
+  );
 
 
   if (
-    typeof mapModal.showModal ===
-    "function"
+    mapModalNumber
   ) {
 
-    mapModal.showModal();
+    mapModalNumber
+      .textContent =
+      zone.dataset
+        .mapNumber ||
+      "";
 
   }
 
+
+  if (
+    mapModalTitle
+  ) {
+
+    mapModalTitle
+      .textContent =
+      zone.dataset
+        .mapTitle ||
+      "";
+
+  }
+
+
+  if (
+    mapModalText
+  ) {
+
+    mapModalText
+      .textContent =
+      zone.dataset
+        .mapText ||
+      "";
+
+  }
+
+
+  mapModal.dataset
+    .tone =
+    zone.dataset
+      .mapTone ||
+    "";
+
+
+  if (
+    typeof
+      mapModal.showModal ===
+    "function"
+  ) {
+
+    mapModal
+      .showModal();
+
+  }
 
 }
 
 
-
-/* =========================================================
-   INTERAÇÃO DAS ÁREAS DO MAPA
-========================================================= */
-
-mapZones.forEach(
-  (zone, index) => {
-
-
-    zone.style.setProperty(
-      "--zone-delay",
-      `${index * 100}ms`
-    );
+mapZones
+  .forEach(
+    (
+      zone,
+      index
+    ) => {
 
 
-    zone.classList.add(
-      "map-zone-ready"
-    );
+      zone.style
+        .setProperty(
+          "--zone-delay",
+          `${index * 100}ms`
+        );
 
 
-    zone.addEventListener(
-      "mouseenter",
-      () => {
+      zone.classList
+        .add(
+          "map-zone-ready"
+        );
 
-        activateMapZone(zone);
+
+      zone.addEventListener(
+        "mouseenter",
+        () => {
+
+          activateMapZone(
+            zone
+          );
+
+        }
+      );
+
+
+      zone.addEventListener(
+        "mouseleave",
+        () => {
+
+          zone.classList
+            .remove(
+              "map-zone-active"
+            );
+
+        }
+      );
+
+
+      zone.addEventListener(
+        "touchstart",
+        () => {
+
+          activateMapZone(
+            zone
+          );
+
+        },
+        {
+          passive: true
+        }
+      );
+
+
+      zone.addEventListener(
+        "click",
+        () => {
+
+          openMapModal(
+            zone
+          );
+
+        }
+      );
+
+
+    }
+  );
+
+
+document
+  .addEventListener(
+    "touchmove",
+    (event) => {
+
+
+      if (
+        !mapZones.length
+      ) {
+
+        return;
 
       }
-    );
 
 
-    zone.addEventListener(
-      "mouseleave",
-      () => {
+      const touch =
+        event.touches[0];
 
-        zone.classList.remove(
-          "map-zone-active"
+
+      if (!touch) {
+
+        return;
+
+      }
+
+
+      const element =
+        document
+          .elementFromPoint(
+            touch.clientX,
+            touch.clientY
+          );
+
+
+      const zone =
+        element
+          ?.closest(
+            ".map-zone"
+          );
+
+
+      if (zone) {
+
+        activateMapZone(
+          zone
         );
 
       }
-    );
 
 
-    zone.addEventListener(
-      "touchstart",
-      () => {
-
-        activateMapZone(zone);
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-    zone.addEventListener(
-      "click",
-      () => {
-
-        openMapModal(zone);
-
-      }
-    );
-
-
-  }
-);
-
-
-
-/* =========================================================
-   08. DESLIZAR NO MAPA — MOBILE
-========================================================= */
-
-document.addEventListener(
-  "touchmove",
-  (event) => {
-
-
-    if (!mapZones.length) {
-      return;
+    },
+    {
+      passive: true
     }
+  );
 
 
-    const touch =
-      event.touches[0];
+document
+  .addEventListener(
+    "touchend",
+    () => {
 
 
-    if (!touch) {
-      return;
-    }
+      if (
+        !mapZones.length
+      ) {
+
+        return;
+
+      }
 
 
-    const element =
-      document.elementFromPoint(
-        touch.clientX,
-        touch.clientY
+      setTimeout(
+        clearMapZones,
+        200
       );
 
 
-    const zone =
-      element?.closest(
-        ".map-zone"
-      );
-
-
-    if (zone) {
-
-      activateMapZone(zone);
-
+    },
+    {
+      passive: true
     }
-
-
-  },
-  {
-    passive: true
-  }
-);
-
-
-
-document.addEventListener(
-  "touchend",
-  () => {
-
-
-    if (!mapZones.length) {
-      return;
-    }
-
-
-    setTimeout(
-      clearMapZones,
-      200
-    );
-
-
-  },
-  {
-    passive: true
-  }
-);
-
+  );
 
 
 /* =========================================================
@@ -1321,74 +2007,88 @@ document
   .querySelectorAll(
     "[data-map-jump]"
   )
-  .forEach((button) => {
+  .forEach(
+    (button) => {
 
 
-    button.addEventListener(
-      "click",
-      () => {
+      button.addEventListener(
+        "click",
+        () => {
 
 
-        const name =
-          button.dataset.mapJump;
+          const name =
+            button.dataset
+              .mapJump;
 
 
-        const zone =
-          document.querySelector(
-            `[data-map-zone="${name}"]`
+          const zone =
+            document
+              .querySelector(
+                `[data-map-zone="${name}"]`
+              );
+
+
+          if (!zone) {
+
+            return;
+
+          }
+
+
+          activateMapZone(
+            zone
           );
 
 
-        if (!zone) {
-          return;
-        }
-
-
-        activateMapZone(zone);
-
-
-        zone.classList.add(
-          "map-zone-pulse"
-        );
-
-
-        zone.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "center"
-        });
-
-
-        setTimeout(
-          () => {
-
-            zone.classList.remove(
+          zone.classList
+            .add(
               "map-zone-pulse"
             );
 
-          },
-          1200
-        );
+
+          zone
+            .scrollIntoView({
+
+              behavior:
+                "smooth",
+
+              block:
+                "center",
+
+              inline:
+                "center"
+
+            });
 
 
-      }
-    );
+          setTimeout(
+            () => {
+
+              zone.classList
+                .remove(
+                  "map-zone-pulse"
+                );
+
+            },
+            1200
+          );
 
 
-  });
+        }
+      );
 
 
+    }
+  );
 
-/* =========================================================
-   10. FECHAR MODAL DO MAPA
-========================================================= */
 
 mapModalClose
   ?.addEventListener(
     "click",
     () => {
 
-      mapModal?.close();
+      mapModal
+        ?.close();
 
     }
   );
@@ -1399,22 +2099,26 @@ mapModalAction
     "click",
     () => {
 
-      mapModal?.close();
+      mapModal
+        ?.close();
 
     }
   );
 
 
-
 /* =========================================================
-   11. FECHAR MODAIS CLICANDO FORA
+   11. MODAIS
 ========================================================= */
 
-function closeDialogOnBackdrop(dialog) {
+function closeDialogOnBackdrop(
+  dialog
+) {
 
 
   if (!dialog) {
+
     return;
+
   }
 
 
@@ -1424,7 +2128,8 @@ function closeDialogOnBackdrop(dialog) {
 
 
       if (
-        event.target === dialog
+        event.target ===
+        dialog
       ) {
 
         dialog.close();
@@ -1434,7 +2139,6 @@ function closeDialogOnBackdrop(dialog) {
 
     }
   );
-
 
 }
 
@@ -1449,47 +2153,46 @@ closeDialogOnBackdrop(
 );
 
 
-
-/* =========================================================
-   FECHAR MODAIS COM ESC
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  (event) => {
+document
+  .addEventListener(
+    "keydown",
+    (event) => {
 
 
-    if (
-      event.key !==
-      "Escape"
-    ) {
+      if (
+        event.key !==
+        "Escape"
+      ) {
 
-      return;
+        return;
+
+      }
+
+
+      if (
+        experienceModal
+          ?.open
+      ) {
+
+        experienceModal
+          .close();
+
+      }
+
+
+      if (
+        mapModal
+          ?.open
+      ) {
+
+        mapModal
+          .close();
+
+      }
+
 
     }
-
-
-    if (
-      experienceModal?.open
-    ) {
-
-      experienceModal.close();
-
-    }
-
-
-    if (
-      mapModal?.open
-    ) {
-
-      mapModal.close();
-
-    }
-
-
-  }
-);
-
+  );
 
 
 /* =========================================================
@@ -1508,87 +2211,90 @@ const schedulePanels =
   );
 
 
-function changeSchedule(day) {
+function changeSchedule(
+  day
+) {
 
 
-  scheduleTabs.forEach(
-    (tab) => {
+  scheduleTabs
+    .forEach(
+      (tab) => {
 
 
-      const active =
-        tab.dataset.schedule ===
-        day;
+        const active =
+          tab.dataset
+            .schedule ===
+          day;
 
 
-      tab.classList.toggle(
-        "active",
-        active
-      );
+        tab.classList
+          .toggle(
+            "active",
+            active
+          );
 
 
-      tab.setAttribute(
-        "aria-selected",
-        active
-          ? "true"
-          : "false"
-      );
-
-
-    }
-  );
-
-
-  schedulePanels.forEach(
-    (panel) => {
-
-
-      const active =
-        panel.dataset.schedulePanel ===
-        day;
-
-
-      panel.classList.toggle(
-        "active",
-        active
-      );
-
-
-      panel.hidden =
-        !active;
-
-
-    }
-  );
-
-
-}
-
-
-
-scheduleTabs.forEach(
-  (tab) => {
-
-
-    tab.addEventListener(
-      "click",
-      () => {
-
-        changeSchedule(
-          tab.dataset.schedule
+        tab.setAttribute(
+          "aria-selected",
+          active
+            ? "true"
+            : "false"
         );
+
 
       }
     );
 
 
-  }
-);
+  schedulePanels
+    .forEach(
+      (panel) => {
 
 
+        const active =
+          panel.dataset
+            .schedulePanel ===
+          day;
 
-/* =========================================================
-   CORRIGE O ESTADO INICIAL DA PROGRAMAÇÃO
-========================================================= */
+
+        panel.classList
+          .toggle(
+            "active",
+            active
+          );
+
+
+        panel.hidden =
+          !active;
+
+
+      }
+    );
+
+}
+
+
+scheduleTabs
+  .forEach(
+    (tab) => {
+
+
+      tab.addEventListener(
+        "click",
+        () => {
+
+          changeSchedule(
+            tab.dataset
+              .schedule
+          );
+
+        }
+      );
+
+
+    }
+  );
+
 
 if (
   scheduleTabs.length &&
@@ -1606,35 +2312,23 @@ if (
   if (initialTab) {
 
     changeSchedule(
-      initialTab.dataset.schedule
+      initialTab.dataset
+        .schedule
     );
 
   }
 
-
 }
-
 
 
 /* =========================================================
    FAQ
+
+   Utiliza <details> e <summary>.
+   Não precisa de JavaScript específico.
 ========================================================= */
-
-/*
-   A página FAQ utiliza <details> e <summary>.
-
-   O navegador já controla:
-   - abrir e fechar;
-   - teclado;
-   - acessibilidade;
-   - funcionamento no celular.
-
-   Por isso não é necessário JavaScript
-   específico para o FAQ.
-*/
-
 
 
 /* =========================================================
-   FIM — INSPIRA FAM EXPERIENCE
+   FIM — INSPIRA FAM EXPERIENCE 2026
 ========================================================= */
