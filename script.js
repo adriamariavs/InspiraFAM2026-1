@@ -33,6 +33,12 @@ if (
 
             }
 
+<<<<<<< HEAD
+=======
+          entry.target.classList.add(
+            "visible"
+          );
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
             entry.target
               .classList
@@ -67,14 +73,34 @@ if (
             4
           ) * 70}ms`;
 
+<<<<<<< HEAD
+=======
+      revealObserver.observe(
+        element
+      );
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
         revealObserver
           .observe(
             element
           );
 
+<<<<<<< HEAD
       }
     );
+=======
+} else {
+
+  revealElements.forEach(
+    (element) => {
+
+      element.classList.add(
+        "visible"
+      );
+
+    }
+  );
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 }
 
@@ -148,6 +174,7 @@ const experienceItems =
   );
 
 
+<<<<<<< HEAD
 experienceItems
   .forEach(
     (item) => {
@@ -284,6 +311,118 @@ experienceItems
   );
 
 
+=======
+experienceItems.forEach(
+  (item) => {
+
+
+    /* DESKTOP */
+
+    item.addEventListener(
+      "mouseenter",
+      () => {
+
+        if (!stageMascot) {
+          return;
+        }
+
+
+        let rotation = 5;
+
+
+        switch (
+          item.dataset.tone
+        ) {
+
+          case "purple":
+            rotation = -12;
+            break;
+
+          case "yellow":
+            rotation = 8;
+            break;
+
+          case "pink":
+            rotation = -6;
+            break;
+
+          case "orange":
+            rotation = 10;
+            break;
+
+          default:
+            rotation = 5;
+
+        }
+
+
+        stageMascot.style.transform =
+          `scale(1.18) rotate(${rotation}deg)`;
+
+      }
+    );
+
+
+    item.addEventListener(
+      "mouseleave",
+      () => {
+
+        if (!stageMascot) {
+          return;
+        }
+
+        stageMascot.style.transform =
+          "";
+
+      }
+    );
+
+
+    /* MOBILE */
+
+    item.addEventListener(
+      "touchstart",
+      () => {
+
+        item.classList.add(
+          "touch-active"
+        );
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    item.addEventListener(
+      "touchend",
+      () => {
+
+        setTimeout(
+          () => {
+
+            item.classList.remove(
+              "touch-active"
+            );
+
+          },
+          180
+        );
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+  }
+);
+
+
+
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 /* =========================================================
    04. MODAL DAS EXPERIÊNCIAS
 ========================================================= */
@@ -325,7 +464,6 @@ const experienceContinue =
 
 
 const experienceContent = {
-
 
   interativas: {
 
@@ -405,6 +543,8 @@ const experienceContent = {
   },
 
 
+  /* COMPATIBILIDADE */
+
   expositores: {
 
     number: "06",
@@ -454,6 +594,7 @@ document
               .experience;
 
 
+<<<<<<< HEAD
           const content =
             experienceContent[
               key
@@ -522,6 +663,13 @@ document
 
           }
 
+=======
+        if (
+          !content ||
+          !experienceModal
+        ) {
+          return;
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
         }
       );
 
@@ -623,6 +771,11 @@ const successDescription =
   );
 
 
+<<<<<<< HEAD
+=======
+/* NOVA TELA — JÁ INSCRITO */
+
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 const alreadyRegistered =
   document.getElementById(
     "already-registered"
@@ -674,6 +827,8 @@ function openForm(type) {
     );
 
 
+  /* ESCONDER SUCESSO */
+
   if (success) {
 
     success.hidden =
@@ -693,11 +848,25 @@ function openForm(type) {
   }
 
 
+  /* ESCONDER JÁ INSCRITO */
+
+  if (alreadyRegistered) {
+
+    alreadyRegistered.hidden =
+      true;
+
+  }
+
+
   if (formHeading) {
 
+<<<<<<< HEAD
     formHeading
       .style
       .display =
+=======
+    formHeading.style.display =
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
       "";
 
   }
@@ -747,6 +916,11 @@ function openForm(type) {
 
   }
 
+<<<<<<< HEAD
+=======
+  }
+
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
   /* VISITANTE */
 
@@ -820,9 +994,17 @@ choiceButtons
       );
 
 
+<<<<<<< HEAD
       button.addEventListener(
         "touchstart",
         () => {
+=======
+    /* EFEITO MOBILE */
+
+    button.addEventListener(
+      "touchstart",
+      () => {
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
           button
             .classList
@@ -1556,7 +1738,11 @@ function verificarEmailVisitante(
 
 
 /* =========================================================
+<<<<<<< HEAD
    VOLTAR DO "JÁ INSCRITO"
+=======
+   06. GOOGLE SHEETS
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 ========================================================= */
 
 alreadyBack
@@ -1565,6 +1751,7 @@ alreadyBack
     () => {
 
 
+<<<<<<< HEAD
       if (
         alreadyRegistered
       ) {
@@ -1572,6 +1759,234 @@ alreadyBack
         alreadyRegistered
           .hidden =
           true;
+=======
+
+/* =========================================================
+   VERIFICAR SE O E-MAIL JÁ EXISTE
+========================================================= */
+
+function verificarEmailVisitante(
+  email
+) {
+
+
+  return new Promise(
+    (resolve, reject) => {
+
+
+      /*
+         O Google Apps Script devolve
+         a resposta através de JSONP.
+      */
+
+      const callbackName =
+        "__inspiraEmail_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random() *
+          100000
+        );
+
+
+      const script =
+        document.createElement(
+          "script"
+        );
+
+
+      /* LIMITE DE ESPERA */
+
+      const timeout =
+        setTimeout(
+          () => {
+
+            limpar();
+
+            reject(
+              new Error(
+                "Tempo esgotado ao verificar o e-mail."
+              )
+            );
+
+          },
+          10000
+        );
+
+
+
+      /* =====================================================
+         LIMPEZA
+      ===================================================== */
+
+      function limpar() {
+
+
+        clearTimeout(
+          timeout
+        );
+
+
+        script.remove();
+
+
+        try {
+
+          delete window[
+            callbackName
+          ];
+
+        }
+
+        catch (error) {
+
+          window[
+            callbackName
+          ] =
+            undefined;
+
+        }
+
+      }
+
+
+
+      /* =====================================================
+         RESPOSTA DO GOOGLE
+      ===================================================== */
+
+      window[
+        callbackName
+      ] =
+        function (resposta) {
+
+
+          limpar();
+
+
+          if (
+            !resposta ||
+            resposta.sucesso !== true
+          ) {
+
+            reject(
+              new Error(
+                "Resposta inválida do servidor."
+              )
+            );
+
+            return;
+
+          }
+
+
+          resolve(
+            resposta.existe ===
+            true
+          );
+
+        };
+
+
+
+      /* =====================================================
+         ERRO DE CONEXÃO
+      ===================================================== */
+
+      script.onerror =
+        function () {
+
+
+          limpar();
+
+
+          reject(
+            new Error(
+              "Não foi possível consultar o e-mail."
+            )
+          );
+
+        };
+
+
+
+      /* =====================================================
+         URL DE VERIFICAÇÃO
+      ===================================================== */
+
+      const parametros =
+        new URLSearchParams({
+
+          action:
+            "checkEmail",
+
+          email:
+            email,
+
+          callback:
+            callbackName,
+
+          _:
+            Date.now()
+
+        });
+
+
+      script.src =
+        GOOGLE_SCRIPT_URL +
+        "?" +
+        parametros.toString();
+
+
+      document.body.appendChild(
+        script
+      );
+
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   ENVIO DOS FORMULÁRIOS
+========================================================= */
+
+[
+  visitorForm,
+  commercialForm
+]
+.forEach((form) => {
+
+
+  if (!form) {
+    return;
+  }
+
+
+  form.addEventListener(
+    "submit",
+    async (event) => {
+
+
+      event.preventDefault();
+
+
+
+      /* =====================================================
+         VALIDAR FORMULÁRIO
+      ===================================================== */
+
+      if (
+        !form.checkValidity()
+      ) {
+
+        form.reportValidity();
+
+        return;
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
       }
 
@@ -1580,12 +1995,52 @@ alreadyBack
         success
       ) {
 
+<<<<<<< HEAD
         success.hidden =
           true;
+=======
+
+
+      /* =====================================================
+         BOTÃO ENVIANDO
+      ===================================================== */
+
+      const submitButton =
+        form.querySelector(
+          'button[type="submit"]'
+        );
+
+
+      const originalButtonHTML =
+        submitButton
+          ? submitButton.innerHTML
+          : "";
+
+
+      if (submitButton) {
+
+
+        submitButton.disabled =
+          true;
+
+
+        submitButton.setAttribute(
+          "aria-busy",
+          "true"
+        );
+
+
+        submitButton.innerHTML =
+          `
+            ENVIANDO...
+            <span>↗</span>
+          `;
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
       }
 
 
+<<<<<<< HEAD
       if (
         formHeading
       ) {
@@ -1622,6 +2077,397 @@ alreadyBack
       if (
         emailInput
       ) {
+=======
+
+      try {
+
+
+        /* ===================================================
+           VISITANTE — VERIFICAR E-MAIL
+        =================================================== */
+
+        if (!isCommercial) {
+
+
+          const emailInput =
+            form.querySelector(
+              '[name="email"]'
+            );
+
+
+          if (!emailInput) {
+
+            throw new Error(
+              "Campo de e-mail não encontrado."
+            );
+
+          }
+
+
+          const email =
+            emailInput
+              .value
+              .trim()
+              .toLowerCase();
+
+
+          /*
+             Consulta a planilha antes
+             de cadastrar.
+          */
+
+          const emailExiste =
+            await verificarEmailVisitante(
+              email
+            );
+
+
+
+          /* =================================================
+             E-MAIL JÁ CADASTRADO
+          ================================================= */
+
+          if (emailExiste) {
+
+
+            visitorForm
+              ?.classList
+              .remove(
+                "active"
+              );
+
+
+            commercialForm
+              ?.classList
+              .remove(
+                "active"
+              );
+
+
+            if (formHeading) {
+
+              formHeading.style.display =
+                "none";
+
+            }
+
+
+            if (success) {
+
+              success.hidden =
+                true;
+
+            }
+
+
+            if (
+              alreadyRegistered
+            ) {
+
+              alreadyRegistered.hidden =
+                false;
+
+            }
+
+
+            setTimeout(
+              () => {
+
+                alreadyRegistered
+                  ?.scrollIntoView({
+
+                    behavior:
+                      "smooth",
+
+                    block:
+                      "center"
+
+                  });
+
+              },
+              100
+            );
+
+
+            return;
+
+          }
+
+
+        }
+
+
+
+        /* ===================================================
+           MONTAR DADOS
+        =================================================== */
+
+        const dados =
+          new FormData(
+            form
+          );
+
+
+        dados.append(
+          "tipoFormulario",
+          isCommercial
+            ? "comercial"
+            : "visitante"
+        );
+
+
+        dados.append(
+          "enviadoEm",
+          new Date()
+            .toISOString()
+        );
+
+
+
+        /* ===================================================
+           ENVIAR PARA O GOOGLE SHEETS
+        =================================================== */
+
+        await fetch(
+          GOOGLE_SCRIPT_URL,
+          {
+
+            method:
+              "POST",
+
+            body:
+              dados,
+
+            mode:
+              "no-cors"
+
+          }
+        );
+
+
+
+        /* ===================================================
+           ESCONDER FORMULÁRIOS
+        =================================================== */
+
+        visitorForm
+          ?.classList
+          .remove(
+            "active"
+          );
+
+
+        commercialForm
+          ?.classList
+          .remove(
+            "active"
+          );
+
+
+        if (formHeading) {
+
+          formHeading.style.display =
+            "none";
+
+        }
+
+
+        if (
+          alreadyRegistered
+        ) {
+
+          alreadyRegistered.hidden =
+            true;
+
+        }
+
+
+
+        /* ===================================================
+           MOSTRAR SUCESSO
+        =================================================== */
+
+        if (success) {
+
+          success.hidden =
+            false;
+
+        }
+
+
+
+        /* ===================================================
+           SUCESSO COMERCIAL
+        =================================================== */
+
+        if (isCommercial) {
+
+
+          if (successMascot) {
+
+            successMascot.src =
+              "ativos/brand/mascote-explosao.png";
+
+          }
+
+
+          if (successKicker) {
+
+            successKicker.textContent =
+              "interesse recebido!";
+
+          }
+
+
+          if (successTitle) {
+
+            successTitle.innerHTML =
+              `
+                Vamos conversar<br>
+                sobre sua marca.
+              `;
+
+          }
+
+
+          if (
+            successDescription
+          ) {
+
+            successDescription.textContent =
+              "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
+
+          }
+
+
+        }
+
+
+
+        /* ===================================================
+           SUCESSO VISITANTE
+        =================================================== */
+
+        else {
+
+
+          if (successMascot) {
+
+            successMascot.src =
+              "ativos/brand/mascote-estrela.png";
+
+          }
+
+
+          if (successKicker) {
+
+            successKicker.textContent =
+              "inscrição confirmada!";
+
+          }
+
+
+          if (successTitle) {
+
+            successTitle.innerHTML =
+              `
+                Você está<br>
+                no Inspira FAM.
+              `;
+
+          }
+
+
+          if (
+            successDescription
+          ) {
+
+            successDescription.textContent =
+              "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
+
+          }
+
+
+        }
+
+
+
+        /* ===================================================
+           LIMPAR FORMULÁRIO
+        =================================================== */
+
+        form.reset();
+
+
+
+        /* ===================================================
+           ROLAR ATÉ SUCESSO
+        =================================================== */
+
+        setTimeout(
+          () => {
+
+            success
+              ?.scrollIntoView({
+
+                behavior:
+                  "smooth",
+
+                block:
+                  "center"
+
+              });
+
+          },
+          120
+        );
+
+
+      }
+
+
+      catch (error) {
+
+
+        console.error(
+          "Erro no formulário:",
+          error
+        );
+
+
+        alert(
+          "Não foi possível verificar ou enviar sua inscrição. Verifique sua conexão e tente novamente."
+        );
+
+
+      }
+
+
+      finally {
+
+
+        /* ===================================================
+           RESTAURAR BOTÃO
+        =================================================== */
+
+        if (submitButton) {
+
+
+          submitButton.disabled =
+            false;
+
+
+          submitButton.removeAttribute(
+            "aria-busy"
+          );
+
+
+          submitButton.innerHTML =
+            originalButtonHTML;
+
+
+        }
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
         emailInput.value =
           "";
@@ -1664,7 +2510,118 @@ alreadyBack
 
 
 /* =========================================================
+<<<<<<< HEAD
    07. MAPA
+=======
+   VOLTAR DO "JÁ INSCRITO"
+========================================================= */
+
+alreadyBack
+  ?.addEventListener(
+    "click",
+    () => {
+
+
+      /* ESCONDE A TELA */
+
+      if (
+        alreadyRegistered
+      ) {
+
+        alreadyRegistered.hidden =
+          true;
+
+      }
+
+
+      if (success) {
+
+        success.hidden =
+          true;
+
+      }
+
+
+      /* MOSTRA CABEÇALHO */
+
+      if (formHeading) {
+
+        formHeading.style.display =
+          "";
+
+      }
+
+
+      /* MOSTRA FORMULÁRIO VISITANTE */
+
+      visitorForm
+        ?.classList
+        .add(
+          "active"
+        );
+
+
+      commercialForm
+        ?.classList
+        .remove(
+          "active"
+        );
+
+
+      /* LIMPAR SOMENTE E-MAIL */
+
+      const emailInput =
+        visitorForm
+          ?.querySelector(
+            '[name="email"]'
+          );
+
+
+      if (emailInput) {
+
+        emailInput.value =
+          "";
+
+        emailInput.setCustomValidity(
+          ""
+        );
+
+      }
+
+
+      setTimeout(
+        () => {
+
+
+          visitorForm
+            ?.scrollIntoView({
+
+              behavior:
+                "smooth",
+
+              block:
+                "start"
+
+            });
+
+
+          emailInput
+            ?.focus();
+
+
+        },
+        100
+      );
+
+
+    }
+  );
+
+
+
+/* =========================================================
+   07. MAPA INTERATIVO
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 ========================================================= */
 
 const mapZones =
@@ -1716,8 +2673,21 @@ const mapModalAction =
     );
 
 
+<<<<<<< HEAD
 function clearMapZones() {
 
+=======
+
+/* =========================================================
+   LIMPAR ÁREAS DO MAPA
+========================================================= */
+
+function clearMapZones() {
+
+
+  mapZones.forEach(
+    (zone) => {
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
   mapZones
     .forEach(
@@ -1734,9 +2704,18 @@ function clearMapZones() {
 }
 
 
+<<<<<<< HEAD
 function activateMapZone(
   zone
 ) {
+=======
+
+/* =========================================================
+   ATIVAR ÁREA DO MAPA
+========================================================= */
+
+function activateMapZone(zone) {
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 
   clearMapZones();
@@ -1749,10 +2728,16 @@ function activateMapZone(
   }
 
 
+<<<<<<< HEAD
   zone.classList
     .add(
       "map-zone-active"
     );
+=======
+  zone.classList.add(
+    "map-zone-active"
+  );
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 }
 
@@ -1766,15 +2751,48 @@ function openMapModal(
     !zone ||
     !mapModal
   ) {
-
     return;
-
   }
 
 
   activateMapZone(
     zone
   );
+<<<<<<< HEAD
+=======
+
+
+  if (mapModalNumber) {
+
+    mapModalNumber.textContent =
+      zone.dataset.mapNumber ||
+      "";
+
+  }
+
+
+  if (mapModalTitle) {
+
+    mapModalTitle.textContent =
+      zone.dataset.mapTitle ||
+      "";
+
+  }
+
+
+  if (mapModalText) {
+
+    mapModalText.textContent =
+      zone.dataset.mapText ||
+      "";
+
+  }
+
+
+  mapModal.dataset.tone =
+    zone.dataset.mapTone ||
+    "";
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 
   if (
@@ -1789,6 +2807,7 @@ function openMapModal(
 
   }
 
+<<<<<<< HEAD
 
   if (
     mapModalTitle
@@ -1843,6 +2862,18 @@ mapZones
       zone,
       index
     ) => {
+=======
+}
+
+
+
+/* =========================================================
+   INTERAÇÃO DAS ÁREAS
+========================================================= */
+
+mapZones.forEach(
+  (zone, index) => {
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 
       zone.style
@@ -1858,6 +2889,7 @@ mapZones
         );
 
 
+<<<<<<< HEAD
       zone.addEventListener(
         "mouseenter",
         () => {
@@ -1925,6 +2957,17 @@ document
       ) {
 
         return;
+=======
+    /* DESKTOP */
+
+    zone.addEventListener(
+      "mouseenter",
+      () => {
+
+        activateMapZone(
+          zone
+        );
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
       }
 
@@ -1964,6 +3007,7 @@ document
       }
 
 
+<<<<<<< HEAD
     },
     {
       passive: true
@@ -1982,6 +3026,34 @@ document
       ) {
 
         return;
+=======
+    /* MOBILE */
+
+    zone.addEventListener(
+      "touchstart",
+      () => {
+
+        activateMapZone(
+          zone
+        );
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /* MODAL */
+
+    zone.addEventListener(
+      "click",
+      () => {
+
+        openMapModal(
+          zone
+        );
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
       }
 
@@ -1992,9 +3064,24 @@ document
       );
 
 
+<<<<<<< HEAD
     },
     {
       passive: true
+=======
+    const zone =
+      element?.closest(
+        ".map-zone"
+      );
+
+
+    if (zone) {
+
+      activateMapZone(
+        zone
+      );
+
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
     }
   );
 
@@ -2040,8 +3127,44 @@ document
           );
 
 
+<<<<<<< HEAD
           zone.classList
             .add(
+=======
+        if (!zone) {
+          return;
+        }
+
+
+        activateMapZone(
+          zone
+        );
+
+
+        zone.classList.add(
+          "map-zone-pulse"
+        );
+
+
+        zone.scrollIntoView({
+
+          behavior:
+            "smooth",
+
+          block:
+            "center",
+
+          inline:
+            "center"
+
+        });
+
+
+        setTimeout(
+          () => {
+
+            zone.classList.remove(
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
               "map-zone-pulse"
             );
 
@@ -2159,6 +3282,7 @@ document
     (event) => {
 
 
+<<<<<<< HEAD
       if (
         event.key !==
         "Escape"
@@ -2191,6 +3315,13 @@ document
       }
 
 
+=======
+    if (
+      event.key !==
+      "Escape"
+    ) {
+      return;
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
     }
   );
 
@@ -2211,9 +3342,18 @@ const schedulePanels =
   );
 
 
+<<<<<<< HEAD
 function changeSchedule(
   day
 ) {
+=======
+
+/* =========================================================
+   TROCAR DIA
+========================================================= */
+
+function changeSchedule(day) {
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 
   scheduleTabs
@@ -2295,6 +3435,12 @@ scheduleTabs
     }
   );
 
+<<<<<<< HEAD
+=======
+/* =========================================================
+   ESTADO INICIAL DA PROGRAMAÇÃO
+========================================================= */
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 if (
   scheduleTabs.length &&
@@ -2328,6 +3474,20 @@ if (
    Não precisa de JavaScript específico.
 ========================================================= */
 
+<<<<<<< HEAD
+=======
+/*
+   A página FAQ usa:
+
+   <details>
+   <summary>
+
+   Portanto não precisa de JavaScript
+   para abrir e fechar as perguntas.
+*/
+
+
+>>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 /* =========================================================
    FIM — INSPIRA FAM EXPERIENCE 2026
