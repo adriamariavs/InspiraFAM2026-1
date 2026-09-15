@@ -5766,6 +5766,269 @@ h1 i {
 .faq-help p { max-width: 550px; line-height: 1.6; }
 .faq-help-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
 
+/* Ajustes finais de responsividade e leitura */
+main,
+section,
+footer,
+header,
+dialog {
+  min-width: 0;
+}
+
+.site-nav,
+.hero-copy,
+.registration-title,
+.map-hero-copy,
+.form-wrap,
+.map-section-head,
+.map-legend,
+.faq-page-content {
+  min-width: 0;
+}
+
+.site-nav nav {
+  min-width: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-link {
+  white-space: nowrap;
+}
+
+.button,
+.choice-card,
+.schedule-tab,
+.location-actions .button,
+.next-actions .button {
+  min-width: 0;
+}
+
+.event-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.map-plan {
+  width: 100%;
+}
+
+.map-zone strong,
+.experience-item strong,
+.choice-card h3,
+.schedule-row strong,
+.faq-list summary,
+.faq-list-page summary {
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 851px) {
+  .site-nav nav {
+    flex-wrap: nowrap;
+  }
+
+  .hero-copy,
+  .registration-title,
+  .map-hero-copy {
+    max-width: min(750px, 62vw);
+  }
+
+  .event-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .map-plan {
+    min-height: clamp(620px, 52vw, 760px);
+  }
+}
+
+@media (max-width: 850px) {
+  .site-nav {
+    align-items: center;
+  }
+
+  .site-nav nav {
+    flex: 1 1 auto;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+
+  .site-nav nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .registration-title h1,
+  .map-hero-copy h1,
+  .faq-hero h1 {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .event-map-shell {
+    max-width: 100%;
+  }
+
+  .map-plan {
+    min-height: clamp(680px, 150vw, 920px);
+  }
+
+  .schedule-callout {
+    width: 100%;
+  }
+
+  .social-new,
+  .location,
+  .faq-page-content {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .site-nav {
+    min-height: 52px;
+  }
+
+  .brand-link {
+    flex: 0 1 96px;
+  }
+
+  .brand-link img {
+    width: 100%;
+    max-width: 110px;
+  }
+
+  .site-nav nav {
+    justify-content: flex-start;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+  }
+
+  .schedule-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .schedule-tab {
+    min-height: 58px;
+  }
+
+  .date-card {
+    width: 100%;
+  }
+
+  .date-card-main {
+    min-width: 0;
+  }
+
+  .map-zone {
+    min-width: 0;
+  }
+
+  .experience-modal,
+  .map-modal {
+    margin: auto;
+  }
+}
+
+@media (max-width: 390px) {
+  .site-nav {
+    gap: 4px;
+  }
+
+  .brand-link {
+    flex-basis: 84px;
+  }
+
+  .nav-link {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .map-plan {
+    min-height: 680px;
+  }
+}
+
+/* Desktop intermediário: evita colunas comprimidas em notebooks */
+@media (min-width: 851px) and (max-width: 1100px) {
+  .site-nav {
+    width: calc(100% - 32px);
+  }
+
+  .site-nav nav {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .manifesto,
+  .location,
+  .faq,
+  .faq-page-content,
+  .social-new {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+
+  .manifesto {
+    min-height: auto;
+  }
+
+  .experience-list {
+    width: min(760px, 100%);
+  }
+
+  .experience-stage {
+    width: 470px;
+    height: 470px;
+    right: -120px;
+    bottom: -100px;
+    opacity: .45;
+  }
+
+  .stage-mascot {
+    left: 175px;
+    top: 175px;
+  }
+
+  .editorial-gallery,
+  .editorial-gallery.uniform-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .editorial-gallery.uniform-gallery .photo-placeholder {
+    aspect-ratio: 4 / 3;
+  }
+
+  .location-info {
+    max-width: 760px;
+  }
+
+  .schedule-callout {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .social-visual {
+    margin-top: 20px;
+  }
+
+  .map-orbit {
+    width: 390px;
+    height: 390px;
+    right: 2vw;
+  }
+
+  .date-card {
+    max-width: 760px;
+  }
+}
+
 @media (max-width: 900px) {
   .schedule-callout { grid-template-columns: 1fr; gap: 8px; }
   .editorial-gallery.uniform-gallery { grid-template-columns: repeat(2, 1fr) !important; }
