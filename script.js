@@ -1,18 +1,6 @@
 /* =========================================================
    SCRIPT.JS — INSPIRA FAM EXPERIENCE 2026
-
-   01. Reveal ao rolar
-   02. Voltar ao topo
-   03. Experiências
-   04. Modal das experiências
-   05. Inscrições
-   06. Formulários
-   07. Mapa interativo
-   08. Touch no mapa
-   09. Legenda do mapa
-   10. Modal do mapa
-   11. Fechar modais
-   12. Programação
+   CÓDIGO COMPLETO
 ========================================================= */
 
 
@@ -22,7 +10,6 @@
 
 const revealElements =
   document.querySelectorAll(".reveal");
-
 
 if ("IntersectionObserver" in window) {
 
@@ -64,16 +51,13 @@ if ("IntersectionObserver" in window) {
 
 } else {
 
-  revealElements.forEach(
-    (element) => {
+  revealElements.forEach((element) => {
 
-      element.classList.add("visible");
+    element.classList.add("visible");
 
-    }
-  );
+  });
 
 }
-
 
 
 /* =========================================================
@@ -104,16 +88,12 @@ document
   });
 
 
-
 /* =========================================================
    03. EXPERIÊNCIAS
 ========================================================= */
 
 const stageMascot =
-  document.querySelector(
-    ".stage-mascot"
-  );
-
+  document.querySelector(".stage-mascot");
 
 const experienceItems =
   document.querySelectorAll(
@@ -122,7 +102,6 @@ const experienceItems =
 
 
 experienceItems.forEach((item) => {
-
 
   /* DESKTOP */
 
@@ -135,7 +114,6 @@ experienceItems.forEach((item) => {
       }
 
       let rotation = 5;
-
 
       switch (item.dataset.tone) {
 
@@ -157,9 +135,7 @@ experienceItems.forEach((item) => {
 
         default:
           rotation = 5;
-
       }
-
 
       stageMascot.style.transform =
         `scale(1.18) rotate(${rotation}deg)`;
@@ -203,16 +179,13 @@ experienceItems.forEach((item) => {
     "touchend",
     () => {
 
-      setTimeout(
-        () => {
+      setTimeout(() => {
 
-          item.classList.remove(
-            "touch-active"
-          );
+        item.classList.remove(
+          "touch-active"
+        );
 
-        },
-        180
-      );
+      }, 180);
 
     },
     {
@@ -220,9 +193,7 @@ experienceItems.forEach((item) => {
     }
   );
 
-
 });
-
 
 
 /* =========================================================
@@ -234,30 +205,25 @@ const experienceModal =
     "experience-modal"
   );
 
-
 const experienceNumber =
   document.getElementById(
     "experience-modal-number"
   );
-
 
 const experienceTitle =
   document.getElementById(
     "experience-modal-title"
   );
 
-
 const experienceText =
   document.getElementById(
     "experience-modal-text"
   );
 
-
 const experienceClose =
   document.querySelector(
     ".experience-modal-close"
   );
-
 
 const experienceContinue =
   document.getElementById(
@@ -265,120 +231,67 @@ const experienceContinue =
   );
 
 
-
-/* =========================================================
-   CONTEÚDO DAS EXPERIÊNCIAS
-========================================================= */
-
 const experienceContent = {
 
-
   interativas: {
-
     number: "01",
-
-    title:
-      "Experiências interativas",
-
+    title: "Experiências interativas",
     text:
       "Ativações, dinâmicas e ações para participar de verdade. Aqui, você não fica só olhando: experimenta, testa, interage e descobre."
-
   },
-
 
   exposicoes: {
-
     number: "02",
-
-    title:
-      "Exposições",
-
+    title: "Exposições",
     text:
       "Projetos, trabalhos e ideias ganham espaço para serem vistos de perto. Um convite para conhecer novas criações e diferentes olhares."
-
   },
-
 
   gastronomia: {
-
     number: "03",
-
-    title:
-      "Foodtrucks & gastronomia",
-
+    title: "Foodtrucks & gastronomia",
     text:
       "Sabores também fazem parte da experiência. Aproveite as opções gastronômicas e os momentos de pausa ao longo do evento."
-
   },
-
 
   networking: {
-
     number: "04",
-
-    title:
-      "Networking",
-
+    title: "Networking",
     text:
       "Um espaço para encontrar pessoas, trocar ideias e aproximar estudantes, visitantes, profissionais, marcas e oportunidades."
-
   },
-
 
   musica: {
-
     number: "05",
-
-    title:
-      "Música & apresentações",
-
+    title: "Música & apresentações",
     text:
       "Momentos ao vivo, atrações e apresentações ajudam a criar o ritmo de cada noite do Inspira FAM."
-
   },
-
 
   marcas: {
-
     number: "06",
-
-    title:
-      "Marcas & projetos",
-
+    title: "Marcas & projetos",
     text:
       "Conheça expositores, parceiros, negócios, produtos e iniciativas que fazem parte da experiência."
-
   },
 
+  /* COMPATIBILIDADE COM NOMES ANTIGOS */
 
   expositores: {
-
     number: "06",
-
-    title:
-      "Marcas & projetos",
-
+    title: "Marcas & projetos",
     text:
       "Conheça expositores, parceiros, negócios, produtos e iniciativas que fazem parte da experiência."
-
   },
 
-
   atividades: {
-
     number: "01",
-
-    title:
-      "Experiências interativas",
-
+    title: "Experiências interativas",
     text:
       "Ativações, dinâmicas e ações especiais para participar, experimentar e descobrir."
-
   }
 
-
 };
-
 
 
 /* =========================================================
@@ -386,9 +299,7 @@ const experienceContent = {
 ========================================================= */
 
 document
-  .querySelectorAll(
-    "[data-experience]"
-  )
+  .querySelectorAll("[data-experience]")
   .forEach((item) => {
 
     item.addEventListener(
@@ -398,7 +309,6 @@ document
         const key =
           item.dataset.experience;
 
-
         const content =
           experienceContent[key];
 
@@ -407,9 +317,7 @@ document
           !content ||
           !experienceModal
         ) {
-
           return;
-
         }
 
 
@@ -456,32 +364,24 @@ document
   });
 
 
+experienceClose?.addEventListener(
+  "click",
+  () => {
 
-/* =========================================================
-   FECHAR MODAL DAS EXPERIÊNCIAS
-========================================================= */
+    experienceModal?.close();
 
-experienceClose
-  ?.addEventListener(
-    "click",
-    () => {
-
-      experienceModal?.close();
-
-    }
-  );
+  }
+);
 
 
-experienceContinue
-  ?.addEventListener(
-    "click",
-    () => {
+experienceContinue?.addEventListener(
+  "click",
+  () => {
 
-      experienceModal?.close();
+    experienceModal?.close();
 
-    }
-  );
-
+  }
+);
 
 
 /* =========================================================
@@ -489,70 +389,65 @@ experienceContinue
 ========================================================= */
 
 const formSection =
-  document.getElementById(
-    "forms"
-  );
-
+  document.getElementById("forms");
 
 const visitorForm =
-  document.getElementById(
-    "visitor-form"
-  );
-
+  document.getElementById("visitor-form");
 
 const commercialForm =
   document.getElementById(
     "commercial-form"
   );
 
-
 const formHeading =
   document.getElementById(
     "form-heading"
   );
-
 
 const formTitle =
   document.getElementById(
     "form-title"
   );
 
-
 const formDescription =
   document.getElementById(
     "form-description"
   );
-
 
 const success =
   document.getElementById(
     "form-success"
   );
 
-
 const successMascot =
   document.getElementById(
     "success-mascot"
   );
-
 
 const successKicker =
   document.getElementById(
     "success-kicker"
   );
 
-
 const successTitle =
   document.getElementById(
     "success-title"
   );
-
 
 const successDescription =
   document.getElementById(
     "success-description"
   );
 
+const alreadyRegistered =
+  document.getElementById(
+    "already-registered"
+  );
+
+const alreadyBack =
+  document.getElementById(
+    "already-back"
+  );
 
 const choiceButtons =
   document.querySelectorAll(
@@ -560,13 +455,19 @@ const choiceButtons =
   );
 
 
+/* =========================================================
+   GOOGLE APPS SCRIPT
+========================================================= */
+
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxbSTueVdVNfdViHDP-6d4dbNetiok3GNjG8w5axyjhwZ6ui2hI89c8EG1awpvVl8bQ/exec";
+
 
 /* =========================================================
    ABRIR FORMULÁRIO
 ========================================================= */
 
 function openForm(type) {
-
 
   if (!formSection) {
     return;
@@ -588,19 +489,24 @@ function openForm(type) {
   );
 
 
+  /* ESCONDER TELAS DE RESULTADO */
+
   if (success) {
-
     success.hidden = true;
+  }
 
+
+  if (alreadyRegistered) {
+    alreadyRegistered.hidden = true;
   }
 
 
   if (formHeading) {
-
     formHeading.style.display = "";
-
   }
 
+
+  /* ESCOLHER FORMULÁRIO */
 
   visitorForm?.classList.toggle(
     "active",
@@ -614,16 +520,16 @@ function openForm(type) {
   );
 
 
-  if (isCommercial) {
+  /* COMERCIAL */
 
+  if (isCommercial) {
 
     if (formTitle) {
 
-      formTitle.innerHTML =
-        `
-          INTERESSE<br>
-          <i>COMERCIAL.</i>
-        `;
+      formTitle.innerHTML = `
+        INTERESSE<br>
+        <i>COMERCIAL.</i>
+      `;
 
     }
 
@@ -635,17 +541,19 @@ function openForm(type) {
 
     }
 
+  }
 
-  } else {
 
+  /* VISITANTE */
+
+  else {
 
     if (formTitle) {
 
-      formTitle.innerHTML =
-        `
-          INSCRIÇÃO<br>
-          <i>VISITANTE.</i>
-        `;
+      formTitle.innerHTML = `
+        INSCRIÇÃO<br>
+        <i>VISITANTE.</i>
+      `;
 
     }
 
@@ -657,367 +565,1019 @@ function openForm(type) {
 
     }
 
-
   }
 
 
-  setTimeout(
-    () => {
+  setTimeout(() => {
 
-      formSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+    formSection.scrollIntoView({
 
-    },
-    70
-  );
+      behavior: "smooth",
+      block: "start"
 
+    });
+
+  }, 70);
 
 }
-
 
 
 /* =========================================================
    BOTÕES DE ESCOLHA
 ========================================================= */
 
-choiceButtons.forEach(
-  (button) => {
+choiceButtons.forEach((button) => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      openForm(
+        button.dataset.form
+      );
+
+    }
+  );
 
 
-    button.addEventListener(
-      "click",
-      () => {
+  /* EFEITO MOBILE */
 
-        openForm(
-          button.dataset.form
-        );
+  button.addEventListener(
+    "touchstart",
+    () => {
 
-      }
-    );
+      button.classList.add(
+        "touch-hover"
+      );
+
+    },
+    {
+      passive: true
+    }
+  );
 
 
-    button.addEventListener(
-      "touchstart",
-      () => {
+  button.addEventListener(
+    "touchend",
+    () => {
 
-        button.classList.add(
+      setTimeout(() => {
+
+        button.classList.remove(
           "touch-hover"
         );
 
-      },
-      {
-        passive: true
-      }
-    );
+      }, 200);
 
+    },
+    {
+      passive: true
+    }
+  );
 
-    button.addEventListener(
-      "touchend",
-      () => {
-
-        setTimeout(
-          () => {
-
-            button.classList.remove(
-              "touch-hover"
-            );
-
-          },
-          200
-        );
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-  }
-);
-
+});
 
 
 /* =========================================================
-   06. ENVIO REAL DOS FORMULÁRIOS — GOOGLE SHEETS
+   COMUNICAÇÃO COM GOOGLE — JSONP
 ========================================================= */
 
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxbSTueVdVNfdViHDP-6d4dbNetiok3GNjG8w5axyjhwZ6ui2hI89c8EG1awpvVl8bQ/exec";
+function chamarGoogle(parametros) {
+
+  return new Promise((resolve, reject) => {
+
+    /* =====================================================
+       CONFIGURAÇÕES
+    ===================================================== */
+
+    const callbackName =
+      "__inspira_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random() * 1000000);
 
 
-[
-  visitorForm,
-  commercialForm
-]
-.forEach((form) => {
+    const script =
+      document.createElement("script");
 
 
-  if (!form) {
+    /*
+       O Apps Script pode demorar mais em alguns momentos,
+       principalmente quando precisa "acordar".
+
+       Por isso NÃO destruímos o callback aos 15 segundos.
+    */
+
+    const TEMPO_AVISO = 20000;
+    const TEMPO_LIMITE = 60000;
+
+
+    let finalizado = false;
+    let timeoutAviso = null;
+    let timeoutFinal = null;
+
+
+    /* =====================================================
+       LIMPEZA
+    ===================================================== */
+
+    function limparScript() {
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+
+    }
+
+
+    function limparCallbackDepois() {
+
+      /*
+         Não apagamos imediatamente o callback.
+
+         Isso evita:
+         ReferenceError: __inspira_xxx is not defined
+
+         caso uma resposta atrasada do Google ainda chegue.
+      */
+
+      setTimeout(() => {
+
+        try {
+
+          delete window[callbackName];
+
+        } catch (erro) {
+
+          window[callbackName] = function () {};
+
+        }
+
+      }, 120000);
+
+    }
+
+
+    /* =====================================================
+       CALLBACK RECEBIDO DO GOOGLE
+    ===================================================== */
+
+    window[callbackName] =
+      function (resposta) {
+
+        /*
+           Mesmo que o Google tenha demorado,
+           enquanto a requisição ainda estiver válida
+           nós aceitamos a resposta.
+        */
+
+        if (finalizado) {
+          return;
+        }
+
+
+        finalizado = true;
+
+
+        clearTimeout(timeoutAviso);
+        clearTimeout(timeoutFinal);
+
+
+        limparScript();
+
+
+        /*
+           Mantém temporariamente uma função vazia
+           no lugar do callback.
+
+           Assim, mesmo se o navegador tentar executar
+           novamente uma resposta atrasada, não gera
+           ReferenceError.
+        */
+
+        window[callbackName] =
+          function () {};
+
+
+        limparCallbackDepois();
+
+
+        resolve(resposta);
+
+      };
+
+
+    /* =====================================================
+       ERRO REAL DE CARREGAMENTO
+    ===================================================== */
+
+    script.onerror =
+      function () {
+
+        if (finalizado) {
+          return;
+        }
+
+
+        finalizado = true;
+
+
+        clearTimeout(timeoutAviso);
+        clearTimeout(timeoutFinal);
+
+
+        limparScript();
+
+
+        /*
+           Também não destruímos o callback imediatamente.
+        */
+
+        window[callbackName] =
+          function () {};
+
+
+        limparCallbackDepois();
+
+
+        reject(
+          new Error(
+            "Não foi possível conectar ao servidor."
+          )
+        );
+
+      };
+
+
+    /* =====================================================
+       AVISO DE DEMORA
+    ===================================================== */
+
+    timeoutAviso =
+      setTimeout(() => {
+
+        if (finalizado) {
+          return;
+        }
+
+
+        console.warn(
+          "O servidor está demorando para responder. Aguardando..."
+        );
+
+      }, TEMPO_AVISO);
+
+
+    /* =====================================================
+       LIMITE DE SEGURANÇA
+    ===================================================== */
+
+    timeoutFinal =
+      setTimeout(() => {
+
+        if (finalizado) {
+          return;
+        }
+
+
+        finalizado = true;
+
+
+        limparScript();
+
+
+        /*
+           MUITO IMPORTANTE:
+
+           Mesmo depois do limite, mantemos uma função
+           disponível para impedir o ReferenceError
+           observado anteriormente.
+        */
+
+        window[callbackName] =
+          function () {};
+
+
+        limparCallbackDepois();
+
+
+        reject(
+          new Error(
+            "O servidor demorou mais de 60 segundos para responder."
+          )
+        );
+
+      }, TEMPO_LIMITE);
+
+
+    /* =====================================================
+       MONTAR PARÂMETROS
+    ===================================================== */
+
+    const query =
+      new URLSearchParams({
+        ...parametros,
+
+        callback:
+          callbackName,
+
+        /*
+           Evita cache do navegador/proxy.
+        */
+
+        _:
+          Date.now().toString()
+      });
+
+
+    /* =====================================================
+       CRIAR URL
+    ===================================================== */
+
+    script.src =
+      GOOGLE_SCRIPT_URL +
+      "?" +
+      query.toString();
+
+
+    script.async = true;
+
+
+    /* =====================================================
+       ENVIAR PARA O GOOGLE
+    ===================================================== */
+
+    document.head.appendChild(
+      script
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   BOTÃO — ESTADO ENVIANDO
+========================================================= */
+
+function ativarBotaoEnviando(button) {
+
+  if (!button) {
+    return "";
+  }
+
+
+  const original =
+    button.innerHTML;
+
+
+  button.disabled = true;
+
+
+  button.setAttribute(
+    "aria-busy",
+    "true"
+  );
+
+
+  button.innerHTML = `
+    ENVIANDO...
+    <span>↗</span>
+  `;
+
+
+  return original;
+
+}
+
+
+/* =========================================================
+   RESTAURAR BOTÃO
+========================================================= */
+
+function restaurarBotao(
+  button,
+  original
+) {
+
+  if (!button) {
     return;
   }
 
 
-  form.addEventListener(
-    "submit",
-    async (event) => {
+  button.disabled = false;
 
 
-      event.preventDefault();
+  button.removeAttribute(
+    "aria-busy"
+  );
 
 
-      if (!form.checkValidity()) {
+  button.innerHTML =
+    original;
 
-        form.reportValidity();
+}
+
+
+/* =========================================================
+   MOSTRAR — JÁ INSCRITO
+========================================================= */
+
+function mostrarJaInscrito() {
+
+  visitorForm
+    ?.classList
+    .remove("active");
+
+
+  commercialForm
+    ?.classList
+    .remove("active");
+
+
+  if (formHeading) {
+
+    formHeading.style.display =
+      "none";
+
+  }
+
+
+  if (success) {
+
+    success.hidden = true;
+
+  }
+
+
+  if (alreadyRegistered) {
+
+    alreadyRegistered.hidden =
+      false;
+
+  }
+
+
+  setTimeout(() => {
+
+    alreadyRegistered
+      ?.scrollIntoView({
+
+        behavior: "smooth",
+        block: "center"
+
+      });
+
+  }, 100);
+
+}
+
+
+/* =========================================================
+   MOSTRAR — SUCESSO
+========================================================= */
+
+function mostrarSucesso(tipo) {
+
+  visitorForm
+    ?.classList
+    .remove("active");
+
+
+  commercialForm
+    ?.classList
+    .remove("active");
+
+
+  if (formHeading) {
+
+    formHeading.style.display =
+      "none";
+
+  }
+
+
+  if (alreadyRegistered) {
+
+    alreadyRegistered.hidden =
+      true;
+
+  }
+
+
+  if (success) {
+
+    success.hidden =
+      false;
+
+  }
+
+
+  /* =====================================================
+     COMERCIAL
+  ===================================================== */
+
+  if (tipo === "comercial") {
+
+
+    if (successMascot) {
+
+      successMascot.src =
+        "ativos/brand/mascote-explosao.png";
+
+    }
+
+
+    if (successKicker) {
+
+      successKicker.textContent =
+        "interesse recebido!";
+
+    }
+
+
+    if (successTitle) {
+
+      successTitle.innerHTML = `
+        Vamos conversar<br>
+        sobre sua marca.
+      `;
+
+    }
+
+
+    if (successDescription) {
+
+      successDescription.textContent =
+        "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
+
+    }
+
+  }
+
+
+  /* =====================================================
+     VISITANTE
+  ===================================================== */
+
+  else {
+
+
+    if (successMascot) {
+
+      successMascot.src =
+        "ativos/brand/mascote-estrela.png";
+
+    }
+
+
+    if (successKicker) {
+
+      successKicker.textContent =
+        "inscrição confirmada!";
+
+    }
+
+
+    if (successTitle) {
+
+      successTitle.innerHTML = `
+        Você está<br>
+        no Inspira FAM.
+      `;
+
+    }
+
+
+    if (successDescription) {
+
+      successDescription.textContent =
+        "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
+
+    }
+
+  }
+
+
+  setTimeout(() => {
+
+    success
+      ?.scrollIntoView({
+
+        behavior: "smooth",
+        block: "center"
+
+      });
+
+  }, 120);
+
+}
+
+
+/* =========================================================
+   06. ENVIO — VISITANTE
+========================================================= */
+
+visitorForm?.addEventListener(
+  "submit",
+  async (event) => {
+
+    event.preventDefault();
+
+
+    /* VALIDAÇÃO */
+
+    if (
+      !visitorForm.checkValidity()
+    ) {
+
+      visitorForm.reportValidity();
+
+      return;
+
+    }
+
+
+    const submitButton =
+      visitorForm.querySelector(
+        'button[type="submit"]'
+      );
+
+
+    const originalButtonHTML =
+      ativarBotaoEnviando(
+        submitButton
+      );
+
+
+    try {
+
+      const formData =
+        new FormData(
+          visitorForm
+        );
+
+
+      const email =
+        String(
+          formData.get("email") || ""
+        )
+          .trim()
+          .toLowerCase();
+
+
+      /* =====================================================
+         O GOOGLE VERIFICA E CADASTRA EM UMA ÚNICA CHAMADA
+      ===================================================== */
+
+      const resposta =
+        await chamarGoogle({
+
+          action:
+            "cadastrarVisitante",
+
+          nome:
+            formData.get("nome") ||
+            "",
+
+          email:
+            email,
+
+          telefone:
+            formData.get("telefone") ||
+            "",
+
+          cidade:
+            formData.get("cidade") ||
+            "",
+
+          quantidade:
+            formData.get("quantidade") ||
+            "1",
+
+          observacoes:
+            formData.get("observacoes") ||
+            ""
+
+        });
+
+
+      console.log(
+        "RESPOSTA VISITANTE:",
+        resposta
+      );
+
+
+      if (!resposta) {
+
+        throw new Error(
+          "Resposta vazia do servidor."
+        );
+
+      }
+
+
+      /* =====================================================
+         EMAIL JÁ CADASTRADO
+      ===================================================== */
+
+      if (
+        resposta.status ===
+        "EMAIL_DUPLICADO"
+      ) {
+
+        mostrarJaInscrito();
 
         return;
 
       }
 
 
-      const isCommercial =
-        form.id ===
-        "commercial-form";
+      /* =====================================================
+         INSCRIÇÃO REALIZADA
+      ===================================================== */
 
+      if (
+        resposta.sucesso === true &&
+        resposta.status ===
+        "VISITANTE_OK"
+      ) {
 
-      const submitButton =
-        form.querySelector(
-          'button[type="submit"]'
+        visitorForm.reset();
+
+        mostrarSucesso(
+          "visitante"
         );
 
-
-      const originalButtonHTML =
-        submitButton
-          ? submitButton.innerHTML
-          : "";
-
-
-      if (submitButton) {
-
-        submitButton.disabled = true;
-
-        submitButton.setAttribute(
-          "aria-busy",
-          "true"
-        );
-
-        submitButton.innerHTML =
-          `
-            ENVIANDO...
-            <span>↗</span>
-          `;
+        return;
 
       }
 
 
-      const dados =
-        new FormData(form);
-
-
-      dados.append(
-        "tipoFormulario",
-        isCommercial
-          ? "comercial"
-          : "visitante"
+      throw new Error(
+        resposta.mensagem ||
+        "Não foi possível realizar a inscrição."
       );
-
-
-      dados.append(
-        "enviadoEm",
-        new Date().toISOString()
-      );
-
-
-      try {
-
-
-        await fetch(
-          GOOGLE_SCRIPT_URL,
-          {
-            method: "POST",
-            body: dados,
-            mode: "no-cors"
-          }
-        );
-
-
-        visitorForm?.classList.remove(
-          "active"
-        );
-
-
-        commercialForm?.classList.remove(
-          "active"
-        );
-
-
-        if (formHeading) {
-
-          formHeading.style.display =
-            "none";
-
-        }
-
-
-        if (success) {
-
-          success.hidden =
-            false;
-
-        }
-
-
-        if (isCommercial) {
-
-
-          if (successMascot) {
-
-            successMascot.src =
-              "ativo/brand/mascote-explosao.png";
-
-          }
-
-
-          if (successKicker) {
-
-            successKicker.textContent =
-              "interesse recebido!";
-
-          }
-
-
-          if (successTitle) {
-
-            successTitle.innerHTML =
-              `
-                Vamos conversar<br>
-                sobre sua marca.
-              `;
-
-          }
-
-
-          if (successDescription) {
-
-            successDescription.textContent =
-              "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
-
-          }
-
-
-        }
-
-
-        else {
-
-
-          if (successMascot) {
-
-            successMascot.src =
-              "ativo/brand/mascote-estrela.png";
-
-          }
-
-
-          if (successKicker) {
-
-            successKicker.textContent =
-              "inscrição confirmada!";
-
-          }
-
-
-          if (successTitle) {
-
-            successTitle.innerHTML =
-              `
-                Você está<br>
-                no Inspira FAM.
-              `;
-
-          }
-
-
-          if (successDescription) {
-
-            successDescription.textContent =
-              "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
-
-          }
-
-
-        }
-
-
-        form.reset();
-
-
-        setTimeout(
-          () => {
-
-            success?.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-
-          },
-          120
-        );
-
-
-      }
-
-
-      catch (error) {
-
-
-        console.error(
-          "Erro ao enviar inscrição:",
-          error
-        );
-
-
-        alert(
-          "Não foi possível enviar sua inscrição. Verifique sua conexão e tente novamente."
-        );
-
-
-      }
-
-
-      finally {
-
-
-        if (submitButton) {
-
-          submitButton.disabled =
-            false;
-
-          submitButton.removeAttribute(
-            "aria-busy"
-          );
-
-          submitButton.innerHTML =
-            originalButtonHTML;
-
-        }
-
-
-      }
-
 
     }
-  );
 
 
-});
+    catch (error) {
 
+      console.error(
+        "ERRO NA INSCRIÇÃO:",
+        error
+      );
+
+
+      alert(
+        "Não foi possível realizar sua inscrição. Verifique sua conexão e tente novamente."
+      );
+
+    }
+
+
+    finally {
+
+      restaurarBotao(
+        submitButton,
+        originalButtonHTML
+      );
+
+    }
+
+  }
+);
 
 
 /* =========================================================
-   07. MAPA INTERATIVO
+   07. ENVIO — COMERCIAL
+========================================================= */
+
+commercialForm?.addEventListener(
+  "submit",
+  async (event) => {
+
+    event.preventDefault();
+
+
+    if (
+      !commercialForm.checkValidity()
+    ) {
+
+      commercialForm.reportValidity();
+
+      return;
+
+    }
+
+
+    const submitButton =
+      commercialForm.querySelector(
+        'button[type="submit"]'
+      );
+
+
+    const originalButtonHTML =
+      ativarBotaoEnviando(
+        submitButton
+      );
+
+
+    try {
+
+      const formData =
+        new FormData(
+          commercialForm
+        );
+
+
+      const resposta =
+        await chamarGoogle({
+
+          action:
+            "cadastrarComercial",
+
+          empresa:
+            formData.get("empresa") ||
+            "",
+
+          responsavel:
+            formData.get("responsavel") ||
+            "",
+
+          email:
+            formData.get("email") ||
+            "",
+
+          telefone:
+            formData.get("telefone") ||
+            "",
+
+          segmento:
+            formData.get("segmento") ||
+            "",
+
+          tipo:
+            formData.get("tipo") ||
+            "",
+
+          patrocinio:
+            formData.get("patrocinio") ||
+            "",
+
+          espaco:
+            formData.get("espaco") ||
+            "",
+
+          mensagem:
+            formData.get("mensagem") ||
+            ""
+
+        });
+
+
+      console.log(
+        "RESPOSTA COMERCIAL:",
+        resposta
+      );
+
+
+      if (
+        resposta?.sucesso === true &&
+        resposta?.status ===
+        "COMERCIAL_OK"
+      ) {
+
+        commercialForm.reset();
+
+        mostrarSucesso(
+          "comercial"
+        );
+
+        return;
+
+      }
+
+
+      throw new Error(
+        resposta?.mensagem ||
+        "Não foi possível enviar o interesse comercial."
+      );
+
+    }
+
+
+    catch (error) {
+
+      console.error(
+        "ERRO COMERCIAL:",
+        error
+      );
+
+
+      alert(
+        "Não foi possível enviar seu interesse. Verifique sua conexão e tente novamente."
+      );
+
+    }
+
+
+    finally {
+
+      restaurarBotao(
+        submitButton,
+        originalButtonHTML
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   08. VOLTAR DO "JÁ INSCRITO"
+========================================================= */
+
+alreadyBack?.addEventListener(
+  "click",
+  () => {
+
+
+    if (alreadyRegistered) {
+
+      alreadyRegistered.hidden =
+        true;
+
+    }
+
+
+    if (success) {
+
+      success.hidden =
+        true;
+
+    }
+
+
+    if (formHeading) {
+
+      formHeading.style.display =
+        "";
+
+    }
+
+
+    visitorForm
+      ?.classList
+      .add("active");
+
+
+    commercialForm
+      ?.classList
+      .remove("active");
+
+
+    const emailInput =
+      visitorForm
+        ?.querySelector(
+          '[name="email"]'
+        );
+
+
+    if (emailInput) {
+
+      emailInput.value = "";
+
+      emailInput.setCustomValidity(
+        ""
+      );
+
+    }
+
+
+    setTimeout(() => {
+
+      visitorForm
+        ?.scrollIntoView({
+
+          behavior: "smooth",
+          block: "start"
+
+        });
+
+
+      emailInput?.focus();
+
+    }, 100);
+
+  }
+);
+
+
+/* =========================================================
+   09. MAPA INTERATIVO
 ========================================================= */
 
 const mapZones =
@@ -1062,25 +1622,21 @@ const mapModalAction =
   );
 
 
-
 /* =========================================================
-   LIMPAR ÁREAS
+   LIMPAR ÁREAS DO MAPA
 ========================================================= */
 
 function clearMapZones() {
 
-  mapZones.forEach(
-    (zone) => {
+  mapZones.forEach((zone) => {
 
-      zone.classList.remove(
-        "map-zone-active"
-      );
+    zone.classList.remove(
+      "map-zone-active"
+    );
 
-    }
-  );
+  });
 
 }
-
 
 
 /* =========================================================
@@ -1088,7 +1644,6 @@ function clearMapZones() {
 ========================================================= */
 
 function activateMapZone(zone) {
-
 
   clearMapZones();
 
@@ -1102,9 +1657,7 @@ function activateMapZone(zone) {
     "map-zone-active"
   );
 
-
 }
-
 
 
 /* =========================================================
@@ -1112,7 +1665,6 @@ function activateMapZone(zone) {
 ========================================================= */
 
 function openMapModal(zone) {
-
 
   if (
     !zone ||
@@ -1130,7 +1682,8 @@ function openMapModal(zone) {
   if (mapModalNumber) {
 
     mapModalNumber.textContent =
-      zone.dataset.mapNumber || "";
+      zone.dataset.mapNumber ||
+      "";
 
   }
 
@@ -1138,7 +1691,8 @@ function openMapModal(zone) {
   if (mapModalTitle) {
 
     mapModalTitle.textContent =
-      zone.dataset.mapTitle || "";
+      zone.dataset.mapTitle ||
+      "";
 
   }
 
@@ -1146,13 +1700,15 @@ function openMapModal(zone) {
   if (mapModalText) {
 
     mapModalText.textContent =
-      zone.dataset.mapText || "";
+      zone.dataset.mapText ||
+      "";
 
   }
 
 
   mapModal.dataset.tone =
-    zone.dataset.mapTone || "";
+    zone.dataset.mapTone ||
+    "";
 
 
   if (
@@ -1164,9 +1720,7 @@ function openMapModal(zone) {
 
   }
 
-
 }
-
 
 
 /* =========================================================
@@ -1187,6 +1741,8 @@ mapZones.forEach(
       "map-zone-ready"
     );
 
+
+    /* DESKTOP */
 
     zone.addEventListener(
       "mouseenter",
@@ -1210,6 +1766,8 @@ mapZones.forEach(
     );
 
 
+    /* MOBILE */
+
     zone.addEventListener(
       "touchstart",
       () => {
@@ -1223,6 +1781,8 @@ mapZones.forEach(
     );
 
 
+    /* MODAL */
+
     zone.addEventListener(
       "click",
       () => {
@@ -1232,20 +1792,17 @@ mapZones.forEach(
       }
     );
 
-
   }
 );
 
 
-
 /* =========================================================
-   08. DESLIZAR NO MAPA — MOBILE
+   MAPA — MOVIMENTO MOBILE
 ========================================================= */
 
 document.addEventListener(
   "touchmove",
   (event) => {
-
 
     if (!mapZones.length) {
       return;
@@ -1280,7 +1837,6 @@ document.addEventListener(
 
     }
 
-
   },
   {
     passive: true
@@ -1288,11 +1844,9 @@ document.addEventListener(
 );
 
 
-
 document.addEventListener(
   "touchend",
   () => {
-
 
     if (!mapZones.length) {
       return;
@@ -1304,7 +1858,6 @@ document.addEventListener(
       200
     );
 
-
   },
   {
     passive: true
@@ -1312,9 +1865,8 @@ document.addEventListener(
 );
 
 
-
 /* =========================================================
-   09. LEGENDA DO MAPA
+   10. LEGENDA DO MAPA
 ========================================================= */
 
 document
@@ -1323,11 +1875,9 @@ document
   )
   .forEach((button) => {
 
-
     button.addEventListener(
       "click",
       () => {
-
 
         const name =
           button.dataset.mapJump;
@@ -1353,9 +1903,11 @@ document
 
 
         zone.scrollIntoView({
+
           behavior: "smooth",
           block: "center",
           inline: "center"
+
         });
 
 
@@ -1370,48 +1922,43 @@ document
           1200
         );
 
-
       }
     );
-
 
   });
 
 
-
 /* =========================================================
-   10. FECHAR MODAL DO MAPA
+   FECHAR MODAL DO MAPA
 ========================================================= */
 
-mapModalClose
-  ?.addEventListener(
-    "click",
-    () => {
+mapModalClose?.addEventListener(
+  "click",
+  () => {
 
-      mapModal?.close();
+    mapModal?.close();
 
-    }
-  );
+  }
+);
 
 
-mapModalAction
-  ?.addEventListener(
-    "click",
-    () => {
+mapModalAction?.addEventListener(
+  "click",
+  () => {
 
-      mapModal?.close();
+    mapModal?.close();
 
-    }
-  );
-
+  }
+);
 
 
 /* =========================================================
-   11. FECHAR MODAIS CLICANDO FORA
+   11. MODAIS — CLICAR FORA
 ========================================================= */
 
-function closeDialogOnBackdrop(dialog) {
-
+function closeDialogOnBackdrop(
+  dialog
+) {
 
   if (!dialog) {
     return;
@@ -1422,7 +1969,6 @@ function closeDialogOnBackdrop(dialog) {
     "click",
     (event) => {
 
-
       if (
         event.target === dialog
       ) {
@@ -1431,10 +1977,8 @@ function closeDialogOnBackdrop(dialog) {
 
       }
 
-
     }
   );
-
 
 }
 
@@ -1449,19 +1993,16 @@ closeDialogOnBackdrop(
 );
 
 
-
 /* =========================================================
-   FECHAR MODAIS COM ESC
+   MODAIS — ESC
 ========================================================= */
 
 document.addEventListener(
   "keydown",
   (event) => {
 
-
     if (
-      event.key !==
-      "Escape"
+      event.key !== "Escape"
     ) {
 
       return;
@@ -1486,10 +2027,8 @@ document.addEventListener(
 
     }
 
-
   }
 );
-
 
 
 /* =========================================================
@@ -1508,12 +2047,14 @@ const schedulePanels =
   );
 
 
-function changeSchedule(day) {
+/* =========================================================
+   TROCAR DIA
+========================================================= */
 
+function changeSchedule(day) {
 
   scheduleTabs.forEach(
     (tab) => {
-
 
       const active =
         tab.dataset.schedule ===
@@ -1533,14 +2074,12 @@ function changeSchedule(day) {
           : "false"
       );
 
-
     }
   );
 
 
   schedulePanels.forEach(
     (panel) => {
-
 
       const active =
         panel.dataset.schedulePanel ===
@@ -1556,18 +2095,18 @@ function changeSchedule(day) {
       panel.hidden =
         !active;
 
-
     }
   );
-
 
 }
 
 
+/* =========================================================
+   BOTÕES DA PROGRAMAÇÃO
+========================================================= */
 
 scheduleTabs.forEach(
   (tab) => {
-
 
     tab.addEventListener(
       "click",
@@ -1580,21 +2119,18 @@ scheduleTabs.forEach(
       }
     );
 
-
   }
 );
 
 
-
 /* =========================================================
-   CORRIGE O ESTADO INICIAL DA PROGRAMAÇÃO
+   ESTADO INICIAL DA PROGRAMAÇÃO
 ========================================================= */
 
 if (
   scheduleTabs.length &&
   schedulePanels.length
 ) {
-
 
   const initialTab =
     document.querySelector(
@@ -1611,30 +2147,20 @@ if (
 
   }
 
-
 }
 
 
-
 /* =========================================================
-   FAQ
+   13. FAQ
+
+   A página FAQ usa:
+   <details>
+   <summary>
+
+   Portanto não precisa de JavaScript específico.
 ========================================================= */
 
-/*
-   A página FAQ utiliza <details> e <summary>.
-
-   O navegador já controla:
-   - abrir e fechar;
-   - teclado;
-   - acessibilidade;
-   - funcionamento no celular.
-
-   Por isso não é necessário JavaScript
-   específico para o FAQ.
-*/
-
-
 
 /* =========================================================
-   FIM — INSPIRA FAM EXPERIENCE
+   FIM — INSPIRA FAM EXPERIENCE 2026
 ========================================================= */
