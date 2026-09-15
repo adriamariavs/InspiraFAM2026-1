@@ -1,5 +1,6 @@
 /* =========================================================
    SCRIPT.JS — INSPIRA FAM EXPERIENCE 2026
+   CÓDIGO COMPLETO
 ========================================================= */
 
 
@@ -8,52 +9,27 @@
 ========================================================= */
 
 const revealElements =
-  document.querySelectorAll(
-    ".reveal"
-  );
+  document.querySelectorAll(".reveal");
 
-
-if (
-  "IntersectionObserver"
-  in window
-) {
+if ("IntersectionObserver" in window) {
 
   const revealObserver =
     new IntersectionObserver(
       (entries) => {
 
-        entries.forEach(
-          (entry) => {
+        entries.forEach((entry) => {
 
-            if (
-              !entry.isIntersecting
-            ) {
-
-              return;
-
-            }
-
-<<<<<<< HEAD
-=======
-          entry.target.classList.add(
-            "visible"
-          );
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
-            entry.target
-              .classList
-              .add(
-                "visible"
-              );
-
-
-            revealObserver
-              .unobserve(
-                entry.target
-              );
-
+          if (!entry.isIntersecting) {
+            return;
           }
-        );
+
+          entry.target.classList.add("visible");
+
+          revealObserver.unobserve(
+            entry.target
+          );
+
+        });
 
       },
       {
@@ -62,61 +38,24 @@ if (
     );
 
 
-  revealElements
-    .forEach(
-      (element, index) => {
-
-        element.style
-          .transitionDelay =
-          `${Math.min(
-            index % 5,
-            4
-          ) * 70}ms`;
-
-<<<<<<< HEAD
-=======
-      revealObserver.observe(
-        element
-      );
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
-        revealObserver
-          .observe(
-            element
-          );
-
-<<<<<<< HEAD
-      }
-    );
-=======
-} else {
-
   revealElements.forEach(
-    (element) => {
+    (element, index) => {
 
-      element.classList.add(
-        "visible"
-      );
+      element.style.transitionDelay =
+        `${Math.min(index % 5, 4) * 70}ms`;
+
+      revealObserver.observe(element);
 
     }
   );
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
-}
+} else {
 
-else {
+  revealElements.forEach((element) => {
 
-  revealElements
-    .forEach(
-      (element) => {
+    element.classList.add("visible");
 
-        element.classList
-          .add(
-            "visible"
-          );
-
-      }
-    );
+  });
 
 }
 
@@ -129,33 +68,24 @@ document
   .querySelectorAll(
     'a[href="#top"], .back-to-top'
   )
-  .forEach(
-    (link) => {
+  .forEach((link) => {
 
-      link.addEventListener(
-        "click",
-        (event) => {
+    link.addEventListener(
+      "click",
+      (event) => {
 
-          event
-            .preventDefault();
+        event.preventDefault();
 
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth"
+        });
 
-          window.scrollTo({
+      }
+    );
 
-            top: 0,
-
-            left: 0,
-
-            behavior:
-              "smooth"
-
-          });
-
-        }
-      );
-
-    }
-  );
+  });
 
 
 /* =========================================================
@@ -163,10 +93,7 @@ document
 ========================================================= */
 
 const stageMascot =
-  document.querySelector(
-    ".stage-mascot"
-  );
-
+  document.querySelector(".stage-mascot");
 
 const experienceItems =
   document.querySelectorAll(
@@ -174,255 +101,101 @@ const experienceItems =
   );
 
 
-<<<<<<< HEAD
-experienceItems
-  .forEach(
-    (item) => {
+experienceItems.forEach((item) => {
 
+  /* DESKTOP */
 
-      /* DESKTOP */
+  item.addEventListener(
+    "mouseenter",
+    () => {
 
-      item.addEventListener(
-        "mouseenter",
-        () => {
+      if (!stageMascot) {
+        return;
+      }
 
+      let rotation = 5;
 
-          if (!stageMascot) {
+      switch (item.dataset.tone) {
 
-            return;
+        case "purple":
+          rotation = -12;
+          break;
 
-          }
+        case "yellow":
+          rotation = 8;
+          break;
 
+        case "pink":
+          rotation = -6;
+          break;
 
-          let rotation = 5;
+        case "orange":
+          rotation = 10;
+          break;
 
+        default:
+          rotation = 5;
+      }
 
-          switch (
-            item.dataset.tone
-          ) {
-
-            case "purple":
-
-              rotation = -12;
-
-              break;
-
-
-            case "yellow":
-
-              rotation = 8;
-
-              break;
-
-
-            case "pink":
-
-              rotation = -6;
-
-              break;
-
-
-            case "orange":
-
-              rotation = 10;
-
-              break;
-
-
-            default:
-
-              rotation = 5;
-
-          }
-
-
-          stageMascot
-            .style
-            .transform =
-            `scale(1.18) rotate(${rotation}deg)`;
-
-        }
-      );
-
-
-      item.addEventListener(
-        "mouseleave",
-        () => {
-
-
-          if (!stageMascot) {
-
-            return;
-
-          }
-
-
-          stageMascot
-            .style
-            .transform =
-            "";
-
-        }
-      );
-
-
-      /* MOBILE */
-
-      item.addEventListener(
-        "touchstart",
-        () => {
-
-          item.classList
-            .add(
-              "touch-active"
-            );
-
-        },
-        {
-          passive: true
-        }
-      );
-
-
-      item.addEventListener(
-        "touchend",
-        () => {
-
-          setTimeout(
-            () => {
-
-              item.classList
-                .remove(
-                  "touch-active"
-                );
-
-            },
-            180
-          );
-
-        },
-        {
-          passive: true
-        }
-      );
-
+      stageMascot.style.transform =
+        `scale(1.18) rotate(${rotation}deg)`;
 
     }
   );
 
 
-=======
-experienceItems.forEach(
-  (item) => {
+  item.addEventListener(
+    "mouseleave",
+    () => {
 
-
-    /* DESKTOP */
-
-    item.addEventListener(
-      "mouseenter",
-      () => {
-
-        if (!stageMascot) {
-          return;
-        }
-
-
-        let rotation = 5;
-
-
-        switch (
-          item.dataset.tone
-        ) {
-
-          case "purple":
-            rotation = -12;
-            break;
-
-          case "yellow":
-            rotation = 8;
-            break;
-
-          case "pink":
-            rotation = -6;
-            break;
-
-          case "orange":
-            rotation = 10;
-            break;
-
-          default:
-            rotation = 5;
-
-        }
-
-
-        stageMascot.style.transform =
-          `scale(1.18) rotate(${rotation}deg)`;
-
+      if (!stageMascot) {
+        return;
       }
-    );
+
+      stageMascot.style.transform = "";
+
+    }
+  );
 
 
-    item.addEventListener(
-      "mouseleave",
-      () => {
+  /* MOBILE */
 
-        if (!stageMascot) {
-          return;
-        }
+  item.addEventListener(
+    "touchstart",
+    () => {
 
-        stageMascot.style.transform =
-          "";
+      item.classList.add(
+        "touch-active"
+      );
 
-      }
-    );
+    },
+    {
+      passive: true
+    }
+  );
 
 
-    /* MOBILE */
+  item.addEventListener(
+    "touchend",
+    () => {
 
-    item.addEventListener(
-      "touchstart",
-      () => {
+      setTimeout(() => {
 
-        item.classList.add(
+        item.classList.remove(
           "touch-active"
         );
 
-      },
-      {
-        passive: true
-      }
-    );
+      }, 180);
+
+    },
+    {
+      passive: true
+    }
+  );
+
+});
 
 
-    item.addEventListener(
-      "touchend",
-      () => {
-
-        setTimeout(
-          () => {
-
-            item.classList.remove(
-              "touch-active"
-            );
-
-          },
-          180
-        );
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-  }
-);
-
-
-
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 /* =========================================================
    04. MODAL DAS EXPERIÊNCIAS
 ========================================================= */
@@ -432,30 +205,25 @@ const experienceModal =
     "experience-modal"
   );
 
-
 const experienceNumber =
   document.getElementById(
     "experience-modal-number"
   );
-
 
 const experienceTitle =
   document.getElementById(
     "experience-modal-title"
   );
 
-
 const experienceText =
   document.getElementById(
     "experience-modal-text"
   );
 
-
 const experienceClose =
   document.querySelector(
     ".experience-modal-close"
   );
-
 
 const experienceContinue =
   document.getElementById(
@@ -466,239 +234,154 @@ const experienceContinue =
 const experienceContent = {
 
   interativas: {
-
     number: "01",
-
-    title:
-      "Experiências interativas",
-
+    title: "Experiências interativas",
     text:
       "Ativações, dinâmicas e ações para participar de verdade. Aqui, você não fica só olhando: experimenta, testa, interage e descobre."
-
   },
-
 
   exposicoes: {
-
     number: "02",
-
-    title:
-      "Exposições",
-
+    title: "Exposições",
     text:
       "Projetos, trabalhos e ideias ganham espaço para serem vistos de perto. Um convite para conhecer novas criações e diferentes olhares."
-
   },
-
 
   gastronomia: {
-
     number: "03",
-
-    title:
-      "Foodtrucks & gastronomia",
-
+    title: "Foodtrucks & gastronomia",
     text:
       "Sabores também fazem parte da experiência. Aproveite as opções gastronômicas e os momentos de pausa ao longo do evento."
-
   },
-
 
   networking: {
-
     number: "04",
-
-    title:
-      "Networking",
-
+    title: "Networking",
     text:
       "Um espaço para encontrar pessoas, trocar ideias e aproximar estudantes, visitantes, profissionais, marcas e oportunidades."
-
   },
-
 
   musica: {
-
     number: "05",
-
-    title:
-      "Música & apresentações",
-
+    title: "Música & apresentações",
     text:
       "Momentos ao vivo, atrações e apresentações ajudam a criar o ritmo de cada noite do Inspira FAM."
-
   },
-
 
   marcas: {
-
     number: "06",
-
-    title:
-      "Marcas & projetos",
-
+    title: "Marcas & projetos",
     text:
       "Conheça expositores, parceiros, negócios, produtos e iniciativas que fazem parte da experiência."
-
   },
 
-
-  /* COMPATIBILIDADE */
+  /* COMPATIBILIDADE COM NOMES ANTIGOS */
 
   expositores: {
-
     number: "06",
-
-    title:
-      "Marcas & projetos",
-
+    title: "Marcas & projetos",
     text:
       "Conheça expositores, parceiros, negócios, produtos e iniciativas que fazem parte da experiência."
-
   },
 
-
   atividades: {
-
     number: "01",
-
-    title:
-      "Experiências interativas",
-
+    title: "Experiências interativas",
     text:
       "Ativações, dinâmicas e ações especiais para participar, experimentar e descobrir."
-
   }
 
 };
 
 
 /* =========================================================
-   ABRIR MODAL
+   ABRIR MODAL DAS EXPERIÊNCIAS
 ========================================================= */
 
 document
-  .querySelectorAll(
-    "[data-experience]"
-  )
-  .forEach(
-    (item) => {
+  .querySelectorAll("[data-experience]")
+  .forEach((item) => {
 
-      item.addEventListener(
-        "click",
-        () => {
+    item.addEventListener(
+      "click",
+      () => {
 
+        const key =
+          item.dataset.experience;
 
-          const key =
-            item.dataset
-              .experience;
+        const content =
+          experienceContent[key];
 
 
-<<<<<<< HEAD
-          const content =
-            experienceContent[
-              key
-            ];
-
-
-          if (
-            !content ||
-            !experienceModal
-          ) {
-
-            return;
-
-          }
-
-
-          if (
-            experienceNumber
-          ) {
-
-            experienceNumber
-              .textContent =
-              content.number;
-
-          }
-
-
-          if (
-            experienceTitle
-          ) {
-
-            experienceTitle
-              .textContent =
-              content.title;
-
-          }
-
-
-          if (
-            experienceText
-          ) {
-
-            experienceText
-              .textContent =
-              content.text;
-
-          }
-
-
-          experienceModal
-            .dataset
-            .tone =
-            item.dataset
-              .tone || "";
-
-
-          if (
-            typeof
-              experienceModal
-                .showModal ===
-            "function"
-          ) {
-
-            experienceModal
-              .showModal();
-
-          }
-
-=======
         if (
           !content ||
           !experienceModal
         ) {
           return;
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
         }
-      );
-
-    }
-  );
 
 
-experienceClose
-  ?.addEventListener(
-    "click",
-    () => {
+        if (experienceNumber) {
 
-      experienceModal
-        ?.close();
+          experienceNumber.textContent =
+            content.number;
 
-    }
-  );
+        }
 
 
-experienceContinue
-  ?.addEventListener(
-    "click",
-    () => {
+        if (experienceTitle) {
 
-      experienceModal
-        ?.close();
+          experienceTitle.textContent =
+            content.title;
 
-    }
-  );
+        }
+
+
+        if (experienceText) {
+
+          experienceText.textContent =
+            content.text;
+
+        }
+
+
+        experienceModal.dataset.tone =
+          item.dataset.tone || "";
+
+
+        if (
+          typeof experienceModal.showModal ===
+          "function"
+        ) {
+
+          experienceModal.showModal();
+
+        }
+
+      }
+    );
+
+  });
+
+
+experienceClose?.addEventListener(
+  "click",
+  () => {
+
+    experienceModal?.close();
+
+  }
+);
+
+
+experienceContinue?.addEventListener(
+  "click",
+  () => {
+
+    experienceModal?.close();
+
+  }
+);
 
 
 /* =========================================================
@@ -706,87 +389,65 @@ experienceContinue
 ========================================================= */
 
 const formSection =
-  document.getElementById(
-    "forms"
-  );
-
+  document.getElementById("forms");
 
 const visitorForm =
-  document.getElementById(
-    "visitor-form"
-  );
-
+  document.getElementById("visitor-form");
 
 const commercialForm =
   document.getElementById(
     "commercial-form"
   );
 
-
 const formHeading =
   document.getElementById(
     "form-heading"
   );
-
 
 const formTitle =
   document.getElementById(
     "form-title"
   );
 
-
 const formDescription =
   document.getElementById(
     "form-description"
   );
-
 
 const success =
   document.getElementById(
     "form-success"
   );
 
-
 const successMascot =
   document.getElementById(
     "success-mascot"
   );
-
 
 const successKicker =
   document.getElementById(
     "success-kicker"
   );
 
-
 const successTitle =
   document.getElementById(
     "success-title"
   );
-
 
 const successDescription =
   document.getElementById(
     "success-description"
   );
 
-
-<<<<<<< HEAD
-=======
-/* NOVA TELA — JÁ INSCRITO */
-
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 const alreadyRegistered =
   document.getElementById(
     "already-registered"
   );
 
-
 const alreadyBack =
   document.getElementById(
     "already-back"
   );
-
 
 const choiceButtons =
   document.querySelectorAll(
@@ -795,60 +456,606 @@ const choiceButtons =
 
 
 /* =========================================================
+   GOOGLE APPS SCRIPT
+========================================================= */
+
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxbSTueVdVNfdViHDP-6d4dbNetiok3GNjG8w5axyjhwZ6ui2hI89c8EG1awpvVl8bQ/exec";
+
+
+/* =========================================================
    ABRIR FORMULÁRIO
 ========================================================= */
 
 function openForm(type) {
 
-
   if (!formSection) {
-
     return;
-
   }
 
 
   const isCommercial =
-    type ===
-    "commercial";
+    type === "commercial";
 
 
-  formSection
-    .classList
-    .remove(
-      "is-hidden"
+  formSection.classList.remove(
+    "is-hidden"
+  );
+
+
+  formSection.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+
+  /* ESCONDER TELAS DE RESULTADO */
+
+  if (success) {
+    success.hidden = true;
+  }
+
+
+  if (alreadyRegistered) {
+    alreadyRegistered.hidden = true;
+  }
+
+
+  if (formHeading) {
+    formHeading.style.display = "";
+  }
+
+
+  /* ESCOLHER FORMULÁRIO */
+
+  visitorForm?.classList.toggle(
+    "active",
+    !isCommercial
+  );
+
+
+  commercialForm?.classList.toggle(
+    "active",
+    isCommercial
+  );
+
+
+  /* COMERCIAL */
+
+  if (isCommercial) {
+
+    if (formTitle) {
+
+      formTitle.innerHTML = `
+        INTERESSE<br>
+        <i>COMERCIAL.</i>
+      `;
+
+    }
+
+
+    if (formDescription) {
+
+      formDescription.textContent =
+        "Conte um pouco sobre sua marca e como gostaria de participar.";
+
+    }
+
+  }
+
+
+  /* VISITANTE */
+
+  else {
+
+    if (formTitle) {
+
+      formTitle.innerHTML = `
+        INSCRIÇÃO<br>
+        <i>VISITANTE.</i>
+      `;
+
+    }
+
+
+    if (formDescription) {
+
+      formDescription.textContent =
+        "Preencha seus dados para participar do evento.";
+
+    }
+
+  }
+
+
+  setTimeout(() => {
+
+    formSection.scrollIntoView({
+
+      behavior: "smooth",
+      block: "start"
+
+    });
+
+  }, 70);
+
+}
+
+
+/* =========================================================
+   BOTÕES DE ESCOLHA
+========================================================= */
+
+choiceButtons.forEach((button) => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      openForm(
+        button.dataset.form
+      );
+
+    }
+  );
+
+
+  /* EFEITO MOBILE */
+
+  button.addEventListener(
+    "touchstart",
+    () => {
+
+      button.classList.add(
+        "touch-hover"
+      );
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  button.addEventListener(
+    "touchend",
+    () => {
+
+      setTimeout(() => {
+
+        button.classList.remove(
+          "touch-hover"
+        );
+
+      }, 200);
+
+    },
+    {
+      passive: true
+    }
+  );
+
+});
+
+
+/* =========================================================
+   COMUNICAÇÃO COM GOOGLE — JSONP
+========================================================= */
+
+function chamarGoogle(parametros) {
+
+  return new Promise((resolve, reject) => {
+
+    /* =====================================================
+       CONFIGURAÇÕES
+    ===================================================== */
+
+    const callbackName =
+      "__inspira_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random() * 1000000);
+
+
+    const script =
+      document.createElement("script");
+
+
+    /*
+       O Apps Script pode demorar mais em alguns momentos,
+       principalmente quando precisa "acordar".
+
+       Por isso NÃO destruímos o callback aos 15 segundos.
+    */
+
+    const TEMPO_AVISO = 20000;
+    const TEMPO_LIMITE = 60000;
+
+
+    let finalizado = false;
+    let timeoutAviso = null;
+    let timeoutFinal = null;
+
+
+    /* =====================================================
+       LIMPEZA
+    ===================================================== */
+
+    function limparScript() {
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+
+    }
+
+
+    function limparCallbackDepois() {
+
+      /*
+         Não apagamos imediatamente o callback.
+
+         Isso evita:
+         ReferenceError: __inspira_xxx is not defined
+
+         caso uma resposta atrasada do Google ainda chegue.
+      */
+
+      setTimeout(() => {
+
+        try {
+
+          delete window[callbackName];
+
+        } catch (erro) {
+
+          window[callbackName] = function () {};
+
+        }
+
+      }, 120000);
+
+    }
+
+
+    /* =====================================================
+       CALLBACK RECEBIDO DO GOOGLE
+    ===================================================== */
+
+    window[callbackName] =
+      function (resposta) {
+
+        /*
+           Mesmo que o Google tenha demorado,
+           enquanto a requisição ainda estiver válida
+           nós aceitamos a resposta.
+        */
+
+        if (finalizado) {
+          return;
+        }
+
+
+        finalizado = true;
+
+
+        clearTimeout(timeoutAviso);
+        clearTimeout(timeoutFinal);
+
+
+        limparScript();
+
+
+        /*
+           Mantém temporariamente uma função vazia
+           no lugar do callback.
+
+           Assim, mesmo se o navegador tentar executar
+           novamente uma resposta atrasada, não gera
+           ReferenceError.
+        */
+
+        window[callbackName] =
+          function () {};
+
+
+        limparCallbackDepois();
+
+
+        resolve(resposta);
+
+      };
+
+
+    /* =====================================================
+       ERRO REAL DE CARREGAMENTO
+    ===================================================== */
+
+    script.onerror =
+      function () {
+
+        if (finalizado) {
+          return;
+        }
+
+
+        finalizado = true;
+
+
+        clearTimeout(timeoutAviso);
+        clearTimeout(timeoutFinal);
+
+
+        limparScript();
+
+
+        /*
+           Também não destruímos o callback imediatamente.
+        */
+
+        window[callbackName] =
+          function () {};
+
+
+        limparCallbackDepois();
+
+
+        reject(
+          new Error(
+            "Não foi possível conectar ao servidor."
+          )
+        );
+
+      };
+
+
+    /* =====================================================
+       AVISO DE DEMORA
+    ===================================================== */
+
+    timeoutAviso =
+      setTimeout(() => {
+
+        if (finalizado) {
+          return;
+        }
+
+
+        console.warn(
+          "O servidor está demorando para responder. Aguardando..."
+        );
+
+      }, TEMPO_AVISO);
+
+
+    /* =====================================================
+       LIMITE DE SEGURANÇA
+    ===================================================== */
+
+    timeoutFinal =
+      setTimeout(() => {
+
+        if (finalizado) {
+          return;
+        }
+
+
+        finalizado = true;
+
+
+        limparScript();
+
+
+        /*
+           MUITO IMPORTANTE:
+
+           Mesmo depois do limite, mantemos uma função
+           disponível para impedir o ReferenceError
+           observado anteriormente.
+        */
+
+        window[callbackName] =
+          function () {};
+
+
+        limparCallbackDepois();
+
+
+        reject(
+          new Error(
+            "O servidor demorou mais de 60 segundos para responder."
+          )
+        );
+
+      }, TEMPO_LIMITE);
+
+
+    /* =====================================================
+       MONTAR PARÂMETROS
+    ===================================================== */
+
+    const query =
+      new URLSearchParams({
+        ...parametros,
+
+        callback:
+          callbackName,
+
+        /*
+           Evita cache do navegador/proxy.
+        */
+
+        _:
+          Date.now().toString()
+      });
+
+
+    /* =====================================================
+       CRIAR URL
+    ===================================================== */
+
+    script.src =
+      GOOGLE_SCRIPT_URL +
+      "?" +
+      query.toString();
+
+
+    script.async = true;
+
+
+    /* =====================================================
+       ENVIAR PARA O GOOGLE
+    ===================================================== */
+
+    document.head.appendChild(
+      script
     );
 
+  });
 
-  formSection
-    .setAttribute(
-      "aria-hidden",
-      "false"
-    );
+}
 
 
-  /* ESCONDER SUCESSO */
+/* =========================================================
+   BOTÃO — ESTADO ENVIANDO
+========================================================= */
+
+function ativarBotaoEnviando(button) {
+
+  if (!button) {
+    return "";
+  }
+
+
+  const original =
+    button.innerHTML;
+
+
+  button.disabled = true;
+
+
+  button.setAttribute(
+    "aria-busy",
+    "true"
+  );
+
+
+  button.innerHTML = `
+    ENVIANDO...
+    <span>↗</span>
+  `;
+
+
+  return original;
+
+}
+
+
+/* =========================================================
+   RESTAURAR BOTÃO
+========================================================= */
+
+function restaurarBotao(
+  button,
+  original
+) {
+
+  if (!button) {
+    return;
+  }
+
+
+  button.disabled = false;
+
+
+  button.removeAttribute(
+    "aria-busy"
+  );
+
+
+  button.innerHTML =
+    original;
+
+}
+
+
+/* =========================================================
+   MOSTRAR — JÁ INSCRITO
+========================================================= */
+
+function mostrarJaInscrito() {
+
+  visitorForm
+    ?.classList
+    .remove("active");
+
+
+  commercialForm
+    ?.classList
+    .remove("active");
+
+
+  if (formHeading) {
+
+    formHeading.style.display =
+      "none";
+
+  }
+
 
   if (success) {
 
-    success.hidden =
-      true;
+    success.hidden = true;
 
   }
 
 
-  if (
-    alreadyRegistered
-  ) {
+  if (alreadyRegistered) {
 
-    alreadyRegistered
-      .hidden =
-      true;
+    alreadyRegistered.hidden =
+      false;
 
   }
 
 
-  /* ESCONDER JÁ INSCRITO */
+  setTimeout(() => {
+
+    alreadyRegistered
+      ?.scrollIntoView({
+
+        behavior: "smooth",
+        block: "center"
+
+      });
+
+  }, 100);
+
+}
+
+
+/* =========================================================
+   MOSTRAR — SUCESSO
+========================================================= */
+
+function mostrarSucesso(tipo) {
+
+  visitorForm
+    ?.classList
+    .remove("active");
+
+
+  commercialForm
+    ?.classList
+    .remove("active");
+
+
+  if (formHeading) {
+
+    formHeading.style.display =
+      "none";
+
+  }
+
 
   if (alreadyRegistered) {
 
@@ -858,1825 +1065,562 @@ function openForm(type) {
   }
 
 
-  if (formHeading) {
+  if (success) {
 
-<<<<<<< HEAD
-    formHeading
-      .style
-      .display =
-=======
-    formHeading.style.display =
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-      "";
+    success.hidden =
+      false;
 
   }
 
 
-  visitorForm
-    ?.classList
-    .toggle(
-      "active",
-      !isCommercial
-    );
+  /* =====================================================
+     COMERCIAL
+  ===================================================== */
+
+  if (tipo === "comercial") {
 
 
-  commercialForm
-    ?.classList
-    .toggle(
-      "active",
-      isCommercial
-    );
+    if (successMascot) {
 
-
-  /* COMERCIAL */
-
-  if (isCommercial) {
-
-
-    if (formTitle) {
-
-      formTitle.innerHTML =
-        `
-          INTERESSE<br>
-          <i>COMERCIAL.</i>
-        `;
+      successMascot.src =
+        "ativos/brand/mascote-explosao.png";
 
     }
 
 
-    if (
-      formDescription
-    ) {
+    if (successKicker) {
 
-      formDescription
-        .textContent =
-        "Conte um pouco sobre sua marca e como gostaria de participar.";
+      successKicker.textContent =
+        "interesse recebido!";
+
+    }
+
+
+    if (successTitle) {
+
+      successTitle.innerHTML = `
+        Vamos conversar<br>
+        sobre sua marca.
+      `;
+
+    }
+
+
+    if (successDescription) {
+
+      successDescription.textContent =
+        "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
 
     }
 
   }
 
-<<<<<<< HEAD
-=======
-  }
 
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
-  /* VISITANTE */
+  /* =====================================================
+     VISITANTE
+  ===================================================== */
 
   else {
 
 
-    if (formTitle) {
+    if (successMascot) {
 
-      formTitle.innerHTML =
-        `
-          INSCRIÇÃO<br>
-          <i>VISITANTE.</i>
-        `;
+      successMascot.src =
+        "ativos/brand/mascote-estrela.png";
 
     }
 
 
-    if (
-      formDescription
-    ) {
+    if (successKicker) {
 
-      formDescription
-        .textContent =
-        "Preencha seus dados para participar do evento.";
+      successKicker.textContent =
+        "inscrição confirmada!";
+
+    }
+
+
+    if (successTitle) {
+
+      successTitle.innerHTML = `
+        Você está<br>
+        no Inspira FAM.
+      `;
+
+    }
+
+
+    if (successDescription) {
+
+      successDescription.textContent =
+        "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
 
     }
 
   }
 
 
-  setTimeout(
-    () => {
+  setTimeout(() => {
 
-      formSection
-        .scrollIntoView({
+    success
+      ?.scrollIntoView({
 
-          behavior:
-            "smooth",
+        behavior: "smooth",
+        block: "center"
 
-          block:
-            "start"
+      });
 
-        });
-
-    },
-    70
-  );
+  }, 120);
 
 }
 
 
 /* =========================================================
-   BOTÕES DE ESCOLHA
+   06. ENVIO — VISITANTE
 ========================================================= */
 
-choiceButtons
-  .forEach(
-    (button) => {
+visitorForm?.addEventListener(
+  "submit",
+  async (event) => {
 
+    event.preventDefault();
 
-      button.addEventListener(
-        "click",
-        () => {
 
-          openForm(
-            button.dataset
-              .form
-          );
+    /* VALIDAÇÃO */
 
-        }
-      );
+    if (
+      !visitorForm.checkValidity()
+    ) {
 
-
-<<<<<<< HEAD
-      button.addEventListener(
-        "touchstart",
-        () => {
-=======
-    /* EFEITO MOBILE */
-
-    button.addEventListener(
-      "touchstart",
-      () => {
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
-          button
-            .classList
-            .add(
-              "touch-hover"
-            );
-
-        },
-        {
-          passive: true
-        }
-      );
-
-
-      button.addEventListener(
-        "touchend",
-        () => {
-
-          setTimeout(
-            () => {
-
-              button
-                .classList
-                .remove(
-                  "touch-hover"
-                );
-
-            },
-            200
-          );
-
-        },
-        {
-          passive: true
-        }
-      );
-
-
-    }
-  );
-
-
-/* =========================================================
-   06. GOOGLE SHEETS
-========================================================= */
-
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxbSTueVdVNfdViHDP-6d4dbNetiok3GNjG8w5axyjhwZ6ui2hI89c8EG1awpvVl8bQ/exec";
-
-
-/* =========================================================
-   VERIFICAR E-MAIL
-========================================================= */
-
-function verificarEmailVisitante(
-  email
-) {
-
-
-  return new Promise(
-    (
-      resolve,
-      reject
-    ) => {
-
-
-      const callbackName =
-        "__inspiraCheck_" +
-        Date.now() +
-        "_" +
-        Math.floor(
-          Math.random() *
-          100000
-        );
-
-
-      const script =
-        document
-          .createElement(
-            "script"
-          );
-
-
-      const timeout =
-        setTimeout(
-          () => {
-
-
-            limpar();
-
-
-            reject(
-              new Error(
-                "Tempo esgotado ao verificar o e-mail."
-              )
-            );
-
-
-          },
-          15000
-        );
-
-
-      function limpar() {
-
-
-        clearTimeout(
-          timeout
-        );
-
-
-        script.remove();
-
-
-        try {
-
-          delete window[
-            callbackName
-          ];
-
-        }
-
-        catch (erro) {
-
-          window[
-            callbackName
-          ] =
-            undefined;
-
-        }
-
-      }
-
-
-      window[
-        callbackName
-      ] =
-        function (
-          resposta
-        ) {
-
-
-          limpar();
-
-
-          resolve(
-            resposta
-          );
-
-        };
-
-
-      script.onerror =
-        function () {
-
-
-          limpar();
-
-
-          reject(
-            new Error(
-              "Não foi possível consultar o e-mail."
-            )
-          );
-
-        };
-
-
-      const parametros =
-        new URLSearchParams({
-
-          action:
-            "checkEmail",
-
-          email:
-            email,
-
-          callback:
-            callbackName,
-
-          _:
-            Date.now()
-
-        });
-
-
-      script.src =
-        GOOGLE_SCRIPT_URL +
-        "?" +
-        parametros
-          .toString();
-
-
-      document
-        .head
-        .appendChild(
-          script
-        );
-
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   ENVIO DOS FORMULÁRIOS
-========================================================= */
-
-[
-  visitorForm,
-  commercialForm
-]
-.forEach(
-  (form) => {
-
-
-    if (!form) {
+      visitorForm.reportValidity();
 
       return;
 
     }
 
 
-    form.addEventListener(
-      "submit",
-      async (
-        event
-      ) => {
+    const submitButton =
+      visitorForm.querySelector(
+        'button[type="submit"]'
+      );
 
 
-        event
-          .preventDefault();
+    const originalButtonHTML =
+      ativarBotaoEnviando(
+        submitButton
+      );
 
 
-        /* VALIDAÇÃO */
+    try {
 
-        if (
-          !form
-            .checkValidity()
-        ) {
-
-          form
-            .reportValidity();
-
-          return;
-
-        }
-
-
-        const isCommercial =
-          form.id ===
-          "commercial-form";
-
-
-        const submitButton =
-          form
-            .querySelector(
-              'button[type="submit"]'
-            );
-
-
-        const originalButtonHTML =
-          submitButton
-            ? submitButton
-                .innerHTML
-            : "";
-
-
-        if (
-          submitButton
-        ) {
-
-
-          submitButton
-            .disabled =
-            true;
-
-
-          submitButton
-            .setAttribute(
-              "aria-busy",
-              "true"
-            );
-
-
-          submitButton
-            .innerHTML =
-            `
-              ENVIANDO...
-              <span>↗</span>
-            `;
-
-        }
-
-
-        try {
-
-
-          /* =================================================
-             VISITANTE — VERIFICAR E-MAIL
-          ================================================= */
-
-          if (
-            !isCommercial
-          ) {
-
-
-            const emailInput =
-              form
-                .querySelector(
-                  '[name="email"]'
-                );
-
-
-            if (
-              !emailInput
-            ) {
-
-              throw new Error(
-                "Campo de e-mail não encontrado."
-              );
-
-            }
-
-
-            const email =
-              emailInput
-                .value
-                .trim()
-                .toLowerCase();
-
-
-            const resposta =
-              await
-                verificarEmailVisitante(
-                  email
-                );
-
-
-            if (
-              !resposta ||
-              resposta.sucesso !==
-                true
-            ) {
-
-              throw new Error(
-                resposta
-                  ?.mensagem ||
-                "Não foi possível verificar o e-mail."
-              );
-
-            }
-
-
-            /* ===============================================
-               JÁ CADASTRADO
-            =============================================== */
-
-            if (
-              resposta.existe ===
-              true
-            ) {
-
-
-              visitorForm
-                ?.classList
-                .remove(
-                  "active"
-                );
-
-
-              commercialForm
-                ?.classList
-                .remove(
-                  "active"
-                );
-
-
-              if (
-                formHeading
-              ) {
-
-                formHeading
-                  .style
-                  .display =
-                  "none";
-
-              }
-
-
-              if (
-                success
-              ) {
-
-                success.hidden =
-                  true;
-
-              }
-
-
-              if (
-                alreadyRegistered
-              ) {
-
-                alreadyRegistered
-                  .hidden =
-                  false;
-
-              }
-
-
-              setTimeout(
-                () => {
-
-
-                  alreadyRegistered
-                    ?.scrollIntoView({
-
-                      behavior:
-                        "smooth",
-
-                      block:
-                        "center"
-
-                    });
-
-
-                },
-                100
-              );
-
-
-              return;
-
-            }
-
-          }
-
-
-          /* =================================================
-             PREPARAR DADOS
-          ================================================= */
-
-          const dados =
-            new FormData(
-              form
-            );
-
-
-          dados.append(
-            "tipoFormulario",
-            isCommercial
-              ? "comercial"
-              : "visitante"
-          );
-
-
-          dados.append(
-            "enviadoEm",
-            new Date()
-              .toISOString()
-          );
-
-
-          /* =================================================
-             ENVIAR
-          ================================================= */
-
-          await fetch(
-            GOOGLE_SCRIPT_URL,
-            {
-
-              method:
-                "POST",
-
-              body:
-                dados,
-
-              mode:
-                "no-cors"
-
-            }
-          );
-
-
-          /* =================================================
-             ESCONDER FORMULÁRIOS
-          ================================================= */
-
+      const formData =
+        new FormData(
           visitorForm
-            ?.classList
-            .remove(
-              "active"
-            );
+        );
 
 
-          commercialForm
-            ?.classList
-            .remove(
-              "active"
-            );
+      const email =
+        String(
+          formData.get("email") || ""
+        )
+          .trim()
+          .toLowerCase();
 
 
-          if (
-            formHeading
-          ) {
+      /* =====================================================
+         O GOOGLE VERIFICA E CADASTRA EM UMA ÚNICA CHAMADA
+      ===================================================== */
 
-            formHeading
-              .style
-              .display =
-              "none";
+      const resposta =
+        await chamarGoogle({
 
-          }
+          action:
+            "cadastrarVisitante",
 
+          nome:
+            formData.get("nome") ||
+            "",
 
-          if (
-            alreadyRegistered
-          ) {
+          email:
+            email,
 
-            alreadyRegistered
-              .hidden =
-              true;
+          telefone:
+            formData.get("telefone") ||
+            "",
 
-          }
+          cidade:
+            formData.get("cidade") ||
+            "",
 
+          quantidade:
+            formData.get("quantidade") ||
+            "1",
 
-          /* =================================================
-             SUCESSO
-          ================================================= */
+          observacoes:
+            formData.get("observacoes") ||
+            ""
 
-          if (success) {
+        });
 
-            success.hidden =
-              false;
 
-          }
+      console.log(
+        "RESPOSTA VISITANTE:",
+        resposta
+      );
 
 
-          /* COMERCIAL */
+      if (!resposta) {
 
-          if (
-            isCommercial
-          ) {
-
-
-            if (
-              successMascot
-            ) {
-
-              successMascot
-                .src =
-                "ativos/brand/mascote-explosao.png";
-
-            }
-
-
-            if (
-              successKicker
-            ) {
-
-              successKicker
-                .textContent =
-                "interesse recebido!";
-
-            }
-
-
-            if (
-              successTitle
-            ) {
-
-              successTitle
-                .innerHTML =
-                `
-                  Vamos conversar<br>
-                  sobre sua marca.
-                `;
-
-            }
-
-
-            if (
-              successDescription
-            ) {
-
-              successDescription
-                .textContent =
-                "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
-
-            }
-
-          }
-
-
-          /* VISITANTE */
-
-          else {
-
-
-            if (
-              successMascot
-            ) {
-
-              successMascot
-                .src =
-                "ativos/brand/mascote-estrela.png";
-
-            }
-
-
-            if (
-              successKicker
-            ) {
-
-              successKicker
-                .textContent =
-                "inscrição confirmada!";
-
-            }
-
-
-            if (
-              successTitle
-            ) {
-
-              successTitle
-                .innerHTML =
-                `
-                  Você está<br>
-                  no Inspira FAM.
-                `;
-
-            }
-
-
-            if (
-              successDescription
-            ) {
-
-              successDescription
-                .textContent =
-                "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
-
-            }
-
-          }
-
-
-          form.reset();
-
-
-          setTimeout(
-            () => {
-
-
-              success
-                ?.scrollIntoView({
-
-                  behavior:
-                    "smooth",
-
-                  block:
-                    "center"
-
-                });
-
-
-            },
-            120
-          );
-
-
-        }
-
-
-        catch (error) {
-
-
-          console.error(
-            "Erro no formulário:",
-            error
-          );
-
-
-          alert(
-            "Não foi possível verificar ou enviar sua inscrição. Verifique sua conexão e tente novamente."
-          );
-
-
-        }
-
-
-        finally {
-
-
-          if (
-            submitButton
-          ) {
-
-
-            submitButton
-              .disabled =
-              false;
-
-
-            submitButton
-              .removeAttribute(
-                "aria-busy"
-              );
-
-
-            submitButton
-              .innerHTML =
-              originalButtonHTML;
-
-
-          }
-
-
-        }
-
+        throw new Error(
+          "Resposta vazia do servidor."
+        );
 
       }
-    );
 
+
+      /* =====================================================
+         EMAIL JÁ CADASTRADO
+      ===================================================== */
+
+      if (
+        resposta.status ===
+        "EMAIL_DUPLICADO"
+      ) {
+
+        mostrarJaInscrito();
+
+        return;
+
+      }
+
+
+      /* =====================================================
+         INSCRIÇÃO REALIZADA
+      ===================================================== */
+
+      if (
+        resposta.sucesso === true &&
+        resposta.status ===
+        "VISITANTE_OK"
+      ) {
+
+        visitorForm.reset();
+
+        mostrarSucesso(
+          "visitante"
+        );
+
+        return;
+
+      }
+
+
+      throw new Error(
+        resposta.mensagem ||
+        "Não foi possível realizar a inscrição."
+      );
+
+    }
+
+
+    catch (error) {
+
+      console.error(
+        "ERRO NA INSCRIÇÃO:",
+        error
+      );
+
+
+      alert(
+        "Não foi possível realizar sua inscrição. Verifique sua conexão e tente novamente."
+      );
+
+    }
+
+
+    finally {
+
+      restaurarBotao(
+        submitButton,
+        originalButtonHTML
+      );
+
+    }
 
   }
 );
 
 
 /* =========================================================
-<<<<<<< HEAD
-   VOLTAR DO "JÁ INSCRITO"
-=======
-   06. GOOGLE SHEETS
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
+   07. ENVIO — COMERCIAL
 ========================================================= */
 
-alreadyBack
-  ?.addEventListener(
-    "click",
-    () => {
+commercialForm?.addEventListener(
+  "submit",
+  async (event) => {
+
+    event.preventDefault();
 
 
-<<<<<<< HEAD
-      if (
-        alreadyRegistered
-      ) {
+    if (
+      !commercialForm.checkValidity()
+    ) {
 
-        alreadyRegistered
-          .hidden =
-          true;
-=======
+      commercialForm.reportValidity();
 
-/* =========================================================
-   VERIFICAR SE O E-MAIL JÁ EXISTE
-========================================================= */
+      return;
 
-function verificarEmailVisitante(
-  email
-) {
+    }
 
 
-  return new Promise(
-    (resolve, reject) => {
+    const submitButton =
+      commercialForm.querySelector(
+        'button[type="submit"]'
+      );
 
 
-      /*
-         O Google Apps Script devolve
-         a resposta através de JSONP.
-      */
+    const originalButtonHTML =
+      ativarBotaoEnviando(
+        submitButton
+      );
 
-      const callbackName =
-        "__inspiraEmail_" +
-        Date.now() +
-        "_" +
-        Math.floor(
-          Math.random() *
-          100000
+
+    try {
+
+      const formData =
+        new FormData(
+          commercialForm
         );
 
 
-      const script =
-        document.createElement(
-          "script"
-        );
-
-
-      /* LIMITE DE ESPERA */
-
-      const timeout =
-        setTimeout(
-          () => {
-
-            limpar();
-
-            reject(
-              new Error(
-                "Tempo esgotado ao verificar o e-mail."
-              )
-            );
-
-          },
-          10000
-        );
-
-
-
-      /* =====================================================
-         LIMPEZA
-      ===================================================== */
-
-      function limpar() {
-
-
-        clearTimeout(
-          timeout
-        );
-
-
-        script.remove();
-
-
-        try {
-
-          delete window[
-            callbackName
-          ];
-
-        }
-
-        catch (error) {
-
-          window[
-            callbackName
-          ] =
-            undefined;
-
-        }
-
-      }
-
-
-
-      /* =====================================================
-         RESPOSTA DO GOOGLE
-      ===================================================== */
-
-      window[
-        callbackName
-      ] =
-        function (resposta) {
-
-
-          limpar();
-
-
-          if (
-            !resposta ||
-            resposta.sucesso !== true
-          ) {
-
-            reject(
-              new Error(
-                "Resposta inválida do servidor."
-              )
-            );
-
-            return;
-
-          }
-
-
-          resolve(
-            resposta.existe ===
-            true
-          );
-
-        };
-
-
-
-      /* =====================================================
-         ERRO DE CONEXÃO
-      ===================================================== */
-
-      script.onerror =
-        function () {
-
-
-          limpar();
-
-
-          reject(
-            new Error(
-              "Não foi possível consultar o e-mail."
-            )
-          );
-
-        };
-
-
-
-      /* =====================================================
-         URL DE VERIFICAÇÃO
-      ===================================================== */
-
-      const parametros =
-        new URLSearchParams({
+      const resposta =
+        await chamarGoogle({
 
           action:
-            "checkEmail",
+            "cadastrarComercial",
+
+          empresa:
+            formData.get("empresa") ||
+            "",
+
+          responsavel:
+            formData.get("responsavel") ||
+            "",
 
           email:
-            email,
+            formData.get("email") ||
+            "",
 
-          callback:
-            callbackName,
+          telefone:
+            formData.get("telefone") ||
+            "",
 
-          _:
-            Date.now()
+          segmento:
+            formData.get("segmento") ||
+            "",
+
+          tipo:
+            formData.get("tipo") ||
+            "",
+
+          patrocinio:
+            formData.get("patrocinio") ||
+            "",
+
+          espaco:
+            formData.get("espaco") ||
+            "",
+
+          mensagem:
+            formData.get("mensagem") ||
+            ""
 
         });
 
 
-      script.src =
-        GOOGLE_SCRIPT_URL +
-        "?" +
-        parametros.toString();
-
-
-      document.body.appendChild(
-        script
+      console.log(
+        "RESPOSTA COMERCIAL:",
+        resposta
       );
 
 
-    }
-  );
-
-}
-
-
-
-/* =========================================================
-   ENVIO DOS FORMULÁRIOS
-========================================================= */
-
-[
-  visitorForm,
-  commercialForm
-]
-.forEach((form) => {
-
-
-  if (!form) {
-    return;
-  }
-
-
-  form.addEventListener(
-    "submit",
-    async (event) => {
-
-
-      event.preventDefault();
-
-
-
-      /* =====================================================
-         VALIDAR FORMULÁRIO
-      ===================================================== */
-
       if (
-        !form.checkValidity()
+        resposta?.sucesso === true &&
+        resposta?.status ===
+        "COMERCIAL_OK"
       ) {
 
-        form.reportValidity();
+        commercialForm.reset();
+
+        mostrarSucesso(
+          "comercial"
+        );
 
         return;
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
       }
 
 
-      if (
-        success
-      ) {
+      throw new Error(
+        resposta?.mensagem ||
+        "Não foi possível enviar o interesse comercial."
+      );
 
-<<<<<<< HEAD
-        success.hidden =
-          true;
-=======
+    }
 
 
-      /* =====================================================
-         BOTÃO ENVIANDO
-      ===================================================== */
+    catch (error) {
 
-      const submitButton =
-        form.querySelector(
-          'button[type="submit"]'
-        );
-
-
-      const originalButtonHTML =
-        submitButton
-          ? submitButton.innerHTML
-          : "";
-
-
-      if (submitButton) {
-
-
-        submitButton.disabled =
-          true;
-
-
-        submitButton.setAttribute(
-          "aria-busy",
-          "true"
-        );
-
-
-        submitButton.innerHTML =
-          `
-            ENVIANDO...
-            <span>↗</span>
-          `;
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
-      }
-
-
-<<<<<<< HEAD
-      if (
-        formHeading
-      ) {
-
-        formHeading
-          .style
-          .display =
-          "";
-
-      }
-
-
-      visitorForm
-        ?.classList
-        .add(
-          "active"
-        );
-
-
-      commercialForm
-        ?.classList
-        .remove(
-          "active"
-        );
-
-
-      const emailInput =
-        visitorForm
-          ?.querySelector(
-            '[name="email"]'
-          );
-
-
-      if (
-        emailInput
-      ) {
-=======
-
-      try {
-
-
-        /* ===================================================
-           VISITANTE — VERIFICAR E-MAIL
-        =================================================== */
-
-        if (!isCommercial) {
-
-
-          const emailInput =
-            form.querySelector(
-              '[name="email"]'
-            );
-
-
-          if (!emailInput) {
-
-            throw new Error(
-              "Campo de e-mail não encontrado."
-            );
-
-          }
-
-
-          const email =
-            emailInput
-              .value
-              .trim()
-              .toLowerCase();
-
-
-          /*
-             Consulta a planilha antes
-             de cadastrar.
-          */
-
-          const emailExiste =
-            await verificarEmailVisitante(
-              email
-            );
-
-
-
-          /* =================================================
-             E-MAIL JÁ CADASTRADO
-          ================================================= */
-
-          if (emailExiste) {
-
-
-            visitorForm
-              ?.classList
-              .remove(
-                "active"
-              );
-
-
-            commercialForm
-              ?.classList
-              .remove(
-                "active"
-              );
-
-
-            if (formHeading) {
-
-              formHeading.style.display =
-                "none";
-
-            }
-
-
-            if (success) {
-
-              success.hidden =
-                true;
-
-            }
-
-
-            if (
-              alreadyRegistered
-            ) {
-
-              alreadyRegistered.hidden =
-                false;
-
-            }
-
-
-            setTimeout(
-              () => {
-
-                alreadyRegistered
-                  ?.scrollIntoView({
-
-                    behavior:
-                      "smooth",
-
-                    block:
-                      "center"
-
-                  });
-
-              },
-              100
-            );
-
-
-            return;
-
-          }
-
-
-        }
-
-
-
-        /* ===================================================
-           MONTAR DADOS
-        =================================================== */
-
-        const dados =
-          new FormData(
-            form
-          );
-
-
-        dados.append(
-          "tipoFormulario",
-          isCommercial
-            ? "comercial"
-            : "visitante"
-        );
-
-
-        dados.append(
-          "enviadoEm",
-          new Date()
-            .toISOString()
-        );
-
-
-
-        /* ===================================================
-           ENVIAR PARA O GOOGLE SHEETS
-        =================================================== */
-
-        await fetch(
-          GOOGLE_SCRIPT_URL,
-          {
-
-            method:
-              "POST",
-
-            body:
-              dados,
-
-            mode:
-              "no-cors"
-
-          }
-        );
-
-
-
-        /* ===================================================
-           ESCONDER FORMULÁRIOS
-        =================================================== */
-
-        visitorForm
-          ?.classList
-          .remove(
-            "active"
-          );
-
-
-        commercialForm
-          ?.classList
-          .remove(
-            "active"
-          );
-
-
-        if (formHeading) {
-
-          formHeading.style.display =
-            "none";
-
-        }
-
-
-        if (
-          alreadyRegistered
-        ) {
-
-          alreadyRegistered.hidden =
-            true;
-
-        }
-
-
-
-        /* ===================================================
-           MOSTRAR SUCESSO
-        =================================================== */
-
-        if (success) {
-
-          success.hidden =
-            false;
-
-        }
-
-
-
-        /* ===================================================
-           SUCESSO COMERCIAL
-        =================================================== */
-
-        if (isCommercial) {
-
-
-          if (successMascot) {
-
-            successMascot.src =
-              "ativos/brand/mascote-explosao.png";
-
-          }
-
-
-          if (successKicker) {
-
-            successKicker.textContent =
-              "interesse recebido!";
-
-          }
-
-
-          if (successTitle) {
-
-            successTitle.innerHTML =
-              `
-                Vamos conversar<br>
-                sobre sua marca.
-              `;
-
-          }
-
-
-          if (
-            successDescription
-          ) {
-
-            successDescription.textContent =
-              "Recebemos seu interesse comercial. Nossa equipe analisará as informações e entrará em contato com os próximos passos.";
-
-          }
-
-
-        }
-
-
-
-        /* ===================================================
-           SUCESSO VISITANTE
-        =================================================== */
-
-        else {
-
-
-          if (successMascot) {
-
-            successMascot.src =
-              "ativos/brand/mascote-estrela.png";
-
-          }
-
-
-          if (successKicker) {
-
-            successKicker.textContent =
-              "inscrição confirmada!";
-
-          }
-
-
-          if (successTitle) {
-
-            successTitle.innerHTML =
-              `
-                Você está<br>
-                no Inspira FAM.
-              `;
-
-          }
-
-
-          if (
-            successDescription
-          ) {
-
-            successDescription.textContent =
-              "Sua inscrição como visitante foi registrada. Agora é só se preparar para viver a experiência.";
-
-          }
-
-
-        }
-
-
-
-        /* ===================================================
-           LIMPAR FORMULÁRIO
-        =================================================== */
-
-        form.reset();
-
-
-
-        /* ===================================================
-           ROLAR ATÉ SUCESSO
-        =================================================== */
-
-        setTimeout(
-          () => {
-
-            success
-              ?.scrollIntoView({
-
-                behavior:
-                  "smooth",
-
-                block:
-                  "center"
-
-              });
-
-          },
-          120
-        );
-
-
-      }
-
-
-      catch (error) {
-
-
-        console.error(
-          "Erro no formulário:",
-          error
-        );
-
-
-        alert(
-          "Não foi possível verificar ou enviar sua inscrição. Verifique sua conexão e tente novamente."
-        );
-
-
-      }
-
-
-      finally {
-
-
-        /* ===================================================
-           RESTAURAR BOTÃO
-        =================================================== */
-
-        if (submitButton) {
-
-
-          submitButton.disabled =
-            false;
-
-
-          submitButton.removeAttribute(
-            "aria-busy"
-          );
-
-
-          submitButton.innerHTML =
-            originalButtonHTML;
-
-
-        }
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
-        emailInput.value =
-          "";
-
-        emailInput
-          .setCustomValidity(
-            ""
-          );
-
-      }
-
-
-      setTimeout(
-        () => {
-
-
-          visitorForm
-            ?.scrollIntoView({
-
-              behavior:
-                "smooth",
-
-              block:
-                "start"
-
-            });
-
-
-          emailInput
-            ?.focus();
-
-
-        },
-        100
+      console.error(
+        "ERRO COMERCIAL:",
+        error
       );
 
 
+      alert(
+        "Não foi possível enviar seu interesse. Verifique sua conexão e tente novamente."
+      );
+
     }
-  );
+
+
+    finally {
+
+      restaurarBotao(
+        submitButton,
+        originalButtonHTML
+      );
+
+    }
+
+  }
+);
 
 
 /* =========================================================
-<<<<<<< HEAD
-   07. MAPA
-=======
-   VOLTAR DO "JÁ INSCRITO"
+   08. VOLTAR DO "JÁ INSCRITO"
 ========================================================= */
 
-alreadyBack
-  ?.addEventListener(
-    "click",
-    () => {
+alreadyBack?.addEventListener(
+  "click",
+  () => {
 
 
-      /* ESCONDE A TELA */
+    if (alreadyRegistered) {
 
-      if (
-        alreadyRegistered
-      ) {
-
-        alreadyRegistered.hidden =
-          true;
-
-      }
-
-
-      if (success) {
-
-        success.hidden =
-          true;
-
-      }
-
-
-      /* MOSTRA CABEÇALHO */
-
-      if (formHeading) {
-
-        formHeading.style.display =
-          "";
-
-      }
-
-
-      /* MOSTRA FORMULÁRIO VISITANTE */
-
-      visitorForm
-        ?.classList
-        .add(
-          "active"
-        );
-
-
-      commercialForm
-        ?.classList
-        .remove(
-          "active"
-        );
-
-
-      /* LIMPAR SOMENTE E-MAIL */
-
-      const emailInput =
-        visitorForm
-          ?.querySelector(
-            '[name="email"]'
-          );
-
-
-      if (emailInput) {
-
-        emailInput.value =
-          "";
-
-        emailInput.setCustomValidity(
-          ""
-        );
-
-      }
-
-
-      setTimeout(
-        () => {
-
-
-          visitorForm
-            ?.scrollIntoView({
-
-              behavior:
-                "smooth",
-
-              block:
-                "start"
-
-            });
-
-
-          emailInput
-            ?.focus();
-
-
-        },
-        100
-      );
-
+      alreadyRegistered.hidden =
+        true;
 
     }
-  );
 
+
+    if (success) {
+
+      success.hidden =
+        true;
+
+    }
+
+
+    if (formHeading) {
+
+      formHeading.style.display =
+        "";
+
+    }
+
+
+    visitorForm
+      ?.classList
+      .add("active");
+
+
+    commercialForm
+      ?.classList
+      .remove("active");
+
+
+    const emailInput =
+      visitorForm
+        ?.querySelector(
+          '[name="email"]'
+        );
+
+
+    if (emailInput) {
+
+      emailInput.value = "";
+
+      emailInput.setCustomValidity(
+        ""
+      );
+
+    }
+
+
+    setTimeout(() => {
+
+      visitorForm
+        ?.scrollIntoView({
+
+          behavior: "smooth",
+          block: "start"
+
+        });
+
+
+      emailInput?.focus();
+
+    }, 100);
+
+  }
+);
 
 
 /* =========================================================
-   07. MAPA INTERATIVO
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
+   09. MAPA INTERATIVO
 ========================================================= */
 
 const mapZones =
-  document
-    .querySelectorAll(
-      ".map-zone"
-    );
+  document.querySelectorAll(
+    ".map-zone"
+  );
 
 
 const mapModal =
-  document
-    .getElementById(
-      "map-modal"
-    );
+  document.getElementById(
+    "map-modal"
+  );
 
 
 const mapModalNumber =
-  document
-    .getElementById(
-      "map-modal-number"
-    );
+  document.getElementById(
+    "map-modal-number"
+  );
 
 
 const mapModalTitle =
-  document
-    .getElementById(
-      "map-modal-title"
-    );
+  document.getElementById(
+    "map-modal-title"
+  );
 
 
 const mapModalText =
-  document
-    .getElementById(
-      "map-modal-text"
-    );
+  document.getElementById(
+    "map-modal-text"
+  );
 
 
 const mapModalClose =
-  document
-    .querySelector(
-      ".map-modal-close"
-    );
+  document.querySelector(
+    ".map-modal-close"
+  );
 
 
 const mapModalAction =
-  document
-    .getElementById(
-      "map-modal-action"
-    );
+  document.getElementById(
+    "map-modal-action"
+  );
 
-
-<<<<<<< HEAD
-function clearMapZones() {
-
-=======
 
 /* =========================================================
    LIMPAR ÁREAS DO MAPA
@@ -2684,82 +1628,55 @@ function clearMapZones() {
 
 function clearMapZones() {
 
+  mapZones.forEach((zone) => {
 
-  mapZones.forEach(
-    (zone) => {
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
-  mapZones
-    .forEach(
-      (zone) => {
-
-        zone.classList
-          .remove(
-            "map-zone-active"
-          );
-
-      }
+    zone.classList.remove(
+      "map-zone-active"
     );
+
+  });
 
 }
 
 
-<<<<<<< HEAD
-function activateMapZone(
-  zone
-) {
-=======
-
 /* =========================================================
-   ATIVAR ÁREA DO MAPA
+   ATIVAR ÁREA
 ========================================================= */
 
 function activateMapZone(zone) {
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
-
 
   clearMapZones();
 
 
   if (!zone) {
-
     return;
-
   }
 
 
-<<<<<<< HEAD
-  zone.classList
-    .add(
-      "map-zone-active"
-    );
-=======
   zone.classList.add(
     "map-zone-active"
   );
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 }
 
 
-function openMapModal(
-  zone
-) {
+/* =========================================================
+   ABRIR MODAL DO MAPA
+========================================================= */
 
+function openMapModal(zone) {
 
   if (
     !zone ||
     !mapModal
   ) {
+
     return;
+
   }
 
 
-  activateMapZone(
-    zone
-  );
-<<<<<<< HEAD
-=======
+  activateMapZone(zone);
 
 
   if (mapModalNumber) {
@@ -2792,250 +1709,70 @@ function openMapModal(
   mapModal.dataset.tone =
     zone.dataset.mapTone ||
     "";
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 
   if (
-    mapModalNumber
-  ) {
-
-    mapModalNumber
-      .textContent =
-      zone.dataset
-        .mapNumber ||
-      "";
-
-  }
-
-<<<<<<< HEAD
-
-  if (
-    mapModalTitle
-  ) {
-
-    mapModalTitle
-      .textContent =
-      zone.dataset
-        .mapTitle ||
-      "";
-
-  }
-
-
-  if (
-    mapModalText
-  ) {
-
-    mapModalText
-      .textContent =
-      zone.dataset
-        .mapText ||
-      "";
-
-  }
-
-
-  mapModal.dataset
-    .tone =
-    zone.dataset
-      .mapTone ||
-    "";
-
-
-  if (
-    typeof
-      mapModal.showModal ===
+    typeof mapModal.showModal ===
     "function"
   ) {
 
-    mapModal
-      .showModal();
+    mapModal.showModal();
 
   }
 
 }
 
 
-mapZones
-  .forEach(
-    (
-      zone,
-      index
-    ) => {
-=======
-}
-
-
-
 /* =========================================================
-   INTERAÇÃO DAS ÁREAS
+   INTERAÇÃO DAS ÁREAS DO MAPA
 ========================================================= */
 
 mapZones.forEach(
   (zone, index) => {
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 
-      zone.style
-        .setProperty(
-          "--zone-delay",
-          `${index * 100}ms`
-        );
+    zone.style.setProperty(
+      "--zone-delay",
+      `${index * 100}ms`
+    );
 
 
-      zone.classList
-        .add(
-          "map-zone-ready"
-        );
+    zone.classList.add(
+      "map-zone-ready"
+    );
 
 
-<<<<<<< HEAD
-      zone.addEventListener(
-        "mouseenter",
-        () => {
-
-          activateMapZone(
-            zone
-          );
-
-        }
-      );
-
-
-      zone.addEventListener(
-        "mouseleave",
-        () => {
-
-          zone.classList
-            .remove(
-              "map-zone-active"
-            );
-
-        }
-      );
-
-
-      zone.addEventListener(
-        "touchstart",
-        () => {
-
-          activateMapZone(
-            zone
-          );
-
-        },
-        {
-          passive: true
-        }
-      );
-
-
-      zone.addEventListener(
-        "click",
-        () => {
-
-          openMapModal(
-            zone
-          );
-
-        }
-      );
-
-
-    }
-  );
-
-
-document
-  .addEventListener(
-    "touchmove",
-    (event) => {
-
-
-      if (
-        !mapZones.length
-      ) {
-
-        return;
-=======
     /* DESKTOP */
 
     zone.addEventListener(
       "mouseenter",
       () => {
 
-        activateMapZone(
-          zone
-        );
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
+        activateMapZone(zone);
 
       }
+    );
 
 
-      const touch =
-        event.touches[0];
+    zone.addEventListener(
+      "mouseleave",
+      () => {
 
-
-      if (!touch) {
-
-        return;
-
-      }
-
-
-      const element =
-        document
-          .elementFromPoint(
-            touch.clientX,
-            touch.clientY
-          );
-
-
-      const zone =
-        element
-          ?.closest(
-            ".map-zone"
-          );
-
-
-      if (zone) {
-
-        activateMapZone(
-          zone
+        zone.classList.remove(
+          "map-zone-active"
         );
 
       }
+    );
 
 
-<<<<<<< HEAD
-    },
-    {
-      passive: true
-    }
-  );
-
-
-document
-  .addEventListener(
-    "touchend",
-    () => {
-
-
-      if (
-        !mapZones.length
-      ) {
-
-        return;
-=======
     /* MOBILE */
 
     zone.addEventListener(
       "touchstart",
       () => {
 
-        activateMapZone(
-          zone
-        );
+        activateMapZone(zone);
 
       },
       {
@@ -3050,25 +1787,44 @@ document
       "click",
       () => {
 
-        openMapModal(
-          zone
-        );
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
+        openMapModal(zone);
 
       }
+    );
+
+  }
+);
 
 
-      setTimeout(
-        clearMapZones,
-        200
+/* =========================================================
+   MAPA — MOVIMENTO MOBILE
+========================================================= */
+
+document.addEventListener(
+  "touchmove",
+  (event) => {
+
+    if (!mapZones.length) {
+      return;
+    }
+
+
+    const touch =
+      event.touches[0];
+
+
+    if (!touch) {
+      return;
+    }
+
+
+    const element =
+      document.elementFromPoint(
+        touch.clientX,
+        touch.clientY
       );
 
 
-<<<<<<< HEAD
-    },
-    {
-      passive: true
-=======
     const zone =
       element?.closest(
         ".map-zone"
@@ -3077,68 +1833,68 @@ document
 
     if (zone) {
 
-      activateMapZone(
-        zone
-      );
+      activateMapZone(zone);
 
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
     }
-  );
+
+  },
+  {
+    passive: true
+  }
+);
+
+
+document.addEventListener(
+  "touchend",
+  () => {
+
+    if (!mapZones.length) {
+      return;
+    }
+
+
+    setTimeout(
+      clearMapZones,
+      200
+    );
+
+  },
+  {
+    passive: true
+  }
+);
 
 
 /* =========================================================
-   09. LEGENDA DO MAPA
+   10. LEGENDA DO MAPA
 ========================================================= */
 
 document
   .querySelectorAll(
     "[data-map-jump]"
   )
-  .forEach(
-    (button) => {
+  .forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const name =
+          button.dataset.mapJump;
 
 
-      button.addEventListener(
-        "click",
-        () => {
-
-
-          const name =
-            button.dataset
-              .mapJump;
-
-
-          const zone =
-            document
-              .querySelector(
-                `[data-map-zone="${name}"]`
-              );
-
-
-          if (!zone) {
-
-            return;
-
-          }
-
-
-          activateMapZone(
-            zone
+        const zone =
+          document.querySelector(
+            `[data-map-zone="${name}"]`
           );
 
 
-<<<<<<< HEAD
-          zone.classList
-            .add(
-=======
         if (!zone) {
           return;
         }
 
 
-        activateMapZone(
-          zone
-        );
+        activateMapZone(zone);
 
 
         zone.classList.add(
@@ -3148,14 +1904,9 @@ document
 
         zone.scrollIntoView({
 
-          behavior:
-            "smooth",
-
-          block:
-            "center",
-
-          inline:
-            "center"
+          behavior: "smooth",
+          block: "center",
+          inline: "center"
 
         });
 
@@ -3164,84 +1915,53 @@ document
           () => {
 
             zone.classList.remove(
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
               "map-zone-pulse"
             );
 
+          },
+          1200
+        );
 
-          zone
-            .scrollIntoView({
+      }
+    );
 
-              behavior:
-                "smooth",
-
-              block:
-                "center",
-
-              inline:
-                "center"
-
-            });
-
-
-          setTimeout(
-            () => {
-
-              zone.classList
-                .remove(
-                  "map-zone-pulse"
-                );
-
-            },
-            1200
-          );
-
-
-        }
-      );
-
-
-    }
-  );
-
-
-mapModalClose
-  ?.addEventListener(
-    "click",
-    () => {
-
-      mapModal
-        ?.close();
-
-    }
-  );
-
-
-mapModalAction
-  ?.addEventListener(
-    "click",
-    () => {
-
-      mapModal
-        ?.close();
-
-    }
-  );
+  });
 
 
 /* =========================================================
-   11. MODAIS
+   FECHAR MODAL DO MAPA
+========================================================= */
+
+mapModalClose?.addEventListener(
+  "click",
+  () => {
+
+    mapModal?.close();
+
+  }
+);
+
+
+mapModalAction?.addEventListener(
+  "click",
+  () => {
+
+    mapModal?.close();
+
+  }
+);
+
+
+/* =========================================================
+   11. MODAIS — CLICAR FORA
 ========================================================= */
 
 function closeDialogOnBackdrop(
   dialog
 ) {
 
-
   if (!dialog) {
-
     return;
-
   }
 
 
@@ -3249,16 +1969,13 @@ function closeDialogOnBackdrop(
     "click",
     (event) => {
 
-
       if (
-        event.target ===
-        dialog
+        event.target === dialog
       ) {
 
         dialog.close();
 
       }
-
 
     }
   );
@@ -3276,54 +1993,42 @@ closeDialogOnBackdrop(
 );
 
 
-document
-  .addEventListener(
-    "keydown",
-    (event) => {
+/* =========================================================
+   MODAIS — ESC
+========================================================= */
 
+document.addEventListener(
+  "keydown",
+  (event) => {
 
-<<<<<<< HEAD
-      if (
-        event.key !==
-        "Escape"
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        experienceModal
-          ?.open
-      ) {
-
-        experienceModal
-          .close();
-
-      }
-
-
-      if (
-        mapModal
-          ?.open
-      ) {
-
-        mapModal
-          .close();
-
-      }
-
-
-=======
     if (
-      event.key !==
-      "Escape"
+      event.key !== "Escape"
     ) {
+
       return;
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
+
     }
-  );
+
+
+    if (
+      experienceModal?.open
+    ) {
+
+      experienceModal.close();
+
+    }
+
+
+    if (
+      mapModal?.open
+    ) {
+
+      mapModal.close();
+
+    }
+
+  }
+);
 
 
 /* =========================================================
@@ -3342,111 +2047,90 @@ const schedulePanels =
   );
 
 
-<<<<<<< HEAD
-function changeSchedule(
-  day
-) {
-=======
-
 /* =========================================================
    TROCAR DIA
 ========================================================= */
 
 function changeSchedule(day) {
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
-
-  scheduleTabs
-    .forEach(
-      (tab) => {
-
-
-        const active =
-          tab.dataset
-            .schedule ===
-          day;
-
-
-        tab.classList
-          .toggle(
-            "active",
-            active
-          );
-
-
-        tab.setAttribute(
-          "aria-selected",
-          active
-            ? "true"
-            : "false"
-        );
-
-
-      }
-    );
-
-
-  schedulePanels
-    .forEach(
-      (panel) => {
-
-
-        const active =
-          panel.dataset
-            .schedulePanel ===
-          day;
-
-
-        panel.classList
-          .toggle(
-            "active",
-            active
-          );
-
-
-        panel.hidden =
-          !active;
-
-
-      }
-    );
-
-}
-
-
-scheduleTabs
-  .forEach(
+  scheduleTabs.forEach(
     (tab) => {
 
+      const active =
+        tab.dataset.schedule ===
+        day;
 
-      tab.addEventListener(
-        "click",
-        () => {
 
-          changeSchedule(
-            tab.dataset
-              .schedule
-          );
-
-        }
+      tab.classList.toggle(
+        "active",
+        active
       );
 
+
+      tab.setAttribute(
+        "aria-selected",
+        active
+          ? "true"
+          : "false"
+      );
 
     }
   );
 
-<<<<<<< HEAD
-=======
+
+  schedulePanels.forEach(
+    (panel) => {
+
+      const active =
+        panel.dataset.schedulePanel ===
+        day;
+
+
+      panel.classList.toggle(
+        "active",
+        active
+      );
+
+
+      panel.hidden =
+        !active;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   BOTÕES DA PROGRAMAÇÃO
+========================================================= */
+
+scheduleTabs.forEach(
+  (tab) => {
+
+    tab.addEventListener(
+      "click",
+      () => {
+
+        changeSchedule(
+          tab.dataset.schedule
+        );
+
+      }
+    );
+
+  }
+);
+
+
 /* =========================================================
    ESTADO INICIAL DA PROGRAMAÇÃO
 ========================================================= */
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 if (
   scheduleTabs.length &&
   schedulePanels.length
 ) {
-
 
   const initialTab =
     document.querySelector(
@@ -3458,8 +2142,7 @@ if (
   if (initialTab) {
 
     changeSchedule(
-      initialTab.dataset
-        .schedule
+      initialTab.dataset.schedule
     );
 
   }
@@ -3468,26 +2151,15 @@ if (
 
 
 /* =========================================================
-   FAQ
+   13. FAQ
 
-   Utiliza <details> e <summary>.
-   Não precisa de JavaScript específico.
-========================================================= */
-
-<<<<<<< HEAD
-=======
-/*
    A página FAQ usa:
-
    <details>
    <summary>
 
-   Portanto não precisa de JavaScript
-   para abrir e fechar as perguntas.
-*/
+   Portanto não precisa de JavaScript específico.
+========================================================= */
 
-
->>>>>>> e610b9a5603a6cf82156da131e4fd37bfd0c521c
 
 /* =========================================================
    FIM — INSPIRA FAM EXPERIENCE 2026
